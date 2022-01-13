@@ -12,10 +12,10 @@ export default function RestGet() {
   // }
 
   const zzz = async () => {
-    const result = await axios.get("https://koreanjson.com/posts/1")
+    const result = await axios.get("https://koreanjson.com/users/1")
     
-    console.log(result.data.title)
-    setAaa(result.data.title)
+    console.log(result.data.id)
+    setAaa(result.data.id)
   }
 
 
