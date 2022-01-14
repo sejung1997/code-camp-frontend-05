@@ -3,7 +3,7 @@ import axios from "axios"
 import {Fragment, useState} from "react"
 
 const CREATE_PROFILE = gql`
-  mutation createProfile($name: String,   $age: Int, $school: String  ) {
+  mutation createProfile($name: String, $age: Int, $school: String  ) {
 
 
     createProfile(name: $name, age: $age, school: $school){
@@ -15,7 +15,7 @@ const CREATE_PROFILE = gql`
 `
 export default function graphqlMutationArgs() {
 
-  const [aaa, setAaa] = useState("d")
+  const [aaa, setAaa] = useState("")
   const [qqq] = useMutation(CREATE_PROFILE)
 
   const zzz = async () => {
@@ -25,12 +25,11 @@ export default function graphqlMutationArgs() {
     })
     console.log(result)
 
-    setAaa(result)
+    setAaa(result.data.createProfile)
     
   }
 
 
- 
   return(  
 
 
