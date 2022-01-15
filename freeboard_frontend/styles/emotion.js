@@ -117,6 +117,7 @@ export const Box = styled.div `
   font-size: 12px;
   color: #4F4F4F;
   font-weight: 600;
+  cursor: pointer;
 `
 export const BoxGroup = styled.div `
   display: flex;
@@ -146,3 +147,11 @@ export const InputMain = styled.input `
     cursor: pointer
   }
  `
+ export const Erro = styled.div `
+  font-size: 12px;
+  color: red;
+  margin-left: 10px;
+  font-weight: 700;
+  position: absolute;
+
+  `
