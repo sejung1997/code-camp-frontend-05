@@ -9,7 +9,7 @@ import { FETCH_BOARD } from './QuizBoardList.queries'
 
 
 
-export default function DynamicRoutedPage() {
+export default function BoardListRoutedPage() {
 
 
   const router = useRouter()
