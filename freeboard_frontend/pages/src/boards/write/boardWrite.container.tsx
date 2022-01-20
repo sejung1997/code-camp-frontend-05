@@ -2,8 +2,8 @@
 import {useMutation} from "@apollo/client"
 import { useState } from "react" 
 import { useRouter } from "next/router"
-import BoardWriteUI from "../write/boardWrite.presenter"
-import {CREATE_BOARD, UPDATE_BOARD} from "../write/boardWrite.container.mutation"
+import BoardWriteUI from "./boardWrite.presenter"
+import {CREATE_BOARD, UPDATE_BOARD} from "./boardWrite.container.mutation"
 
 
 
@@ -62,43 +62,74 @@ export default function Home(props) {
        
     }
   }
-
+  interface Isubmit {
+    createBoardInput: IcreateBoardInput
+  }
+  interface IcreateBoardInput{
+    writer: String
+    title: String
+    password: String
+    contents: String
+  }
   const onClickSubmit = async () => {
-    const result = await createBoard({
-      variables: {
-        createBoardInput: {
-          writer,
-          title,
-          password,
-          contents: content
+    try {
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer,
+            title,
+            password,
+            contents: content
+          }
+         
         }
-       
-      }
-    })
-    console.log(result.data.createBoard)
+      })
+      console.log(result.data.createBoard)
 
-    const id = result.data.createBoard._id
-    console.log(id)
-    router.push(`/${id}`)
+      const id = result.data.createBoard._id
+      console.log(id)
+      router.push(`/${id}`)
+
+    } catch (error) {
+      console.error();
+    }
+    
 
 
 
   }
   const update = async () => {
-    const result2 = await updateBoard({
-      variables: {
-        updateBoardInput: {
-          title,
-          contents: content         
-        },
-        boardId: router.query.aaa,
-        password
-        
-      }
-    })
-    console.log(result2)
-    const id2 = result2.data.updateBoard._id
-    router.push(`/${id2}`)
+    interface IMyVariables {
+      updateBoardInput: Iupdate
+      boardId: String
+      password: String
+
+    }
+    interface Iupdate {
+      title?: String
+      contents?: String
+    }
+    const MyVariables: IMyVariables = {
+      updateBoardInput: {
+      
+      },
+      boardId: String(router.query.aaa),
+      password,
+      
+    }
+    if(title !== '') MyVariables.updateBoardInput.title = title
+    if(content !== '') MyVariables.updateBoardInput.contents = content  
+    try {
+      const result2 = await updateBoard({
+        variables: MyVariables
+      })
+      console.log(result2)
+      const id2 = result2.data.updateBoard._id
+      router.push(`/${id2}`)
+    } catch (error) {
+      console.error();
+    }
+    
   }
 
   return (
@@ -114,6 +145,7 @@ export default function Home(props) {
       erroContent={erroContent}
       isEdit={props.isEdit}
       update={update}
+      data= {props.data}
    />
 
       

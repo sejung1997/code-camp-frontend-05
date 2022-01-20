@@ -55,9 +55,9 @@ console.log(data)
         <img></img>
         <img></img>
       </Baner>
-      <Title>제목: {data?.fetchBoard.Title}</Title>
+      <Title>제목: {data?.fetchBoard.title}</Title>
       <MainImg>1</MainImg>
-      <Contents>2{data?.fetchBoard.Contents}</Contents>
+      <Contents>{data?.fetchBoard.contents}</Contents>
       <Video>2</Video>
 
      

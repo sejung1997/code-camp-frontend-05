@@ -1,7 +1,7 @@
 
 
 
-import * as A from "../write/boardWrite.styles";
+import * as A from "./boardWrite.styles";
 
 export default function BoardWriteUI (props) {
 
@@ -14,7 +14,7 @@ export default function BoardWriteUI (props) {
 
           <A.OptionWrapper>
             <A.Title>작성자</A.Title>
-            <A.InputName placeholder="이름을 적어주세요." onChange={props.changeWriter}></A.InputName>
+            <A.InputName placeholder="이름을 적어주세요." onChange={props.changeWriter} defaultValue={props.isEdit? props.data?.fetchBoard.writer : ''}></A.InputName>
             <A.Erro>{props.erroWriter}</A.Erro>
 
           </A.OptionWrapper>
@@ -22,7 +22,7 @@ export default function BoardWriteUI (props) {
 
           <A.OptionWrapper>
             <A.Title>비밀번호</A.Title>
-            <A.InputName placeholder="비밀번호를 입력해주세요" onChange={props.changePassword}></A.InputName>
+            <A.InputName placeholder="비밀번호를 입력해주세요" onChange={props.changePassword} defaultValue={props.isEdit? props.data?.fetchBoard.password : ''}></A.InputName>
             <A.Erro>{props.erroPassword}</A.Erro>
 
 
@@ -33,14 +33,14 @@ export default function BoardWriteUI (props) {
 
         <A.OptionWrapper>
           <A.Title>제목</A.Title>
-          <A.InputTitle placeholder="제목을 작성해주세요" onChange={props.changeTitle}></A.InputTitle>
+          <A.InputTitle placeholder="제목을 작성해주세요" onChange={props.changeTitle} defaultValue={props.isEdit? props.data?.fetchBoard.title : ''}></A.InputTitle>
           <A.Erro>{props.erroTitle}</A.Erro>
 
         </A.OptionWrapper>
 
         <A.OptionWrapper>
           <A.Title>내용</A.Title>
-          <A.InputContent placeholder="내용을 작성해주세요" onChange={props.changeContent}></A.InputContent>
+          <A.InputContent placeholder="내용을 작성해주세요" onChange={props.changeContent} defaultValue={props.isEdit? props.data?.fetchBoard.contents : ''}></A.InputContent>
           <A.Erro>{props.erroContent}</A.Erro>
 
         </A.OptionWrapper>
