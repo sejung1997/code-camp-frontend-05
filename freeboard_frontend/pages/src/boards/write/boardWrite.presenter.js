@@ -9,7 +9,7 @@ export default function BoardWriteUI (props) {
   return (
     <>
       <A.Main>
-        <A.TopTitle>게시물 등록</A.TopTitle>
+        <A.TopTitle>게시물 {props.isEdit? '수정' : '등록'}</A.TopTitle>
         <A.WritterWrapper>
 
           <A.OptionWrapper>
@@ -74,7 +74,9 @@ export default function BoardWriteUI (props) {
             <A.InputMain type='radio' name="main"/><A.Youtube>사진</A.Youtube>
         </A.OptionWrapper>
 
-        <A.BottomTitle onClick={props.submit}>등록하기</A.BottomTitle>
+        <A.BottomTitle onClick={props.isEdit? props.update : props.submit}>
+          
+        {props.isEdit? '수정하기' :'등록하기'}</A.BottomTitle>
 
       </A.Main>
     </>

@@ -50,13 +50,14 @@ export default function MapCheckboxDeletePage () {
     event.target.number
     deleteBoard({
       variables: {
-        number: Number(event.target.number),
+        number: Number(event.target.number)
         
       
-      refetchQueries: [{query: FETCH_BOARDS}] // variables: 
+         
 
-    }
-    )
+     },
+     refetchQueries: [{query: FETCH_BOARDS}] // variables:
+   })
     
   }
 

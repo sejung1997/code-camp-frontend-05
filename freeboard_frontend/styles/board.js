@@ -94,3 +94,10 @@ export const Address = styled.div `
 
 
 `
+export const Button = styled.button `
+  width: 200px;
+  height: 80px;
+  font-size: 24px;
+  margin: 120px auto;
+  display: block;
+`

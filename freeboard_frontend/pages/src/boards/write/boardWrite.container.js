@@ -3,12 +3,12 @@ import {useMutation} from "@apollo/client"
 import { useState } from "react" 
 import { useRouter } from "next/router"
 import BoardWriteUI from "../write/boardWrite.presenter"
-import {CREATE_BOARD} from "../write/boardWrite.container.mutation"
+import {CREATE_BOARD, UPDATE_BOARD} from "../write/boardWrite.container.mutation"
 
 
 
 
-export default function Home() {
+export default function Home(props) {
 
   const [writer, setWriter] = useState("")
   const [password, setPassword] = useState("")
@@ -21,6 +21,7 @@ export default function Home() {
 
   const router = useRouter()
   const [createBoard] = useMutation(CREATE_BOARD)
+  const [updateBoard] = useMutation(UPDATE_BOARD)
 
   function changeWriter (event) {
     setWriter(event.target.value)
@@ -76,12 +77,28 @@ export default function Home() {
     })
     console.log(result.data.createBoard)
 
-    const number = result.data.createBoard.number
-    console.log(number)
-    router.push(`/${number}`)
+    const id = result.data.createBoard._id
+    console.log(id)
+    router.push(`/${id}`)
 
 
 
+  }
+  const update = async () => {
+    const result2 = await updateBoard({
+      variables: {
+        updateBoardInput: {
+          title,
+          contents: content         
+        },
+        boardId: router.query.aaa,
+        password
+        
+      }
+    })
+    console.log(result2)
+    const id2 = result2.data.updateBoard._id
+    router.push(`/${id2}`)
   }
 
   return (
@@ -95,6 +112,8 @@ export default function Home() {
       erroPassword={erroPassword}
       erroTitle={erroTitle}
       erroContent={erroContent}
+      isEdit={props.isEdit}
+      update={update}
    />
 
       
