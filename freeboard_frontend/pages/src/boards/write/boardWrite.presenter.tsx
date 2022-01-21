@@ -14,7 +14,12 @@ export default function BoardWriteUI (props) {
 
           <A.OptionWrapper>
             <A.Title>작성자</A.Title>
-            <A.InputName placeholder="이름을 적어주세요." onChange={props.changeWriter} defaultValue={props.isEdit? props.data?.fetchBoard.writer : ''}></A.InputName>
+            <A.InputName placeholder="이름을 적어주세요." onChange={props.changeWriter} 
+                         defaultValue={props.isEdit? props.data?.fetchBoard.writer : ''} 
+                         disabled ={props.isEdit? true : false }>
+                          {/* readOnly={props.data?.fetchBoard.writer} */}
+
+            </A.InputName>
             <A.Erro>{props.erroWriter}</A.Erro>
 
           </A.OptionWrapper>
@@ -22,7 +27,10 @@ export default function BoardWriteUI (props) {
 
           <A.OptionWrapper>
             <A.Title>비밀번호</A.Title>
-            <A.InputName placeholder="비밀번호를 입력해주세요" onChange={props.changePassword} defaultValue={props.isEdit? props.data?.fetchBoard.password : ''}></A.InputName>
+            <A.InputName placeholder="비밀번호를 입력해주세요" onChange={props.changePassword} 
+                        defaultValue={props.isEdit? props.data?.fetchBoard.password : ''}>
+
+            </A.InputName>
             <A.Erro>{props.erroPassword}</A.Erro>
 
 
@@ -33,14 +41,20 @@ export default function BoardWriteUI (props) {
 
         <A.OptionWrapper>
           <A.Title>제목</A.Title>
-          <A.InputTitle placeholder="제목을 작성해주세요" onChange={props.changeTitle} defaultValue={props.isEdit? props.data?.fetchBoard.title : ''}></A.InputTitle>
+          <A.InputTitle placeholder="제목을 작성해주세요" onChange={props.changeTitle} 
+                        defaultValue={props.isEdit? props.data?.fetchBoard.title : ''}>
+
+          </A.InputTitle>
           <A.Erro>{props.erroTitle}</A.Erro>
 
         </A.OptionWrapper>
 
         <A.OptionWrapper>
           <A.Title>내용</A.Title>
-          <A.InputContent placeholder="내용을 작성해주세요" onChange={props.changeContent} defaultValue={props.isEdit? props.data?.fetchBoard.contents : ''}></A.InputContent>
+          <A.InputContent placeholder="내용을 작성해주세요" onChange={props.changeContent}  
+                          defaultValue={props.isEdit? props.data?.fetchBoard.contents : ''}>
+
+          </A.InputContent>
           <A.Erro>{props.erroContent}</A.Erro>
 
         </A.OptionWrapper>
@@ -74,9 +88,19 @@ export default function BoardWriteUI (props) {
             <A.InputMain type='radio' name="main"/><A.Youtube>사진</A.Youtube>
         </A.OptionWrapper>
 
-        <A.BottomTitle onClick={props.isEdit? props.update : props.submit}>
-          
-        {props.isEdit? '수정하기' :'등록하기'}</A.BottomTitle>
+        <A.BottomButton>
+
+          <A.BottomSubmit onClick={props.isEdit? props.update : props.submit}>
+            {props.isEdit? '수정하기' :'등록하기'}
+          </A.BottomSubmit>
+          <A.BottomCancel onClick={props.cancel}  hidden = {props.isEdit? false : true}>
+          취소하기
+          </A.BottomCancel>
+
+
+        </A.BottomButton>
+
+        
 
       </A.Main>
     </>

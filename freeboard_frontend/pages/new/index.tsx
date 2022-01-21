@@ -1,4 +1,4 @@
-import Home from "./src/boards/write/boardWrite.container";
+import Home from "../src/boards/write/boardWrite.container";
 
 export default function boardWritePage () {
 

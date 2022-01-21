@@ -131,7 +131,11 @@ export default function Home(props) {
     }
     
   }
+  const cancel = () => {
+    window.history.back()
 
+
+  }
   return (
    <BoardWriteUI
       changeWriter={changeWriter}
@@ -146,6 +150,7 @@ export default function Home(props) {
       isEdit={props.isEdit}
       update={update}
       data= {props.data}
+      cancel={cancel}
    />
 
       

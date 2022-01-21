@@ -132,26 +132,45 @@ export const InputMain = styled.input `
 
 
  `
- export const Youtube = styled.span `
+export const Youtube = styled.span `
   margin-right: 20px;
- `
- export const BottomTitle = styled.button `
-  width: 179px;
-  height: 52px;
-  font-weight: bold;
-  background-color: #FFD600;
-  border: none;
-  margin-top: 80px;
-  margin-left: 409px;
-  :hover {
-    cursor: pointer
-  }
- `
- export const Erro = styled.div `
+`
+export const BottomButton = styled.div `
+
+  margin: 82px auto 0 auto;
+  width: 388px;
+  display:flex;
+  justify-content: center;
+  
+`
+export const Erro = styled.div `
   font-size: 12px;
   color: red;
   margin-left: 10px;
   font-weight: 700;
   position: absolute;
 
-  `
+`
+export const BottomSubmit = styled.button`
+  width: 179px;
+  height: 52px;
+  font-weight: bold;
+  background-color: #FFD600;
+  border: none;
+  :hover {
+    cursor: pointer
+  };
+  margin-right: 24px;
+  
+  
+`
+export const BottomCancel = styled.button`
+  width: 179px;
+  height: 52px;
+  font-weight: bold;
+  background-color: #FFD600;
+  border: none;
+  :hover { 
+    cursor: pointer
+  };
+`
