@@ -21,14 +21,14 @@ export const DELETE_BOARD = gql `
 
 `
 
-  const onClickDelete = (event) => {
-    deleteBoard({
-      variables: {
-        boardId: String(event.target.id)
+  // const onClickDelete = (event) => {
+  //   deleteBoard({
+  //     variables: {
+  //       boardId: String(event.target.id)
         
       
-      },
-      refetchQueries: [{query: FETCH_BOARDS}]
+  //     },
+  //     refetchQueries: [{query: FETCH_BOARDS}]
 
-    })
-  }
+  //   })
+  // }

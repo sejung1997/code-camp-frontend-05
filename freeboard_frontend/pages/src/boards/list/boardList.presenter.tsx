@@ -1,7 +1,9 @@
 import { Button } from '../../../../styles/board'
 import * as B from './boardList.styles'
+import { IBoardListIProps} from "./boardList.types"
 
-export default function boardListPageUI(props) {
+
+export default function boardListPageUI(props: IBoardListIProps ) {
 
 
 
@@ -14,7 +16,7 @@ export default function boardListPageUI(props) {
          <B.Column>번호</B.Column><B.Column>제목</B.Column><B.Column>작성자</B.Column> <B.Column>날짜</B.Column>
         </B.TopRow>
         
-        {props.a?.fetchBoards.map((el, index) => (
+        {props.a?.fetchBoards.map((el:any, index:number) => (
           <B.Row key={el._id}>
             
             <B.Column>{index + 1}</B.Column>

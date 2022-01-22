@@ -22,7 +22,7 @@ export default function DynamicRoutedPage() {
     variables: {number: Number(router.query.mynumber)}
   })
 
-  //mutation은 대괄호,원하는 시점에 요청가능 query는 중괄호,페이지 실행될떄 자동으로
+  // mutation은 대괄호,원하는 시점에 요청가능 query는 중괄호,페이지 실행될떄 자동으로
 
   const onClickMoveToEdit = () =>{
 
@@ -37,9 +37,9 @@ export default function DynamicRoutedPage() {
     <div>
               <div> {router.query.mynumber}번페이지 이동완료</div>
 
-              <div> 작성자: {data?.fetchBoard.writer}</div>
-              <div> 제목: {data?.fetchBoard.title}</div>
-              <div> 내용: {data?.fetchBoard.contents}</div>
+              <div> 작성자: {data?.fetchBoard?.writer}</div>
+              <div> 제목: {data?.fetchBoard?.title}</div>
+              <div> 내용: {data?.fetchBoard?.contents}</div>
               <button onClick={onClickMoveToEdit}>
                 수정하러 이동하기
               </button>

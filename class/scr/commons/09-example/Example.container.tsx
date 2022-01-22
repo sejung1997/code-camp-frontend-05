@@ -1,14 +1,15 @@
 
 import { useMutation} from "@apollo/client"
-import { Router, useRouter } from "next/router"
-import { useState} from "react"
+import { useRouter } from "next/router"
+import { ChangeEvent, useState} from "react"
 import ExampleUI from "./Example.presenter"
 import { CREATE_BOARD, UPDATE_BOARD} from "./Example.queries"
+import { IBoardIProps } from "../10-example copy/Example.types"
  
 
 
 
-export default function ExampleWrite (props) {
+export default function ExampleWrite (props: IBoardIProps) {
 
   const [isActive, setIsActive] = useState(false)
   const [MyWriter, setMyWriter] = useState("")
@@ -61,20 +62,20 @@ export default function ExampleWrite (props) {
     router.push(`/lecture/0901-boards/${number2}`)
   }
 
-  const onChangeMyWritter = (event) => {
+  const onChangeMyWritter = (event:ChangeEvent<HTMLInputElement>) => {
     setMyWriter(event.target.value)
     if(event.target.value && MyTitle && MyContent) {
       setIsActive(true)
     }
     
   }
-  const onChangeMyTitle = (event) => {
+  const onChangeMyTitle = (event:ChangeEvent<HTMLInputElement>) => {
     setMyTitle(event.target.value)
     if(MyWriter && event.target.value && MyContent) {
       setIsActive(true)
     }
   }
-  const onChangeMyContent = (event) => {
+  const onChangeMyContent = (event:ChangeEvent<HTMLInputElement>) => {
     setMyContent(event.target.value)
     if(MyWriter && MyTitle && event.target.value) {
       setIsActive(true)

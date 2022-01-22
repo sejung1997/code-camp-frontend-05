@@ -1,5 +1,4 @@
 import { useMutation, gql} from "@apollo/client"
-import axios from "axios"
 import {Fragment, useState} from "react"
 import { IMutation, IMutationCreateBoardArgs } from "../../../scr/commons/types/generated/type"
 
@@ -22,8 +21,7 @@ export default function graphqlMutation() {
     // const result = await axios.get("https://koreanjson.com/posts/1")
     const result = await qqq()
     console.log(result)
-    result.data.createBoard.message
-    setAaa(result.data.createBoard.message || '아무 스트링')
+    setAaa(result.data?.createBoard?.message || '아무 스트링')
     
   }
 

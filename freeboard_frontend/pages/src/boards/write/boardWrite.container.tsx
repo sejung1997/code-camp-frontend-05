@@ -1,14 +1,14 @@
 
 import {useMutation} from "@apollo/client"
-import { useState } from "react" 
+import { ChangeEvent, useState } from "react" 
 import { useRouter } from "next/router"
 import BoardWriteUI from "./boardWrite.presenter"
 import {CREATE_BOARD, UPDATE_BOARD} from "./boardWrite.container.mutation"
+import { IBoardListIProps} from "../list/boardList.types"
 
 
 
-
-export default function Home(props) {
+export default function Home(props:IBoardListIProps) {
 
   const [writer, setWriter] = useState("")
   const [password, setPassword] = useState("")
@@ -23,22 +23,22 @@ export default function Home(props) {
   const [createBoard] = useMutation(CREATE_BOARD)
   const [updateBoard] = useMutation(UPDATE_BOARD)
 
-  function changeWriter (event) {
+  function changeWriter (event:ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value)
     if(event.target) {setErroWriter("")}
   }
 
-  function changePassword (event) {
+  function changePassword (event:ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
     if(event.target) {setErroPassword("")}
 
   }
-  function changeTitle (event) {
+  function changeTitle (event:ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value)
     if(event.target) {setErroTitle("")}
 
   }
-  function changeContent (event) {
+  function changeContent (event:ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value)
     if(event.target) {setErroContent("")}
 
@@ -62,27 +62,30 @@ export default function Home(props) {
        
     }
   }
-  interface Isubmit {
-    createBoardInput: IcreateBoardInput
-  }
+  
   interface IcreateBoardInput{
     writer: String
     title: String
     password: String
     contents: String
   }
+  interface Isubmit {
+    createBoardInput: IcreateBoardInput
+  }
+  const myVariables2:Isubmit = {
+    createBoardInput: {
+      writer,
+      title,
+      password,
+      contents: content
+    }
+   
+  }
   const onClickSubmit = async () => {
     try {
+      
       const result = await createBoard({
-        variables: {
-          createBoardInput: {
-            writer,
-            title,
-            password,
-            contents: content
-          }
-         
-        }
+        variables: myVariables2
       })
       console.log(result.data.createBoard)
 
@@ -99,15 +102,16 @@ export default function Home(props) {
 
   }
   const update = async () => {
+    
+    interface Iupdate {
+      title?: String
+      contents?: String
+    }
     interface IMyVariables {
       updateBoardInput: Iupdate
       boardId: String
       password: String
 
-    }
-    interface Iupdate {
-      title?: String
-      contents?: String
     }
     const MyVariables: IMyVariables = {
       updateBoardInput: {

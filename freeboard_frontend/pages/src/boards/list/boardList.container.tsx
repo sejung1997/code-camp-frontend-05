@@ -4,7 +4,6 @@ import { FETCH_BOARDS} from "../list/boardList.queries"
 import BoardListPageUI from "../list/boardList.presenter"
 import { useRouter } from "next/router"
 
-
 export default function boardListPage() {
   const { data: a } = useQuery(FETCH_BOARDS)
 
@@ -21,7 +20,7 @@ export default function boardListPage() {
 
  
   
-          //const getMyDate = (myDate) => {
+          // const getMyDate = (myDate) => {
           // const aaa = new Date(myDate)
 
 
@@ -31,7 +30,7 @@ export default function boardListPage() {
         // return `${year}-${month}-${date}`
         // aaa.getDay()
 
-        //}
+        // }
           
   
   

@@ -1,9 +1,9 @@
 
 
-
+import {IBoardUIIProps} from "../list/boardList.types"
 import * as A from "./boardWrite.styles";
 
-export default function BoardWriteUI (props) {
+export default function BoardWriteUI (props:IBoardUIIProps) {
 
 
   return (
@@ -16,7 +16,7 @@ export default function BoardWriteUI (props) {
             <A.Title>작성자</A.Title>
             <A.InputName placeholder="이름을 적어주세요." onChange={props.changeWriter} 
                          defaultValue={props.isEdit? props.data?.fetchBoard.writer : ''} 
-                         disabled ={props.isEdit? true : false }>
+                         disabled ={props.isEdit}>
                           {/* readOnly={props.data?.fetchBoard.writer} */}
 
             </A.InputName>
@@ -93,7 +93,7 @@ export default function BoardWriteUI (props) {
           <A.BottomSubmit onClick={props.isEdit? props.update : props.submit}>
             {props.isEdit? '수정하기' :'등록하기'}
           </A.BottomSubmit>
-          <A.BottomCancel onClick={props.cancel}  hidden = {props.isEdit? false : true}>
+          <A.BottomCancel onClick={props.cancel}  hidden = {props.isEdit}>
           취소하기
           </A.BottomCancel>
 
