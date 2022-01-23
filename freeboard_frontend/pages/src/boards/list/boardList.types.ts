@@ -22,6 +22,7 @@ export interface IBoardListIProps {
   register?: () => void
   isEdit?: boolean
   data?: any
+  detailPage: (arg0: any) => void
 }
 export interface IstlesIprops {
   ggg: boolean

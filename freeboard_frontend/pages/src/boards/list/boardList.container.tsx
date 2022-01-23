@@ -12,7 +12,9 @@ export default function boardListPage() {
     router.push('/NEW')
   }
 
-
+  const detailPage = (id:any) => {
+    router.push(`/${id}`)
+  }
 
 
   
@@ -20,17 +22,7 @@ export default function boardListPage() {
 
  
   
-          // const getMyDate = (myDate) => {
-          // const aaa = new Date(myDate)
-
-
-         // const year = aaa.getFullYear()
-        //  const month = aaa.getMonth() + 1
-        // const date = aaa.getDate()
-        // return `${year}-${month}-${date}`
-        // aaa.getDay()
-
-        // }
+        
           
   
   
@@ -41,6 +33,7 @@ export default function boardListPage() {
   return (
       <BoardListPageUI
         a={a}
-        register={register}/>
+        register={register}
+        detailPage={detailPage}/>
   )
 }

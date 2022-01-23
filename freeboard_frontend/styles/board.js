@@ -94,10 +94,23 @@ export const Address = styled.div `
 
 
 `
-export const Button = styled.button `
+export const ButtonUpdate = styled.button `
   width: 200px;
   height: 80px;
   font-size: 24px;
   margin: 120px auto;
   display: block;
+`
+export const ButtonList = styled.button `
+  width: 200px;
+  height: 80px;
+  font-size: 24px;
+  margin: 120px auto;
+  display: block;
+`
+export const Iframe = styled.iframe`
+  width: 1200px;
+  margin-left: 100px;
+  height: 1200px;
+
 `

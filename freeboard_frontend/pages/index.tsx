@@ -1,11 +1,11 @@
-// import Home from "./src/boards/write/boardWrite.container";
+import Home from "./src/boards/write/boardWrite.container";
 
-// export default function boardWritePage () {
+export default function boardWritePage () {
 
 
 
-//   return (
-//     <Home
-//       isEdit={false}/>
-//   )
-// }
+  return (
+    <Home
+      isEdit={false}/>
+  )
+}

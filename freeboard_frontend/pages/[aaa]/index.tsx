@@ -1,17 +1,7 @@
 import {useRouter} from 'next/router'
 import { useQuery, gql } from '@apollo/client'
-import { useState } from "react" 
 
-import {
-  Main,
-  Baner,
-  Name,
-  Title,
-  MainImg,
-  Contents,
-  Video,
-  Button,
-} from "../../styles/board"
+import * as L from "../../styles/board"
 const FETCH_BOARD = gql `
   query fetctBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
@@ -41,32 +31,39 @@ const update = () => {
 
   router.push(`/${id}/edit`)
 }
-
+const list = () => {
+  router.push('./boardList')
+}
 
 
 console.log(router.query.aaa)
 console.log(data)
 
   return (
-    <Main>
-      <Baner>
-        <img></img>
-        <Name> 이름:{data?.fetchBoard.writer} <br/> Date: {data?.fetchBoard.createdAt}  </Name>
-        <img></img>
-        <img></img>
-      </Baner>
-      <Title>제목: {data?.fetchBoard.title}</Title>
-      <MainImg>1</MainImg>
-      <Contents>내용: {data?.fetchBoard.contents}</Contents>
-      <Video>2</Video>
-
-     
-
+    <>
+      <L.Main>
+        <L.Baner>
+          <img></img>
+          <L.Name> 이름:{data?.fetchBoard.writer} <br/> Date: {data?.fetchBoard.createdAt}  </L.Name>
+          <img></img>
+          <img></img>
+        </L.Baner>
+        <L.Title>제목: {data?.fetchBoard.title}</L.Title>
+        <L.MainImg>1</L.MainImg>
+        <L.Contents>내용: {data?.fetchBoard.contents}</L.Contents>
+        <L.Video>2</L.Video>
 
       
-      <Button onClick={update}>수정하기</Button>
 
-    </Main>
+
+        
+        <L.ButtonUpdate onClick={update}>수정하기</L.ButtonUpdate>
+        <L.ButtonList onClick={list}>목록보기</L.ButtonList>
+
+      </L.Main>
+      <L.Iframe src={`/${id}/comment`} ></L.Iframe>
+    </>
+    
 
     
   

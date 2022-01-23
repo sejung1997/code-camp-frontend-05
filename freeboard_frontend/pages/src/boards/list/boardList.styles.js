@@ -25,3 +25,17 @@ export const List = styled.div`
   border-bottom: 1px solid grey;
 `
 
+export const Button = styled.button`
+  margin-top:40px;
+  width: 170px;
+  hegiht: 51px;
+  right: 0;   
+
+`
+export const Title = styled.span`
+  cursor:pointer;
+
+  :hover {
+    text-decoration: underline; 
+  }
+`
