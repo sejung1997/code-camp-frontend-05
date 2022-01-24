@@ -14,6 +14,7 @@ export interface IBoardUIIProps {
   update: () => void
   data: any
   cancel: () => void
+  changeUtube: (event:ChangeEvent<HTMLInputElement>) => void
 
 }
 

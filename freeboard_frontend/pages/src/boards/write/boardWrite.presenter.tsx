@@ -70,7 +70,10 @@ export default function BoardWriteUI (props:IBoardUIIProps) {
 
         <A.YoutubeWrapper>
           <A.Title>유트브</A.Title>
-          <A.InputYoutube placeholder="링크를 복사해주세요."></A.InputYoutube>
+          <A.InputYoutube placeholder="링크를 복사해주세요." onChange={props.changeUtube}
+                          defaultValue={props.isEdit? props.data?.fetchBoard.youtubeUrl : ''}>
+
+        </A.InputYoutube>
         </A.YoutubeWrapper>
 
         <A.OptionWrapper>

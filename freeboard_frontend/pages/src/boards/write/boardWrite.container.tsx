@@ -18,6 +18,7 @@ export default function Home(props:IBoardListIProps) {
   const [erroPassword, setErroPassword] = useState("")
   const [erroTitle, setErroTitle] = useState("")
   const [erroContent, setErroContent] = useState("")
+  const [utube, setUtube] = useState('')
 
   const router = useRouter()
   const [createBoard] = useMutation(CREATE_BOARD)
@@ -43,7 +44,10 @@ export default function Home(props:IBoardListIProps) {
     if(event.target) {setErroContent("")}
 
   }
+  function changeUtube (event:ChangeEvent<HTMLInputElement>) {
+    setUtube(event.target.value)
 
+  }
   function submit() {
     if(!writer) {
       setErroWriter("이름을 입력하세요")
@@ -68,6 +72,7 @@ export default function Home(props:IBoardListIProps) {
     title: String
     password: String
     contents: String
+    youtubeUrl: String
   }
   interface Isubmit {
     createBoardInput: IcreateBoardInput
@@ -77,7 +82,8 @@ export default function Home(props:IBoardListIProps) {
       writer,
       title,
       password,
-      contents: content
+      contents: content,
+      youtubeUrl: utube
     }
    
   }
@@ -155,6 +161,7 @@ export default function Home(props:IBoardListIProps) {
       update={update}
       data= {props.data}
       cancel={cancel}
+      changeUtube={changeUtube}
    />
 
       

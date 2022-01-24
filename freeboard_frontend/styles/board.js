@@ -1,4 +1,6 @@
 import styled from "@emotion/styled"
+import {LikeOutlined, DislikeOutlined} from '@ant-design/icons'
+
 
 
 export const Main = styled.div `
@@ -14,16 +16,14 @@ export const Main = styled.div `
 `
 export const Name = styled.div `
   font-size: 24px;
-  
-  padding-left: 16px
-
+  padding-bottom: 2px; 
 `
 export const Baner = styled.div `
   height: 160px;
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
-  border-bottom: 1px solid grey
+  border-bottom: 1px solid grey;
+  padding-top: 88px;
   
 `
 export const Title = styled.div `
@@ -45,15 +45,14 @@ export const Contents = styled.div `
   height: 96px;
   background-color: grey;
   margin-top: 40px;
-
+ 
 
 
 `
 export const Video = styled.div `
-  height: 500px;
-  width: 486px;
-  background-color: grey;
   margin: 120px auto;
+  display:flex;
+  justify-content: center;
 
 
 
@@ -67,12 +66,7 @@ export const Profile = styled.div `
   display: flex;
   padding-top: 80px;
 `
-export const Like = styled.div `
-  background-color: grey;
-  // margin: 80px auto 0 auto;
-  width: 120px;
-  height: 53px;
-`
+
 export const Good = styled.div `
 `
 export const Bad = styled.div `
@@ -98,19 +92,65 @@ export const ButtonUpdate = styled.button `
   width: 200px;
   height: 80px;
   font-size: 24px;
-  margin: 120px auto;
+  margin-right: 24px;
   display: block;
+  background-color: #fff;
+  border-radius: 7px;
+
 `
 export const ButtonList = styled.button `
   width: 200px;
   height: 80px;
   font-size: 24px;
-  margin: 120px auto;
   display: block;
-`
-export const Iframe = styled.iframe`
-  width: 1200px;
-  margin-left: 100px;
-  height: 1200px;
+  background-color: #fff;
+  border-radius: 7px;
 
+
+`
+
+export const buttonGroup = styled.div`
+  width: 1200px;
+  height: 212px;
+  margin-left: 100px;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  display: flex;
+
+`
+export const Like = styled.div`
+  display: flex;
+  justify-content: center;
+
+`
+export const Up = styled.div`
+  font-size: 18px;
+  margin-right: 40px;
+  color: #FFD600;
+`
+export const Down = styled.div`
+  font-size: 18px;
+  color: #828282
+
+`
+export const LikeOut = styled(LikeOutlined)`
+  font-size: 25px;
+  padding-botom: 15px;
+`
+
+export const DislikeOut= styled(DislikeOutlined)`
+  font-size: 25px;
+
+` 
+export const Img = styled.img`
+  width: 40px; 
+  height: 40px;
+  margin-right: 20px;
+  margin-top: 15px;
+
+`
+export const pri = styled.div`
+  width: 847px;
+  padding-bottom: 30px;
 `

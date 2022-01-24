@@ -26,6 +26,7 @@ query fetchBoard($boardId: ID!) {
     title
     contents
     createdAt
+    youtubeUrl
   }
 }
 `

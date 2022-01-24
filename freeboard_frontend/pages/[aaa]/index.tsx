@@ -1,7 +1,12 @@
 import {useRouter} from 'next/router'
-import { useQuery, gql } from '@apollo/client'
-
+import { useQuery, gql,useMutation } from '@apollo/client'
+import WriteCommentPage from '../src/boards/comment/writeComment.container'
 import * as L from "../../styles/board"
+
+import ReactPlayer from 'react-player'
+import { tuple } from 'antd/lib/_util/type'
+
+
 const FETCH_BOARD = gql `
   query fetctBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
@@ -10,15 +15,29 @@ const FETCH_BOARD = gql `
       title
       contents
       likeCount
+      dislikeCount
       createdAt
       _id
+      youtubeUrl
     }
   }
 
 `
+const LIKE_COUNT = gql`
+  mutation likeBoard($boardId: ID!) {
+    likeBoard(boardId: $boardId) 
+  }
+`
+const DISLIKE_COUNT = gql`
+  mutation dislikeBoard($boardId: ID!) {
+    dislikeBoard(boardId: $boardId) 
+  }
+`
 
 export default function DynamicRoutedPage() {
 
+const [dislikeBoard] = useMutation(DISLIKE_COUNT)
+const [likeBoard] = useMutation(LIKE_COUNT)
 
 const router = useRouter()
 const {data} = useQuery(FETCH_BOARD, {
@@ -34,34 +53,54 @@ const update = () => {
 const list = () => {
   router.push('./boardList')
 }
+const up = async () => {
+  const result1 = await likeBoard({
+    variables: {boardId: router.query.aaa},
+    refetchQueries: [{ query: FETCH_BOARD, 
+      variables: {boardId: router.query.aaa}
+    }]
+  })
+}
+const down = async () => {
+  const result = await dislikeBoard({
+    variables: {boardId: router.query.aaa},
+    refetchQueries: [{ query: FETCH_BOARD, 
+      variables: {boardId: router.query.aaa}
+    }]
+  })
+}
 
-
-console.log(router.query.aaa)
-console.log(data)
 
   return (
     <>
       <L.Main>
         <L.Baner>
-          <img></img>
-          <L.Name> 이름:{data?.fetchBoard.writer} <br/> Date: {data?.fetchBoard.createdAt}  </L.Name>
-          <img></img>
-          <img></img>
+          <L.Img src="/images/Vector.png"></L.Img>
+             <L.pri><L.Name> {data?.fetchBoard.writer} </L.Name>  <L.Day>Date: {data?.fetchBoard.createdAt.slice(0,10)}</L.Day></L.pri> 
+          <L.Img src='/images/Vector (1).png'></L.Img>
+          <L.Img src='/images/Vector (2).png'></L.Img>
         </L.Baner>
-        <L.Title>제목: {data?.fetchBoard.title}</L.Title>
+        <L.Title> {data?.fetchBoard.title}</L.Title>
         <L.MainImg>1</L.MainImg>
         <L.Contents>내용: {data?.fetchBoard.contents}</L.Contents>
-        <L.Video>2</L.Video>
+        <L.Video><ReactPlayer url={data?.fetchBoard.youtubeUrl} muted={true} playing={true}/></L.Video>
 
       
 
-
+        <L.Like>
+         <div><L.LikeOut onClick={up}/><L.Up>{data?.fetchBoard.likeCount}</L.Up></div> 
+         <div><L.DislikeOut onClick={down} /><L.Down>{data?.fetchBoard.dislikeCount}</L.Down></div>
+        </L.Like>
         
-        <L.ButtonUpdate onClick={update}>수정하기</L.ButtonUpdate>
-        <L.ButtonList onClick={list}>목록보기</L.ButtonList>
+        
 
       </L.Main>
-      <L.Iframe src={`/${id}/comment`} ></L.Iframe>
+      <L.buttonGroup>
+        <L.ButtonUpdate onClick={update}>수정하기</L.ButtonUpdate>
+        <L.ButtonList onClick={list}>목록으로</L.ButtonList>
+      </L.buttonGroup>
+      
+      <WriteCommentPage/>
     </>
     
 

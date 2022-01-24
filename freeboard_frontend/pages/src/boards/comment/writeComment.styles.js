@@ -1,6 +1,9 @@
+import {Rate} from 'antd'
+
 import styled from "@emotion/styled"
 
 export const CommentArea = styled.div`
+  padding: 0 102px  80px
 `
 export const Title = styled.div`
   font-size: 18px;
@@ -93,4 +96,7 @@ export const Comment = styled.div`
   flex-direction: column;
   justify-content: center;
 
+`
+export const rate = styled(Rate)`
+  margin-left: 20px
 `

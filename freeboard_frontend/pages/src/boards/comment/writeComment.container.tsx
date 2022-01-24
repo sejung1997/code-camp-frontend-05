@@ -5,6 +5,12 @@ import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENT, DELETE_BOARD_COMMENT} from "
 import WriteCommentPageUI from "./writeComment.presenter"
 
 
+
+
+
+
+
+
 export default function WriteCommentPage() {
   const router = useRouter()
   const [writer, setWriter] = useState('')
@@ -35,7 +41,11 @@ export default function WriteCommentPage() {
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT)
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT)
 
-  
+  const [value, setValue] = useState(3)
+
+  const handleChange = (value) => {
+    setValue(value)
+  }
   const {data} = useQuery(FETCH_BOARD_COMMENT, {
     variables: {page: 1, boardId: router.query.aaa}
   })
@@ -46,7 +56,7 @@ export default function WriteCommentPage() {
       writer,
       password,
       contents,
-      rating: 5
+      rating: value
     },
     boardId: String(router.query.aaa) 
   }
@@ -58,8 +68,10 @@ export default function WriteCommentPage() {
         variables: {page: 1, boardId: String(router.query.aaa)}
       }]
     })
-    // changeWriter(event)
-    // parent.location.reload()
+    setContents('')
+    setPassword('')
+    setWriter('')
+    
       
     console.log(result?.data.createBoardComment._id)
   }
@@ -71,6 +83,7 @@ export default function WriteCommentPage() {
         variables: {page: 1, boardId: router.query.aaa}
        }]
     })
+
   }
   const updateComment = async (event) => {
     setWriter(event.target.id.writer)
@@ -89,6 +102,11 @@ export default function WriteCommentPage() {
       deleteComment ={deleteComment}
       updateComment ={updateComment}
       changePs={changePs}
+      writer={writer}
+      password={password}
+      contents={contents}
+      handleChange={handleChange}
+      value={value}
 
       />
   )
