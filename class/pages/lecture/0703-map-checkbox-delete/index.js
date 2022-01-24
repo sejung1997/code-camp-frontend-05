@@ -47,7 +47,7 @@ export default function MapCheckboxDeletePage () {
 
   
   const onClickDelete = (event) => {
-    event.target.number
+    //event.target.number
     deleteBoard({
       variables: {
         number: Number(event.target.number)

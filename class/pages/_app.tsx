@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import "antd/dist/antd.css"
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
 import { AppProps } from 'next/app'
 
@@ -14,5 +15,4 @@ function MyApp ({Component, pageProps }: AppProps) {
     </ApolloProvider>
   )
 }
-00000000
 export default MyApp
