@@ -16,8 +16,8 @@ export default function BoardWriteUI (props:IBoardUIIProps) {
             <A.Title>작성자</A.Title>
             <A.InputName placeholder="이름을 적어주세요." onChange={props.changeWriter} 
                          defaultValue={props.isEdit? props.data?.fetchBoard.writer : ''} 
-                         disabled ={props.isEdit}>
-                          {/* readOnly={props.data?.fetchBoard.writer} */}
+                         readOnly={!!props.data?.fetchBoard.writer}>
+                          {/*  */}
 
             </A.InputName>
             <A.Erro>{props.erroWriter}</A.Erro>

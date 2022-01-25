@@ -54,7 +54,7 @@ const list = () => {
   router.push('./boardList')
 }
 const up = async () => {
-  const result1 = await likeBoard({
+  await likeBoard({
     variables: {boardId: router.query.aaa},
     refetchQueries: [{ query: FETCH_BOARD, 
       variables: {boardId: router.query.aaa}
@@ -62,7 +62,7 @@ const up = async () => {
   })
 }
 const down = async () => {
-  const result = await dislikeBoard({
+  await dislikeBoard({
     variables: {boardId: router.query.aaa},
     refetchQueries: [{ query: FETCH_BOARD, 
       variables: {boardId: router.query.aaa}
