@@ -4,16 +4,13 @@ import { useRouter } from "next/router";
 import BoardWriteUI from "./boardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./boardWrite.container.mutation";
 import { IBoardListIProps } from "../list/boardList.types";
+import { message } from "antd";
 
 export default function Home(props: IBoardListIProps) {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [erroWriter, setErroWriter] = useState("");
-  const [erroPassword, setErroPassword] = useState("");
-  const [erroTitle, setErroTitle] = useState("");
-  const [erroContent, setErroContent] = useState("");
   const [utube, setUtube] = useState("");
   const [Zonecode, setZonecode] = useState("");
   const [address, setAddress] = useState("");
@@ -27,28 +24,16 @@ export default function Home(props: IBoardListIProps) {
 
   function changeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
-    if (event.target) {
-      setErroWriter("");
-    }
   }
 
   function changePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
-    if (event.target) {
-      setErroPassword("");
-    }
   }
   function changeTitle(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
-    if (event.target) {
-      setErroTitle("");
-    }
   }
   function changeContent(event: ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value);
-    if (event.target) {
-      setErroContent("");
-    }
   }
   function changeUtube(event: ChangeEvent<HTMLInputElement>) {
     setUtube(event.target.value);
@@ -62,16 +47,16 @@ export default function Home(props: IBoardListIProps) {
 
   function submit() {
     if (!writer) {
-      setErroWriter("이름을 입력하세요");
+      message.info("이름을 입력하세요");
     }
     if (!password) {
-      setErroPassword("비밀번호를 입력하세요");
+      message.info("비밀번호를 입력하세요");
     }
     if (!title) {
-      setErroTitle("제목을 입력하세요");
+      message.info("제목을 입력하세요");
     }
     if (!content) {
-      setErroContent("내용을 입력하세요");
+      message.info("내용을 입력하세요");
     } else if (writer && password && title && content) {
       onClickSubmit();
     }
@@ -188,10 +173,6 @@ export default function Home(props: IBoardListIProps) {
       changeTitle={changeTitle}
       changeContent={changeContent}
       submit={submit}
-      erroWriter={erroWriter}
-      erroPassword={erroPassword}
-      erroTitle={erroTitle}
-      erroContent={erroContent}
       isEdit={props.isEdit}
       update={update}
       data={props.data}

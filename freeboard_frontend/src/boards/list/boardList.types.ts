@@ -1,4 +1,10 @@
 import { ChangeEvent } from "react";
+import { ApolloQueryResult } from "@apollo/client";
+
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../commons/types/generated/types";
 
 export interface IBoardUIIProps {
   changeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -6,10 +12,6 @@ export interface IBoardUIIProps {
   changeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   changeContent: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   submit: () => void;
-  erroWriter: String;
-  erroPassword: String;
-  erroTitle: String;
-  erroContent: String;
   isEdit: boolean;
   update: () => void;
   data: any;
@@ -22,7 +24,6 @@ export interface IBoardUIIProps {
   changeAdress: (event: ChangeEvent<HTMLInputElement>) => void;
   changeAdressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   address: any;
-  checkDelete: () => void;
 }
 
 export interface IBoardListIProps {
@@ -32,6 +33,10 @@ export interface IBoardListIProps {
   data?: any;
   detailPage: (arg0: any) => void;
   searchClick: () => void;
+  refetch: (
+    variables: Partial<IQueryFetchBoardsArgs>
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
+  count: number;
 }
 export interface IstlesIprops {
   ggg: boolean;

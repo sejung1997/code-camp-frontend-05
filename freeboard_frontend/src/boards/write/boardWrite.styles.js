@@ -14,6 +14,7 @@ export const Main = styled.div`
   border-radius: 5px;
   right: 0;
   left: 0;
+  color: #fff;
 `;
 export const TopTitle = styled.h1`
   text-align: center;

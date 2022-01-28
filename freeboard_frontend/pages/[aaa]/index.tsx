@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import WriteCommentPage from "../src/boards/comment/writeComment.container";
+import WriteCommentPage from "../../src/boards/write/boardWrite.container";
 import * as L from "../../styles/board";
 
 import ReactPlayer from "react-player";
@@ -84,9 +84,9 @@ export default function DynamicRoutedPage() {
         </L.Baner>
         <L.Title> {data?.fetchBoard.title}</L.Title>
         <L.MainImg>
-          {data?.fetchBoard.boardAddress.zipcode}
-          {data?.fetchBoard.boardAddress.address}
-          {data?.fetchBoard.boardAddress.addressDetail}
+          {data?.fetchBoard.boardAddress?.zipcode}
+          {data?.fetchBoard.boardAddress?.address}
+          {data?.fetchBoard.boardAddress?.addressDetail}
         </L.MainImg>
         <L.Contents>내용: {data?.fetchBoard.contents}</L.Contents>
         <L.Video>

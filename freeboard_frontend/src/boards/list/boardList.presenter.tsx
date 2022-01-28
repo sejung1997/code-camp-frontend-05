@@ -1,5 +1,6 @@
 import * as B from "./boardList.styles";
 import { IBoardListIProps } from "./boardList.types";
+import Pagination01 from "../../commons/pagination/pagination01.container";
 
 export default function boardListPageUI(props: IBoardListIProps) {
   return (
@@ -30,6 +31,7 @@ export default function boardListPageUI(props: IBoardListIProps) {
             {/* <Column>{el.contents}</Column> */}
           </B.Row>
         ))}
+        <Pagination01 refetch={props.refetch} count={props.count} />
         <B.Button onClick={props.register}>게시물 등록하기</B.Button>
       </B.List>
     </>

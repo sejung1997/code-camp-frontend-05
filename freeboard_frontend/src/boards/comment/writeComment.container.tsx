@@ -12,7 +12,7 @@ import {
   IQuery,
   IQueryFetchBoardCommentsArgs,
   IMutationCreateBoardCommentArgs,
-} from "../../../../src/commons/types/generated/types";
+} from "../../../src/boards/comment/writeComment.types";
 import WriteCommentPageUI from "./writeComment.presenter";
 
 export default function WriteCommentPage() {
