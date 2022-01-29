@@ -61,6 +61,17 @@ export default function ListCommentPage() {
   // const updateComment = (event: MouseEvent<HTMLImageElement>) => {
   //   setWriter(event.target.id.writer);
   // };
+  const [length, setLength] = useState("0");
+
+  const changeContents = (event: ChangeEvent<HTMLInputElement>) => {
+    setContents(event.target.value);
+
+    if (event.target.value.length < 100)
+      setLength(String(event.target.value.length));
+    else {
+      setLength("100");
+    }
+  };
   const onLoadMore = () => {
     if (!data) return;
 

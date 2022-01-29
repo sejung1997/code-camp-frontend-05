@@ -9,11 +9,12 @@ import {
 import WriteCommentPageUI from "./writeComment.presenter";
 
 export default function WriteCommentPage() {
-  const router = useRouter();
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
   const [length, setLength] = useState("0");
+  const router = useRouter();
+
   const [value, setValue] = useState(3);
 
   const changeWriter = (event: ChangeEvent<HTMLInputElement>) => {
