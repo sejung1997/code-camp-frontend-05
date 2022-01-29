@@ -1,22 +1,7 @@
-import { Modal } from "antd";
-
 import * as C from "./writeComment.styles";
 export default function WriteCommentPageUI(props) {
   return (
     <C.CommentArea>
-      {props.isVisible && (
-        <Modal
-          visible={true}
-          onOk={props.checkDelete}
-          onCancel={props.clickCancle}
-        >
-          <input
-            type="password"
-            onChange={props.changePs}
-            placeholder="password"
-          />
-        </Modal>
-      )}
       <C.Title>댓글</C.Title>
       <C.privateInfo>
         <C.Input
@@ -48,28 +33,6 @@ export default function WriteCommentPageUI(props) {
         <C.letter>{props.length}/100</C.letter>
         <C.submitButton onClick={props.createComment}>등록하기</C.submitButton>
       </C.contents>
-
-      {props.data?.fetchBoardComments.map((el) => (
-        <C.Comment key={el._id}>
-          <C.CommentInfo>
-            <C.Writer>
-              {el.writer} <C.rate value={el.rating} />
-            </C.Writer>
-            <C.wrapper>
-              <C.buttonUpdate onClick={props.updateComment}>
-                수정
-              </C.buttonUpdate>
-
-              <C.buttonDelete onClick={props.clickupdate} id={el._id}>
-                삭제
-              </C.buttonDelete>
-            </C.wrapper>
-          </C.CommentInfo>
-          <C.content>{el.contents}</C.content>
-
-          <C.date>{el.createdAt.slice(0, 10)}</C.date>
-        </C.Comment>
-      ))}
     </C.CommentArea>
   );
 }

@@ -2,6 +2,7 @@ import * as P from "./pagination01.styles";
 import { IPaginationUI } from "./pagination01.types";
 
 export default function Pagination01UI(props: IPaginationUI) {
+  console.log(props.startPage, props.curPage);
   return (
     <P.Page>
       <P.PagePrev onClick={props.onClickPrevPage}>{`${
@@ -12,12 +13,11 @@ export default function Pagination01UI(props: IPaginationUI) {
         (_, index) =>
           index + props.startPage <= props.lastPage && (
             <P.Span
-              style={{ cursor: "pointer" }}
-              className={`${index + props.startPage}`}
               onClick={props.onclickPage}
               id={String(index + props.startPage)}
               key={index + props.startPage}
               isActive={props.startPage + index === props.curPage}
+              curPage={props.curPage}
             >
               {index + props.startPage}
             </P.Span>

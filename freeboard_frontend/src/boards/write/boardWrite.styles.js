@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Button } from "antd";
 import DaumPostcode from "react-daum-postcode";
 
 export const Main = styled.div`
@@ -9,7 +8,7 @@ export const Main = styled.div`
   border: 1px, solid, #fff;
   font-family: sans-serif;
   position: absolute;
-  margin: 200px auto;
+  margin: 150px auto;
   border: 1px solid #fff;
   border-radius: 5px;
   right: 0;
@@ -91,11 +90,19 @@ export const InputNum = styled.input`
   border: 1px solid #bdbdbd;
   padding-left: 16px;
 `;
-export const SearchBtn = styled(Button)`
-  background-color: black;
+export const SearchBtn = styled.button`
+  background-color: transparent;
   color: #fff;
   padding: 14px 16px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  font-weight: bold;
   height: 50px;
+  :hover {
+    cursor: pointer;
+    color: red;
+    background-color: #fff;
+  }
 `;
 export const Input = styled.input`
   width: 100%;
@@ -173,7 +180,7 @@ export const BottomSubmit = styled.button`
   width: 179px;
   height: 52px;
   font-weight: bold;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   :hover {
     cursor: pointer;
     color: red;
@@ -191,13 +198,12 @@ export const BottomCancel = styled.button`
   border-radius: 5px;
   background-color: transparent;
   font-weight: bold;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   :hover {
     cursor: pointer;
     color: red;
-    background-color: #fff
+    background-color: #fff;
   }
-  color:#fff;
-  :
+  color: #fff;
 `;
 export const Postcode = styled(DaumPostcode)``;

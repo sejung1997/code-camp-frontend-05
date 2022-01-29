@@ -19,7 +19,6 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
             >
               {/*  */}
             </A.InputName>
-            <A.Erro>{props.erroWriter}</A.Erro>
           </A.OptionWrapper>
 
           <A.OptionWrapper>
@@ -29,7 +28,6 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
               onChange={props.changePassword}
               defaultValue={props.isEdit ? props.data?.fetchBoard.password : ""}
             ></A.InputName>
-            <A.Erro>{props.erroPassword}</A.Erro>
           </A.OptionWrapper>
         </A.WritterWrapper>
 
@@ -40,7 +38,6 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
             onChange={props.changeTitle}
             defaultValue={props.isEdit ? props.data?.fetchBoard.title : ""}
           ></A.InputTitle>
-          <A.Erro>{props.erroTitle}</A.Erro>
         </A.OptionWrapper>
 
         <A.OptionWrapper>
@@ -50,7 +47,6 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
             onChange={props.changeContent}
             defaultValue={props.isEdit ? props.data?.fetchBoard.contents : ""}
           ></A.InputContent>
-          <A.Erro>{props.erroContent}</A.Erro>
         </A.OptionWrapper>
 
         <A.OptionWrapper>
@@ -129,12 +125,20 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
         </A.OptionWrapper>
 
         <A.BottomButton>
-          <A.BottomSubmit onClick={props.isEdit ? props.update : props.submit}>
+          <A.BottomSubmit onClick={props.onAsk}>
             {props.isEdit ? "수정하기" : "등록하기"}
           </A.BottomSubmit>
-          <A.BottomCancel onClick={props.cancel} hidden={props.isEdit}>
-            취소하기
-          </A.BottomCancel>
+          <A.BottomCancel onClick={props.cancel}>취소하기</A.BottomCancel>
+          {props.isAskVisible && (
+            <Modal
+              title="확인 메세지"
+              visible={true}
+              onOk={props.isEdit ? props.update : props.submit}
+              onCancel={props.onAsk}
+            >
+              {props.isEdit ? "수정하시겠습니까?" : "등록하시겠습니까?"}
+            </Modal>
+          )}
         </A.BottomButton>
       </A.Main>
     </>

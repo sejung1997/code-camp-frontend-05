@@ -13,4 +13,8 @@ export const globalStyles = css`
     color: #fff;
     font-weight: bold;
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;

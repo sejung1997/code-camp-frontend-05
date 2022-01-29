@@ -9,21 +9,23 @@ export const Page = styled.div`
   right: 0;
   left: 0;
   color: #fff;
-  margin-top: 850px;
+  margin-top: 50px;
 `;
+
 export const Span = styled.span`
-  color: ${(props) => (props.isActive ? "blue" : "")}
+  font-size: ${(props) => (props.isActive ? "23px" : "20px")};
+  font-weight: ${(props) => (props.isActive ? "bold" : "normal")};
   display: flex;
-  font-size: 20px;
   padding-right: 20px;
   padding-left: 20px;
   &:hover {
     color: red;
   }
+  cursor: pointer;
 `;
 
 export const PagePrev = styled.div`
-font-size: 20px;<div className="."></div>
+  font-size: 20px;
 `;
 export const PageNext = styled.div`
   font-size: 20px;

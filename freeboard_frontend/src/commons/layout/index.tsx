@@ -13,8 +13,9 @@ const Body = styled.div`
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-
-  height: 3500px;
+  position: relative;
+  height: 5000px;
+  border: 1px solid; ;
 `;
 
 export default function LayoutPage(props: Iprops) {

@@ -3,13 +3,13 @@ import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 
 export const Main = styled.div`
   width: 1200px;
-  position: absolute;
-  margin: 200px auto;
+  margin: 150px auto;
   right: 0;
   left: 0;
+
   border: 1px solid #fff;
   font-family: sans-serif;
-  padding: 0 102px 180px;
+  padding: 0 102px 80px;
   color: #fff;
 `;
 export const Name = styled.div`
@@ -22,6 +22,7 @@ export const Baner = styled.div`
   flex-direction: row;
   border-bottom: 1px solid #fff;
   padding-top: 88px;
+  position: relative;
 `;
 export const Title = styled.div`
   font-size: 36px;
@@ -31,7 +32,7 @@ export const Title = styled.div`
 export const MainImg = styled.div`
   margin-top: 40px;
   width: 996px;
-  height: 486px;
+  height: 286px;
   background-color: transparent;
 `;
 export const Contents = styled.div`
@@ -62,6 +63,10 @@ export const ProfileImg = styled.div`
 `;
 export const AddressInfo = styled.div`
   padding: 20px 16px 20px 0;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  text-align: end;
 `;
 export const Address = styled.div`
   background-color: #828282;
@@ -81,7 +86,7 @@ export const ButtonUpdate = styled.button`
 
   :hover {
     cursor: pointer;
-    color: red;
+    color: black;
     background-color: #fff;
   }
 `;
@@ -92,17 +97,18 @@ export const ButtonList = styled.button`
   background-color: transparent;
   border: 1px solid #fff;
   font-weight: bold;
+  margin-right: 24px;
 
   border-radius: 7px;
   :hover {
     cursor: pointer;
-    color: red;
+    color: black;
     background-color: #fff;
   }
 `;
 
 export const buttonGroup = styled.div`
-  margin: auto;
+  margin: 0 auto;
   position: absolute;
   left: 0;
   right: 0;
@@ -110,30 +116,37 @@ export const buttonGroup = styled.div`
   justify-content: center;
   font-family: sans-serif;
   display: flex;
+  color: #fff;
+  font-size: 18px;
 `;
 export const Like = styled.div`
+  margin: 0 auto;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  width: 100px;
 `;
 export const Up = styled.div`
-  font-size: 18px;
+  font-size: 23px;
   margin-right: 40px;
   color: #fff;
 `;
 export const Down = styled.div`
-  font-size: 18px;
+  font-size: 23px;
   color: #fff;
 `;
 export const LikeOut = styled(LikeOutlined)`
-  font-size: 25px;
-  padding-botom: 15px;
+  font-size: 30px;
+  margin-right: 20px;
+  padding-bottom: 15px;
+
   :hover {
     cursor: pointer;
   }
 `;
 
 export const DislikeOut = styled(DislikeOutlined)`
-  font-size: 25px;
+  font-size: 30px;
   :hover {
     cursor: pointer;
   }
@@ -147,4 +160,19 @@ export const Img = styled.img`
 export const pri = styled.div`
   width: 847px;
   padding-bottom: 30px;
+`;
+export const ButtonDelete = styled.button`
+  width: 179px;
+  height: 52px;
+  display: block;
+  background-color: transparent;
+  border: 1px solid #fff;
+  font-weight: bold;
+
+  border-radius: 7px;
+  :hover {
+    cursor: pointer;
+    color: black;
+    background-color: #fff;
+  }
 `;

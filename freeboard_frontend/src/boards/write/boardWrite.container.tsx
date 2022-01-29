@@ -15,6 +15,7 @@ export default function Home(props: IBoardListIProps) {
   const [Zonecode, setZonecode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [isAskVisible, setIsAskVisible] = useState(false);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -45,20 +46,19 @@ export default function Home(props: IBoardListIProps) {
     setAddressDetail(event.target.value);
   }
 
-  function submit() {
-    if (!writer) {
-      message.info("이름을 입력하세요");
-    }
-    if (!password) {
-      message.info("비밀번호를 입력하세요");
-    }
-    if (!title) {
-      message.info("제목을 입력하세요");
-    }
-    if (!content) {
-      message.info("내용을 입력하세요");
-    } else if (writer && password && title && content) {
-      onClickSubmit();
+  async function submit() {
+    try {
+      const result = await createBoard({
+        variables: myVariables2,
+      });
+      console.log(result.data.createBoard);
+
+      const id = result.data.createBoard._id;
+      message.info("등록이 완료되었습니다");
+
+      router.push(`/${id}`);
+    } catch (error) {
+      alert(error.message);
     }
   }
 
@@ -92,21 +92,6 @@ export default function Home(props: IBoardListIProps) {
       youtubeUrl: utube,
       boardAddress,
     },
-  };
-
-  const onClickSubmit = async () => {
-    try {
-      const result = await createBoard({
-        variables: myVariables2,
-      });
-      console.log(result.data.createBoard);
-
-      const id = result.data.createBoard._id;
-      console.log(id);
-      router.push(`/${id}`);
-    } catch (error) {
-      console.error();
-    }
   };
 
   const update = async () => {
@@ -148,11 +133,11 @@ export default function Home(props: IBoardListIProps) {
       const result2 = await updateBoard({
         variables: MyVariables,
       });
-      console.log(result2);
       const id2 = result2.data.updateBoard._id;
       router.push(`/${id2}`);
+      message.info("수정이 완료되었습니다");
     } catch (error) {
-      console.error();
+      alert(error.message);
     }
   };
   const cancel = () => {
@@ -165,6 +150,13 @@ export default function Home(props: IBoardListIProps) {
     setZonecode(data?.zonecode);
     setAddress(data?.address);
     showModal();
+  };
+  const onAsk = () => {
+    if (!props.isEdit) {
+      if (writer && password && title && content) {
+        setIsAskVisible((prev) => !prev);
+      } else message.info("모두 입력해주세요");
+    } else setIsAskVisible((prev) => !prev);
   };
   return (
     <BoardWriteUI
@@ -185,6 +177,8 @@ export default function Home(props: IBoardListIProps) {
       address={address}
       changeAdress={changeAdress}
       changeAdressDetail={changeAdressDetail}
+      onAsk={onAsk}
+      isAskVisible={isAskVisible}
     />
   );
 }

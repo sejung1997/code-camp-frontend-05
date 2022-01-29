@@ -1,18 +1,11 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState, ChangeEvent, MouseEvent } from "react";
-import {
-  CREATE_BOARD_COMMENT,
-  FETCH_BOARD_COMMENT,
-  DELETE_BOARD_COMMENT,
-} from "./writeComment.mutation";
+import { useState, ChangeEvent } from "react";
+import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENT } from "./Comment.mutation";
 import {
   IMutation,
-  IMutationDeleteBoardCommentArgs,
-  IQuery,
-  IQueryFetchBoardCommentsArgs,
   IMutationCreateBoardCommentArgs,
-} from "../../../src/boards/comment/writeComment.types";
+} from "../../../src/commons/types/generated/types";
 import WriteCommentPageUI from "./writeComment.presenter";
 
 export default function WriteCommentPage() {
@@ -21,10 +14,7 @@ export default function WriteCommentPage() {
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
   const [length, setLength] = useState("0");
-  const [ps, setPs] = useState("");
   const [value, setValue] = useState(3);
-  const [isVisible, setIsVisible] = useState(false);
-  const [commentId, setCommentId] = useState("");
 
   const changeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -42,29 +32,14 @@ export default function WriteCommentPage() {
     }
   };
 
-  const changePs = (event: ChangeEvent<HTMLInputElement>) => {
-    setPs(event.target.value);
+  const handleChange = (value) => {
+    setValue(value);
   };
 
   const [createBoardComment] = useMutation<
     Pick<IMutation, "createBoardComment">,
     IMutationCreateBoardCommentArgs
   >(CREATE_BOARD_COMMENT);
-  const [deleteBoardComment] = useMutation<
-    Pick<IMutation, "deleteBoardComment">,
-    IMutationDeleteBoardCommentArgs
-  >(DELETE_BOARD_COMMENT);
-
-  const handleChange = (value) => {
-    setValue(value);
-  };
-  const { data } = useQuery<
-    Pick<IQuery, "fetchBoardComments">,
-    IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENT, {
-    variables: { page: 1, boardId: String(router.query.aaa) },
-  });
-  // console.log(router.query.aaa);
 
   const myVariables = {
     createBoardCommentInput: {
@@ -90,36 +65,6 @@ export default function WriteCommentPage() {
     setPassword("");
     setWriter("");
   };
-  // const updateComment = (event: MouseEvent<HTMLImageElement>) => {
-  //   setWriter(event.target.id.writer);
-  // };
-
-  const checkDelete = async () => {
-    console.log("gh확인");
-    try {
-      await deleteBoardComment({
-        variables: { password: ps, boardCommentId: commentId },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD_COMMENT,
-            variables: { page: 1, boardId: router.query.aaa },
-          },
-        ],
-      });
-      setIsVisible(false);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const clickCancle = (event: MouseEvent<HTMLImageElement>) => {
-    setIsVisible(false);
-  };
-
-  const clickupdate = (event: MouseEvent<HTMLImageElement>) => {
-    if (event.target instanceof Element) setCommentId(event.target.id);
-    setIsVisible(true);
-  };
 
   return (
     <WriteCommentPageUI
@@ -128,18 +73,12 @@ export default function WriteCommentPage() {
       changePassword={changePassword}
       changeWriter={changeWriter}
       length={length}
-      data={data}
       // updateComment={updateComment}
-      changePs={changePs}
       writer={writer}
       password={password}
       contents={contents}
       handleChange={handleChange}
       value={value}
-      isVisible={isVisible}
-      checkDelete={checkDelete}
-      clickupdate={clickupdate}
-      clickCancle={clickCancle}
     />
   );
 }

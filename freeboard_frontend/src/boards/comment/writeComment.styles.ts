@@ -4,15 +4,14 @@ import styled from "@emotion/styled";
 
 export const CommentArea = styled.div`
   width: 1200px;
-  position: absolute;
   left: 0;
   margin: auto;
   right: 0;
-  margin-top: 2200px;
   color: #fff;
+  margin-top: 325px;
 `;
 export const Title = styled.div`
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   padding: 40px 0 84px 0;
 `;
@@ -77,60 +76,7 @@ export const Hr = styled.div`
   width: 1200px;
   position: absolute;
 `;
-export const CommentInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 4px;
-  width: 1200px;
-  bord: 1px solid grey;
-  position: relative;
-`;
-export const wrapper = styled.div`
-  width: 100px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-export const Writer = styled.div`
-  font-weight: 600;
-`;
-export const buttonUpdate = styled.button`
-  background-color: transparent;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  :hover {
-    cursor: pointer;
-    color: red;
-    background-color: #fff;
-  }
-`;
-export const buttonDelete = styled.button`
-  background-color: transparent;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  :hover {
-    cursor: pointer;
-    color: red;
-    background-color: #fff;
-  }
-`;
 
-export const content = styled.div`
-  margin-bottom: 20px;
-`;
-export const date = styled.div``;
-export const Comment = styled.div`
-  height: 150px;
-  width: 1200px;
-  border-bottom: 1px solid grey;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
 export const rate = styled(Rate)`
   margin-left: 20px;
 `;
