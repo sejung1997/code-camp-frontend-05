@@ -16,7 +16,8 @@ export default function CommentEditPage(props) {
                   <C.buttonUpdate
                     src="/images/edit.png"
                     id={index}
-                    onClick={props.updateComment}
+                    key={el._id}
+                    onClick={props.onUpdate}
                   ></C.buttonUpdate>
 
                   <C.buttonDelete
@@ -47,8 +48,7 @@ export default function CommentEditPage(props) {
                 />
                 <br />
                 <C.rate
-                  id="rating"
-                  onChange={props.onchangeInput}
+                  onChange={props.onchangeRate}
                   defaultValue={el.rating}
                 />
               </C.privateInfo>
@@ -64,7 +64,7 @@ export default function CommentEditPage(props) {
                 />
                 <C.Hr></C.Hr>
                 <C.letter>{props.length}/100</C.letter>
-                <C.submitButton onClick={props.updatecomment} id={el._id}>
+                <C.submitButton onClick={props.updateComment} id={el._id}>
                   수정하기
                 </C.submitButton>
                 <C.cancelButton id={index} onClick={props.cancel}>
