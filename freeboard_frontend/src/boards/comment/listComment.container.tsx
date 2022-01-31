@@ -15,6 +15,7 @@ export default function ListCommentPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [commentId, setCommentId] = useState("");
   const router = useRouter();
+  const [length, setLength] = useState("0");
 
   const changePs = (event: ChangeEvent<HTMLInputElement>) => {
     setPs(event.target.value);
@@ -25,7 +26,7 @@ export default function ListCommentPage() {
     IMutationDeleteBoardCommentArgs
   >(DELETE_BOARD_COMMENT);
 
-  const { data, fetchMore } = useQuery<
+  const { data } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENT, {
@@ -53,43 +54,29 @@ export default function ListCommentPage() {
     setIsVisible(false);
   };
 
-  const clickupdate = (event: MouseEvent<HTMLImageElement>) => {
+  const onDelte = (event: MouseEvent<HTMLImageElement>) => {
     if (event.target instanceof Element) setCommentId(event.target.id);
     setIsVisible(true);
   };
 
-  // const updateComment = (event: MouseEvent<HTMLImageElement>) => {
-  //   setWriter(event.target.id.writer);
+  // const onLoadMore = () => {
+  //   if (!data) return;
+
+  //   fetchMore({
+  //     variables: { page: Math.ceil(data.fetchBoardComments.length / 10) + 1 },
+  //     updateQuery: (prev, { fetchMoreResult }) => {
+  //       if (!fetchMoreResult.fetchBoardComments)
+  //         return { fetchBoards: [...prev.fetchBoardComments] };
+
+  //       return {
+  //         fetchBoards: [
+  //           ...prev.fetchBoardComments,
+  //           ...fetchMoreResult.fetchBoardComments,
+  //         ],
+  //       };
+  //     },
+  //   });
   // };
-  const [length, setLength] = useState("0");
-
-  const changeContents = (event: ChangeEvent<HTMLInputElement>) => {
-    setContents(event.target.value);
-
-    if (event.target.value.length < 100)
-      setLength(String(event.target.value.length));
-    else {
-      setLength("100");
-    }
-  };
-  const onLoadMore = () => {
-    if (!data) return;
-
-    fetchMore({
-      variables: { page: Math.ceil(data.fetchBoardComments.length / 10) + 1 },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchBoardComments)
-          return { fetchBoards: [...prev.fetchBoardComments] };
-
-        return {
-          fetchBoards: [
-            ...prev.fetchBoardComments,
-            ...fetchMoreResult.fetchBoardComments,
-          ],
-        };
-      },
-    });
-  };
 
   return (
     <ListCommentPageUI
@@ -97,9 +84,9 @@ export default function ListCommentPage() {
       changePs={changePs}
       isVisible={isVisible}
       checkDelete={checkDelete}
-      clickupdate={clickupdate}
+      onDelte={onDelte}
       clickCancle={clickCancle}
-      onLoadMore={onLoadMore}
+      // onLoadMore={onLoadMore}
     />
   );
 }

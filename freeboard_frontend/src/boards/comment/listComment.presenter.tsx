@@ -24,16 +24,18 @@ export default function ListCommentPageUI(props) {
         loadMore={props.onLoadMore}
         hasMore={true}
       ></InfiniteScroll> */}
-      <CommentEdit
-        data={props.data}
-        changePs={props.changePs}
-        isVisible={props.isVisible}
-        checkDelete={props.checkDelete}
-        clickupdate={props.clickupdate}
-        clickCancle={props.clickCancle}
-        onLoadMore={props.onLoadMore}
-        length={props.length}
-      />
+      {props.data?.fetchBoardComments.map((el, index) => (
+        <CommentEdit key={el.id} el={el} index={index} />
+      ))}
+
+      {/* data={props.data}
+          changePs={props.changePs}
+          isVisible={props.isVisible}
+          checkDelete={props.checkDelete}
+          clickupdate={props.clickupdate}
+          clickCancle={props.clickCancle}
+          onLoadMore={props.onLoadMore}
+           length={props.length} */}
     </div>
   );
 }
