@@ -9,7 +9,6 @@ export const CREATE_BOARD_COMMENT = gql`
       createBoardCommentInput: $createBoardCommentInput
       boardId: $boardId
     ) {
-      writer
       contents
       _id
       rating
@@ -33,7 +32,7 @@ export const DELETE_BOARD_COMMENT = gql`
   }
 `;
 export const UPDATE_BOARD_COMMENT = gql`
-  mutation updateBoardComment(
+  mutation (
     $updateBoardCommentInput: UpdateBoardCommentInput!
     $password: String
     $boardCommentId: ID!
@@ -44,6 +43,7 @@ export const UPDATE_BOARD_COMMENT = gql`
       boardCommentId: $boardCommentId
     ) {
       _id
+      writer
       contents
       rating
     }
