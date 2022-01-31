@@ -54,24 +54,11 @@ export default function ListCommentPage() {
     setIsVisible(false);
   };
 
-  const clickupdate = (event: MouseEvent<HTMLImageElement>) => {
+  const onDelte = (event: MouseEvent<HTMLImageElement>) => {
     if (event.target instanceof Element) setCommentId(event.target.id);
     setIsVisible(true);
   };
 
-  // const updateComment = (event: MouseEvent<HTMLImageElement>) => {
-  //   setWriter(event.target.id.writer);
-  // };
-
-  // const changeContents = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setContents(event.target.value);
-
-  //   if (event.target.value.length < 100)
-  //     setLength(String(event.target.value.length));
-  //   else {
-  //     setLength("100");
-  //   }
-  // };
   // const onLoadMore = () => {
   //   if (!data) return;
 
@@ -97,7 +84,7 @@ export default function ListCommentPage() {
       changePs={changePs}
       isVisible={isVisible}
       checkDelete={checkDelete}
-      clickupdate={clickupdate}
+      onDelte={onDelte}
       clickCancle={clickCancle}
       // onLoadMore={onLoadMore}
     />

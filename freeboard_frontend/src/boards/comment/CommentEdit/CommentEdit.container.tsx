@@ -27,7 +27,6 @@ export default function CommentEdit(props) {
     false,
     false,
   ]);
-  let id = 0;
   const onchangeInput = (event) => {
     setinputs({
       ...inputs,
@@ -61,25 +60,23 @@ export default function CommentEdit(props) {
   };
 
   const updateComment = (event) => {
-    console.log(event.target.id);
     inputs.boardCommentId = event.target.id;
     setinputs({
       ...inputs,
       boardCommentId: event.target.id,
     });
-    isEdits[id] = false;
+    isEdits[props.index] = false;
     setIsEdits([...isEdits]);
     update();
   };
 
-  const onUpdate = (event) => {
-    isEdits[event.target.id] = true;
-    id = event.target.id;
+  const onUpdate = () => {
+    isEdits[props.index] = true;
     setIsEdits([...isEdits]);
   };
 
-  const cancel = (event) => {
-    isEdits[event.target.id] = false;
+  const cancel = () => {
+    isEdits[props.index] = false;
     setIsEdits([...isEdits]);
   };
   return (
@@ -98,6 +95,8 @@ export default function CommentEdit(props) {
       isEdits={isEdits}
       onchangeRate={onchangeRate}
       onUpdate={onUpdate}
+      el={props.el}
+      index={props.index}
     />
   );
 }
