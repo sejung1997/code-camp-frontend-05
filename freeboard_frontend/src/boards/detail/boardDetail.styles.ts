@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 
+export const div = styled.div`
+  padding-top: 150px;
+`;
 export const Main = styled.div`
   width: 1200px;
-  margin: 150px auto;
+  margin: auto;
   right: 0;
   left: 0;
 
@@ -108,7 +111,7 @@ export const ButtonList = styled.button`
 `;
 
 export const buttonGroup = styled.div`
-  margin: 0 auto;
+  margin: 150px auto 0;
   position: absolute;
   left: 0;
   right: 0;

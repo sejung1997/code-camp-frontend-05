@@ -5,7 +5,7 @@ import ListCommentPage from "../comment/listComment.container";
 
 export default function BoardDetailPageUI(props) {
   return (
-    <div>
+    <L.div>
       <L.Main>
         <L.Baner>
           <L.Img src="/images/Vector.png"></L.Img>
@@ -48,6 +48,6 @@ export default function BoardDetailPageUI(props) {
       </L.buttonGroup>
       <WriteCommentPage />
       <ListCommentPage />
-    </div>
+    </L.div>
   );
 }

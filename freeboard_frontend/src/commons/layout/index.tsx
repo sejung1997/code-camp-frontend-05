@@ -1,8 +1,8 @@
 import { ReactChild } from "react";
-import LayoutHeader from "./header";
+import HeaderPage from "./header/header.container";
 // import LayoutFooter from "./footer";
 // import LayoutNavi from "./navigation";
-import LayoutBanner from "./banner";
+import LayoutBanner from "./banner/banner.container";
 import styled from "@emotion/styled";
 
 interface Iprops {
@@ -15,13 +15,12 @@ const Body = styled.div`
   background-attachment: fixed;
   position: relative;
   height: 5000px;
-  border: 1px solid; ;
 `;
 
 export default function LayoutPage(props: Iprops) {
   return (
     <div>
-      <LayoutHeader></LayoutHeader>
+      <HeaderPage />
       <LayoutBanner></LayoutBanner>
       {/* <LayoutNavi></LayoutNavi> */}
       <Body>{props.children}</Body>

@@ -39,6 +39,7 @@ export interface IBoardListIProps {
     variables: Partial<IQueryFetchBoardsArgs>
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
   count: number;
+  dataSearch: () => void;
 }
 export interface IstlesIprops {
   ggg: boolean;

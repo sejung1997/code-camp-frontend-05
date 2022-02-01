@@ -1,8 +1,23 @@
 import * as C from "../listComment.styles";
+import { Modal } from "antd";
 
 export default function CommentEditPage(props) {
   return (
     <div>
+      {props.isVisible && (
+        <Modal
+          visible={true}
+          onOk={props.checkDelete}
+          onCancel={props.clickCancle}
+        >
+          <input
+            title="비밀번호를 입력해주세요"
+            type="password"
+            onChange={props.changePs}
+            placeholder="password"
+          />
+        </Modal>
+      )}
       {props.isEdits[props.index] === false && (
         <C.Comment>
           <C.CommentInfo>
@@ -18,7 +33,7 @@ export default function CommentEditPage(props) {
 
               <C.buttonDelete
                 src="/images/x.png"
-                onClick={props.onDelte}
+                onClick={props.onDelete}
                 id={props.el._id}
               ></C.buttonDelete>
             </C.wrapper>
