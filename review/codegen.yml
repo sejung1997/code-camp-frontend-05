@@ -1,0 +1,8 @@
+overwrite: true
+schema: "http://backend05.codebootcamp.co.kr/graphql"
+generates:
+  ./src/commons/types/generated/graphql.ts:
+    plugins:
+      - "typescript"
+    config:
+      typesPrefix: I
