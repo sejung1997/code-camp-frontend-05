@@ -1,14 +1,15 @@
 import { gql } from "@apollo/client";
 import { ChangeEvent } from "react";
 
-export const LOGIN_USER = gql`
-  mutation loginUser($password: String!, $email: String!) {
-    loginUser(password: $password, email: $email) {
-      accessToken
+export const CREATE_USER = gql`
+  mutation createUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      email
+      name
     }
   }
 `;
-export interface IBoardSingInPageUIProps {
+export interface IBoardSingUpPageUIProps {
   changeInputs: (event: ChangeEvent<HTMLInputElement>) => void;
   inputs: any;
   register: () => void;
@@ -18,7 +19,7 @@ export interface IBoardSingInPageUIProps {
   validMsg: any;
   isValid: boolean;
 }
-export interface IBoardSignInPageProps {
+export interface IBoardSignUpPageProps {
   isVisible: boolean;
   Cancel: () => void;
 }

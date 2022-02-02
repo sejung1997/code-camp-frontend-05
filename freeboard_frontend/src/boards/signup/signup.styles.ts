@@ -21,18 +21,33 @@ export const inputs = styled.div`
 export const id = styled.input`
   margin-top: 10px;
   padding-left: 10px;
-  width: 300px;
+  width: 150px;
   /* margin-right: 30px; */
   color: grey;
   border: 1px solid grey;
   border-radius: 2px;
   height: 30px;
 `;
+export const inputdomain = styled.input`
+  width: 150px;
+  color: grey;
+  border: 1px solid grey;
+  border-radius: 2px;
+  height: 30px;
+  margin-right: 17px;
+`;
+export const domainAddress = styled.select`
+  color: grey;
+
+  border: 1px solid grey;
+
+  height: 30px;
+`;
 export const validBtn = styled.button`
   width: 100px;
   height: 30px;
   right: 0;
-  top: 30px;
+  top: 70px;
   position: absolute;
   border-radius: 5px;
   font-size: 12px;
@@ -58,7 +73,7 @@ export const validId = styled.div`
   margin-bottom: 20px;
   padding: 5px 3px;
   font-size: 9px;
-  color: red;
+  color: #6482b9;
 `;
 export const validPs = styled.div`
   margin-bottom: 20px;
