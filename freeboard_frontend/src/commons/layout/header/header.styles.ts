@@ -2,11 +2,9 @@ import styled from "@emotion/styled";
 import { IAddressProps } from "./header.types";
 
 export const Menu = styled.div`
-  background-color: red;
-  font-size: 23px;
-  right: 0;
-  left: 0;
-  margin: 0 auto;
+  background-color: black;
+  width: 100%;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,76 +12,98 @@ export const Menu = styled.div`
   top: 0px;
   z-index: 2;
 `;
+
 export const logo = styled.img`
-  background-color: red;
-  margin-right: 100px;
-  height: 76px;
+  /* background-color: red; */
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  height: 130px;
   :hover {
     cursor: pointer;
   }
 `;
-export const H2 = styled.div`
-  font-size: 35px;
-  background-color: black;
+export const inner = styled.div`
+  width: 1500px;
+  height: 100%;
+  right: 0;
+  position: relative;
+  left: 0;
+  margin: 0 auto;
+`;
+export const mainMenu = styled.div`
+  font-size: 20px;
+  /* background-color: red; */
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  width: 100%;
-  height: 100px;
-  position: fixed;
-  top: 76px;
-  z-index: 2;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;
 
-export const H3 = styled.div`
+export const signup = styled.div`
   color: #fff;
-  width: 200px;
+  font-size: 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
   padding: 20px 10px;
-  text-align: center;
-  background-color: ${(props: IAddressProps) =>
-    props.address.length === 25 ? "black" : ""};
-  :hover {
-    background-color: black;
-    cursor: pointer;
-  }
-`;
-export const H3M = styled.div`
-  color: #fff;
-  width: 200px;
-  padding: 20px 10px;
+  margin-right: 100px;
   text-align: center;
   :hover {
-    background-color: black;
+    background-color: red;
     cursor: pointer;
   }
   /* background-color: ${(props: IAddressProps) =>
     props.isVisible ? "black" : ""}; ; */
 `;
+export const signin = styled.div`
+  color: #fff;
+  font-size: 16px;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px 10px;
+  text-align: center;
+
+  :hover {
+    background-color: red;
+    cursor: pointer;
+  }
+`;
+export const H3 = styled.div`
+  color: #fff;
+  width: 200px;
+  padding: 20px 10px;
+
+  text-align: center;
+  background-color: ${(props: IAddressProps) =>
+    props.address.length === 25 ? "black" : ""};
+  :hover {
+    background-color: red;
+    cursor: pointer;
+  }
+`;
 export const H3N = styled.div`
   color: #fff;
   width: 200px;
+
   padding: 20px 10px;
   text-align: center;
   background-color: ${(props: IAddressProps) =>
     props.address[1] === "N" ? "black" : ""};
   :hover {
-    background-color: black;
+    background-color: red;
     cursor: pointer;
   }
 `;
-export const H3log = styled.div`
-  color: #fff;
-  width: 200px;
-  padding: 20px 10px;
-  text-align: center;
 
-  :hover {
-    background-color: black;
-    cursor: pointer;
-  }
-`;
 export const H3L = styled.div`
   color: #fff;
   width: 200px;
@@ -92,7 +112,7 @@ export const H3L = styled.div`
   background-color: ${(props: IAddressProps) =>
     props.address[1] === "b" ? "black" : ""};
   :hover {
-    background-color: black;
+    background-color: red;
     cursor: pointer;
   }
 `;
@@ -104,7 +124,7 @@ export const H3E = styled.div`
   background-color: ${(props: IAddressProps) =>
     props.address[props.address.length - 2] === "i" ? "black" : ""};
   :hover {
-    background-color: black;
+    background-color: red;
     cursor: pointer;
   }
 `;

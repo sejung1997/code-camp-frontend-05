@@ -22,11 +22,11 @@ export default function ListCommentPage() {
     fetchMore({
       variables: { page: Math.ceil(data.fetchBoardComments.length / 10) + 1 },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult.fetchBoardComments)
-          return { fetchBoards: [...prev.fetchBoardComments] };
+        if (!fetchMoreResult?.fetchBoardComments)
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
 
         return {
-          fetchBoards: [
+          fetchBoardComments: [
             ...prev.fetchBoardComments,
             ...fetchMoreResult.fetchBoardComments,
           ],

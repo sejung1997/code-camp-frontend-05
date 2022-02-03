@@ -1,8 +1,15 @@
 import styled from "@emotion/styled";
 export default function LayoutNavi() {
   const Wrapper = styled.div`
-    height: 100px;
-    background-color: skyblue;
+    
+    height: 600px;
+    width: 300px;
+    z-index: 3;
   `;
-  return <Wrapper>네비영역</Wrapper>;
+
+  return (
+    <Wrapper>
+      <div></div>
+    </Wrapper>
+  );
 }

@@ -63,6 +63,12 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
     validMsg.passMsg === "비밀번호가 일치합니다";
 
   const selectDomain = (event) => {
+    // if (event.target.value === "직접입력") {
+    //   setInputs({
+    //     ...inputs,
+    //     domainAdress: "",
+    //   });
+
     setInputs({
       ...inputs,
       domainAdress: event.target.value,

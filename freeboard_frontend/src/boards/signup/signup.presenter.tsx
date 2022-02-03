@@ -33,7 +33,10 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
             placeholder="이메일을 입력하세요"
           ></s.id>
           <s.inputdomain
-            value={`@${props.inputs.domainAdress}`}
+            readOnly={
+              props.inputs.inpuinAdress !== "직접입력" &&
+              props.inputs.domainAdress !== ""
+            }
           ></s.inputdomain>
           <s.domainAddress id="domainAdress" onChange={props.selectDomain}>
             <option>직접입력</option>

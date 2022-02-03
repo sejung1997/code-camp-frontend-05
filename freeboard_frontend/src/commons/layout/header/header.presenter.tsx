@@ -13,27 +13,28 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
       {props.isVisible.signIn && (
         <SignInPage isVisible={props.isVisible} Cancel={props.Cancel} />
       )}
-      <he.H2> 자유 게시판</he.H2>
+
       <he.Menu>
-        <he.logo src="/images/nasa3.png" onClick={props.h}></he.logo>
-        <he.H3L address={props.address} onClick={props.l}>
-          게시판 목록
-        </he.H3L>
+        <he.inner>
+          <he.logo src="/images/nasa3.png" onClick={props.h}></he.logo>
 
-        <he.H3 address={props.address}>게시글 보기</he.H3>
-
-        <he.H3N address={props.address} onClick={props.n}>
-          게시판 등록
-        </he.H3N>
-
-        <he.H3E address={props.address}>게시판 수정</he.H3E>
-
-        <he.H3M id="signUp" onClick={props.r} isVisible={props.isVisible}>
-          회원가입
-        </he.H3M>
-        <he.H3log id="signIn" onClick={props.r}>
-          로그인
-        </he.H3log>
+          <he.signup id="signUp" onClick={props.r} isVisible={props.isVisible}>
+            회원가입
+          </he.signup>
+          <he.signin id="signIn" onClick={props.r}>
+            로그인
+          </he.signin>
+          <he.mainMenu>
+            <he.H3L address={props.address} onClick={props.l}>
+              게시판 목록
+            </he.H3L>
+            <he.H3 address={props.address}>게시글 보기</he.H3>
+            <he.H3N address={props.address} onClick={props.n}>
+              게시판 등록
+            </he.H3N>
+            <he.H3E address={props.address}>게시판 수정</he.H3E>
+          </he.mainMenu>
+        </he.inner>
       </he.Menu>
     </div>
   );
