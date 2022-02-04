@@ -10,9 +10,10 @@ export default function BannerPage() {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
-    arrows: false,
+    autoplaySpeed: 5000,
+    // arrows: false,
     cssEase: "linear",
   };
+
   return <BannerPageUI settings={settings} />;
 }

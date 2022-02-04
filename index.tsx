@@ -42,7 +42,7 @@ export default function LayoutPage(props: Iprops) {
   return (
     <div>
       <HeaderPage />
-      {/* <LayoutBanner></LayoutBanner> */}
+      <LayoutBanner></LayoutBanner>
       <LayoutNavi></LayoutNavi>
       <Body>
         {props.children}
