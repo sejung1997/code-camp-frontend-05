@@ -10,16 +10,15 @@ interface Iprops {
 }
 
 export default function LayoutPage(props: Iprops) {
-  const [roketPosition, setRocketPosition] = useState(0);
+  const [rocketPosition, setRocketPosition] = useState(0);
   useEffect(() => {
     const addlistener = () => {
       window.addEventListener("scroll", function () {
-        console.log(window.scrollY);
-        setRocketPosition(500);
+        setRocketPosition(window.scrollY);
       });
     };
     addlistener();
-    console.log(window.scrollY);
+    console.log(rocketPosition);
     return () => {
       console.log("여기서 나갈래요");
     };
@@ -36,7 +35,7 @@ export default function LayoutPage(props: Iprops) {
   const Rocket = styled.img`
     width: 300px;
     position: absolute;
-    left: ${(props) => props.roketPosition}+ "px";
+    left: ${(props) => props.rocketPosition};
   `;
   const Rocket2 = styled.img`
     width: 300px;
@@ -53,7 +52,7 @@ export default function LayoutPage(props: Iprops) {
         {props.children}
         <Rocket2 src="/images/rocket3.png"></Rocket2>
         <Rocket
-          roketPosition={roketPosition}
+          rocketPosition={rocketPosition}
           src="/images/rocket2.png"
         ></Rocket>
       </Body>
