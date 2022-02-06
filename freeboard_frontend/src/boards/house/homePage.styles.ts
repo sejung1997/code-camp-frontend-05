@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 export const Wrapper = styled.div`
-  /* background-color: black; */
-
-  /* padding: 100px 50px; */
+  padding: 100px 50px;
   border: none;
+  color: #fff;
 `;
 
 export const SliderItem = styled.img`
@@ -14,3 +13,70 @@ export const SliderItem = styled.img`
   left: 0;
 `;
 export const planet = styled.div``;
+
+export const todayUniverse = styled.div`
+  margin-top: 300px;
+  padding: 50px 100px;
+  width: 1200px;
+  margin: auto;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const setYear = styled.select`
+  padding: 5px;
+  margin-right: 2px;
+`;
+export const setMonth = styled.select`
+  padding: 5px;
+  margin-right: 2px;
+`;
+
+export const setDay = styled.select`
+  padding: 5px;
+  margin-right: 2px;
+`;
+
+export const inputWrapper = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  background-color: black;
+  color: black;
+`;
+
+export const todayImg = styled.img`
+  height: 400px;
+  width: 400px;
+  margin-right: 50px;
+`;
+export const searchBtn = styled.button`
+  color: #fff;
+  background-color: black;
+  width: 80px;
+  height: 35px;
+`;
+export const title = styled.div`
+  font-size: 30px;
+  margin-bottom: 50px;
+  text-align: center;
+  font-weight: bold;
+`;
+export const data = styled.div`
+  display: flex;
+`;
+export const todayExplan = styled.div`
+  font-size: 18px;
+`;
+
+export const todayTitle = styled.div`
+  font-size: 25px;
+  margin-bottom: 30px;
+  font-weight: bold;
+`;
+
+export const todayDate = styled.div`
+  font-size: 18px;
+  margin-bottom: 1px;
+`;

@@ -1,38 +1,37 @@
 import Slider from "react-slick";
-import * as he from "./homePage.styles";
-interface IBannerPageUI {
-  settings: any;
-}
+import { DatePicker, Space } from "antd";
+import * as home from "./homePage.styles";
+import { IHomePageUI } from "./homePage.types";
+import moment from "moment";
 
-export default function BannerPageUI(props: IBannerPageUI) {
+export default function BannerPageUI(props: IHomePageUI) {
   return (
-    <he.Wrapper>
+    <home.Wrapper>
       <Slider {...props.settings}>
-        <he.planet>
-          <he.SliderItem src="/images/planet11.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet22.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet3.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet4.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet5.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet6.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet7.png"></he.SliderItem>
-        </he.planet>
-        <he.planet>
-          <he.SliderItem src="/images/planet8.png"></he.SliderItem>
-        </he.planet>
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
+          <home.planet key={x}>
+            <home.SliderItem src={`images/planet${x}.png`}></home.SliderItem>
+          </home.planet>
+        ))}
       </Slider>
-    </he.Wrapper>
+
+      <home.todayUniverse>
+        <home.title>Today's universe</home.title>
+        <home.inputWrapper>
+          <Space direction="vertical">
+            <DatePicker onChange={props.setDate} />
+          </Space>
+
+          <home.searchBtn onClick={props.dataSearch}>검색</home.searchBtn>
+        </home.inputWrapper>
+        <home.todayDate>{props.todayData?.date}</home.todayDate>
+        <home.todayTitle>{props.todayData?.title}</home.todayTitle>
+        <home.data>
+          <home.todayImg src={props.todayData?.url} />
+
+          <home.todayExplan>{props.todayData?.explanation}</home.todayExplan>
+        </home.data>
+      </home.todayUniverse>
+    </home.Wrapper>
   );
 }

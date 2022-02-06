@@ -11,18 +11,18 @@ interface Iprops {
 
 export default function LayoutPage(props: Iprops) {
   const [rocketPosition, setRocketPosition] = useState(0);
-  useEffect(() => {
-    const addlistener = () => {
-      window.addEventListener("scroll", function () {
-        setRocketPosition(window.scrollY);
-      });
-    };
-    addlistener();
-    console.log(rocketPosition);
-    return () => {
-      console.log("여기서 나갈래요");
-    };
-  }, []);
+  // useEffect(() => {
+  //   const addlistener = () => {
+  //     window.addEventListener("scroll", function () {
+  //       setRocketPosition(window.scrollY);
+  //     });
+  //   };
+  //   addlistener();
+  //   console.log(rocketPosition);
+  //   return () => {
+  //     console.log("여기서 나갈래요");
+  //   };
+  // }, []);
   const Body = styled.div`
     margin-top: 150px;
     background-image: url("/images/un.png");
@@ -33,14 +33,16 @@ export default function LayoutPage(props: Iprops) {
     height: 5000px;
   `;
   const Rocket = styled.img`
-    width: 300px;
+    width: 200px;
+    top: 400px;
     position: absolute;
-    left: ${(props) => props.rocketPosition};
+    /* left: ${(props) => props.rocketPosition}; */
   `;
   const Rocket2 = styled.img`
-    width: 300px;
+    width: 250px;
+    top: 150px;
     position: absolute;
-    right: 100px;
+    right: 50px;
   `;
 
   return (
@@ -52,7 +54,7 @@ export default function LayoutPage(props: Iprops) {
         {props.children}
         <Rocket2 src="/images/rocket3.png"></Rocket2>
         <Rocket
-          rocketPosition={rocketPosition}
+          // rocketPosition={rocketPosition}
           src="/images/rocket2.png"
         ></Rocket>
       </Body>
