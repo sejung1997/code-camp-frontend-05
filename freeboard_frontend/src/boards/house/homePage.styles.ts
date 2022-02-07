@@ -19,7 +19,6 @@ export const todayUniverse = styled.div`
   padding: 50px 100px;
   width: 1200px;
   margin: auto;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,7 +46,6 @@ export const inputWrapper = styled.div`
 `;
 
 export const todayImg = styled.img`
-  height: 400px;
   width: 400px;
   margin-right: 50px;
 `;

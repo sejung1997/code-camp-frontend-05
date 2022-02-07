@@ -43,11 +43,6 @@ export default function BannerPage() {
   };
 
   return (
-    <BannerPageUI
-      settings={settings}
-      todayData={todayData}
-      todayDate={todayDate}
-      setDate={setDate}
-    />
+    <BannerPageUI settings={settings} todayData={todayData} setDate={setDate} />
   );
 }

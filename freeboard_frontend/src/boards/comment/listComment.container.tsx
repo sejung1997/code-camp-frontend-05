@@ -13,7 +13,7 @@ export default function ListCommentPage() {
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENT, {
-    variables: { page: 1, boardId: String(router.query.aaa) },
+    variables: { boardId: String(router.query.aaa) },
   });
 
   const onLoadMore = () => {

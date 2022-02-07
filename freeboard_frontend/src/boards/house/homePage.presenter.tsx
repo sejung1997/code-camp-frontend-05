@@ -2,7 +2,6 @@ import Slider from "react-slick";
 import { DatePicker, Space } from "antd";
 import * as home from "./homePage.styles";
 import { IHomePageUI } from "./homePage.types";
-import moment from "moment";
 
 export default function BannerPageUI(props: IHomePageUI) {
   return (
@@ -21,8 +20,6 @@ export default function BannerPageUI(props: IHomePageUI) {
           <Space direction="vertical">
             <DatePicker onChange={props.setDate} />
           </Space>
-
-          <home.searchBtn onClick={props.dataSearch}>검색</home.searchBtn>
         </home.inputWrapper>
         <home.todayDate>{props.todayData?.date}</home.todayDate>
         <home.todayTitle>{props.todayData?.title}</home.todayTitle>
