@@ -7,15 +7,11 @@ import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../commons/types/generated/types";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import firebase from "firebase/compat/app";
-import "firebaseui/dist/firebaseui.css";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import firebase from "firebase/compat/app";
+// import "firebaseui/dist/firebaseui.css";
 
-import * as firebaseui from "firebaseui";
+// import * as firebaseui from "firebaseui";
 export default function SignUpPage(props: IBoardSignInPageProps) {
   const [inputs, setInputs] = useState({
     email: "",
@@ -23,10 +19,10 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
     isValid: false,
   });
 
-  const [loginUser] = useMutation<
-    Pick<IMutation, "loginUser">,
-    IMutationLoginUserArgs
-  >(LOGIN_USER);
+  // const [loginUser] = useMutation<
+  //   Pick<IMutation, "loginUser">,
+  //   IMutationLoginUserArgs
+  // >(LOGIN_USER);
 
   const changeInputs = (event: ChangeEvent<HTMLInputElement>) => {
     setInputs({
@@ -44,10 +40,18 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
       signInWithEmailAndPassword(auth, inputs.email, inputs.password)
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          user.displayName;
           // ...
           message.info("로그인이 완료되었습니다");
+          const user = auth.currentUser;
+
+          if (user !== null) {
+            props.setUserData({
+              creationTime: user.metadata.creationTime,
+              lastSignInTime: user.metadata.lastSignInTime,
+              email: user.email,
+              emailVerified: user.emailVerified,
+            });
+          }
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -67,19 +71,21 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
       message.info(error.message);
     }
   };
-  const user = auth.currentUser;
-  if (user !== null) console.log(user.emailVerified);
-  const ui = new firebaseui.auth.AuthUI(firebase.auth())
-  ui.start('#firebaseui-auth-container', {
-    signInOptions: [{
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,  
-      signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
-    },
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      
-    ],
-    // Other config options...
-  });)
+
+  console.log();
+
+  // const ui = new firebaseui.auth.AuthUI(firebase.auth());
+  // ui.start("#firebaseui-auth-container", {
+  //   signInOptions: [
+  //     {
+  //       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  //       signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+  //     },
+  //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  //   ],
+  //   // Other config options...
+  // });
+
   return (
     <SignUpPageUI
       changeInputs={changeInputs}

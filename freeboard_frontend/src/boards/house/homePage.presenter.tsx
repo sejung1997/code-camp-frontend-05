@@ -11,6 +11,7 @@ export default function BannerPageUI(props: IHomePageUI) {
           <Space direction="vertical">
             <DatePicker onChange={props.setDate} />
           </Space>
+          <home.searchBtn onClick={props.imgSearch}>검색</home.searchBtn>
         </home.inputWrapper>
         <home.todayDate>{props.todayData?.date}</home.todayDate>
         <home.todayTitle>{props.todayData?.title}</home.todayTitle>

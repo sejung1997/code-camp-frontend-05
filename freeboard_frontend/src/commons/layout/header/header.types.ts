@@ -1,14 +1,17 @@
 import { MouseEvent } from "react";
 
 export interface IHeaerPageUIProps {
-  listPage: () => void;
+  moveListPage: () => void;
   address: String;
   newPage: () => void;
-  registerPage: (event: MouseEvent<HTMLSpanElement>) => void;
+  moveRegisterPage: (event: MouseEvent<HTMLSpanElement>) => void;
   isVisible: any;
   Cancel: () => void;
-  homePage: () => void;
-  imagePage: () => void;
+  moveHomePage: () => void;
+  moveImagePage: () => void;
+  userData: any;
+  setUserData: () => void;
+  moveFirePage: () => void;
 }
 export interface IAddressProps {
   address?: String;

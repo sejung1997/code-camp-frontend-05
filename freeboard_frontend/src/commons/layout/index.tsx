@@ -2,7 +2,7 @@ import { ReactChild, useEffect, useState } from "react";
 import HeaderPage from "./header/header.container";
 // import LayoutFooter from "./footer";
 // import LayoutNavi from "./navigation";
-// import LayoutBanner from "./banner/banner.container";
+import LayoutBanner from "./banner/banner.container";
 import styled from "@emotion/styled";
 
 interface Iprops {
@@ -49,7 +49,7 @@ export default function LayoutPage(props: Iprops) {
   return (
     <div>
       <HeaderPage />
-      {/* <LayoutBanner></LayoutBanner> */}
+      <LayoutBanner></LayoutBanner>
       {/* <LayoutNavi></LayoutNavi> */}
       <Body>
         {props.children}

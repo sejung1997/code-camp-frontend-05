@@ -1,20 +1,33 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./boardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./boardWrite.container.mutation";
+import {
+  CREATE_BOARD,
+  UPDATE_BOARD,
+  UPLOAD_FILE,
+} from "./boardWrite.container.mutation";
+import {
+  IMutation,
+  IMutationUploadFileArgs,
+} from "../../commons/types/generated/types";
 import { IBoardListIProps } from "../list/boardList.types";
 import { message } from "antd";
-
+import { checkFileValidataion } from "../../commons/validation/index";
 export default function Home(props: IBoardListIProps) {
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [utube, setUtube] = useState("");
-  const [Zonecode, setZonecode] = useState("");
-  const [address, setAddress] = useState("");
-  const [addressDetail, setAddressDetail] = useState("");
+  const [imgUrls, setImgUrls] = useState([]);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [inputs, setInputs] = useState({
+    writer: "",
+    password: "",
+    title: "",
+    contents: "",
+    utube: "",
+    Zonecode: "",
+    address: "",
+    addressDetail: "",
+    imgUrl: "",
+  });
   const [isAskVisible, setIsAskVisible] = useState(false);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,30 +35,35 @@ export default function Home(props: IBoardListIProps) {
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
+  function changeInputs(event: ChangeEvent<HTMLInputElement>) {
+    setInputs({ ...inputs, [event.target.id]: event.target.value });
+  }
+  const onClickImg = () => {
+    fileRef.current?.click();
+  };
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.files.length);
+    // {name: 'planet1.png', lastModified: 1644122148003, lastModifiedDate: Sun Feb 06 2022 13:35:48 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 1967536, …}
 
-  function changeWriter(event: ChangeEvent<HTMLInputElement>) {
-    setWriter(event.target.value);
-  }
+    for (let i = 0; i < event.target.files.length; i++) {
+      // eslint-disable-next-line no-unused-expressions
+      const file = event.target.files?.[i];
+      const isValid = checkFileValidataion(file);
 
-  function changePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value);
-  }
-  function changeTitle(event: ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value);
-  }
-  function changeContent(event: ChangeEvent<HTMLTextAreaElement>) {
-    setContent(event.target.value);
-  }
-  function changeUtube(event: ChangeEvent<HTMLInputElement>) {
-    setUtube(event.target.value);
-  }
-  function changeAdress(event: ChangeEvent<HTMLInputElement>) {
-    setAddress(event.target.value);
-  }
-  function changeAdressDetail(event: ChangeEvent<HTMLInputElement>) {
-    setAddressDetail(event.target.value);
-  }
-
+      if (!isValid) return;
+      try {
+        const result = await uploadFile({ variables: { file } });
+        // setImgUrls[i](result.data?.uploadFile.url || "");
+      } catch (error) {
+        message.info(message);
+      }
+    }
+  };
+  console.log(imgUrls);
   async function submit() {
     try {
       const result = await createBoard({
@@ -79,17 +97,17 @@ export default function Home(props: IBoardListIProps) {
     addressDetail: String;
   }
   const boardAddress: IboardAddress = {
-    zipcode: Zonecode,
-    address,
-    addressDetail,
+    zipcode: inputs.Zonecode,
+    address: inputs.address,
+    addressDetail: inputs.addressDetail,
   };
   const myVariables2: Isubmit = {
     createBoardInput: {
-      writer,
-      title,
-      password,
-      contents: content,
-      youtubeUrl: utube,
+      writer: inputs.writer,
+      title: inputs.title,
+      password: inputs.password,
+      contents: inputs.contents,
+      youtubeUrl: inputs.utube,
       boardAddress,
     },
   };
@@ -115,19 +133,25 @@ export default function Home(props: IBoardListIProps) {
     const MyVariables: IMyVariables = {
       updateBoardInput,
       boardId: String(router.query.aaa),
-      password,
+      password: inputs.password,
     };
 
-    if (title !== "") MyVariables.updateBoardInput.title = title;
-    if (content !== "") MyVariables.updateBoardInput.contents = content;
-    if (Zonecode !== "" || address !== "" || addressDetail !== "")
+    if (inputs.title !== "") MyVariables.updateBoardInput.title = inputs.title;
+    if (inputs.contents !== "")
+      MyVariables.updateBoardInput.contents = inputs.contents;
+    if (
+      inputs.Zonecode !== "" ||
+      inputs.address !== "" ||
+      inputs.addressDetail !== ""
+    )
       MyVariables.updateBoardInput.boardAddress = {};
-    if (Zonecode !== "")
-      MyVariables.updateBoardInput.boardAddress.zipcode = Zonecode;
-    if (address !== "")
-      MyVariables.updateBoardInput.boardAddress.address = address;
-    if (addressDetail !== "")
-      MyVariables.updateBoardInput.boardAddress.addressDetail = addressDetail;
+    if (inputs.Zonecode !== "")
+      MyVariables.updateBoardInput.boardAddress.zipcode = inputs.Zonecode;
+    if (inputs.address !== "")
+      MyVariables.updateBoardInput.boardAddress.address = inputs.address;
+    if (inputs.addressDetail !== "")
+      MyVariables.updateBoardInput.boardAddress.addressDetail =
+        inputs.addressDetail;
 
     try {
       const result2 = await updateBoard({
@@ -147,38 +171,34 @@ export default function Home(props: IBoardListIProps) {
     setIsModalVisible((prev) => !prev);
   };
   const onCompletePostcode = (data) => {
-    setZonecode(data?.zonecode);
-    setAddress(data?.address);
+    setInputs({ ...inputs, Zonecode: data?.zonecode, address: data?.address });
+
     showModal();
   };
   const onAsk = () => {
     if (!props.isEdit) {
-      if (writer && password && title && content) {
+      if (inputs.writer && inputs.password && inputs.title && inputs.contents) {
         setIsAskVisible((prev) => !prev);
       } else message.info("모두 입력해주세요");
     } else setIsAskVisible((prev) => !prev);
   };
   return (
     <BoardWriteUI
-      changeWriter={changeWriter}
-      changePassword={changePassword}
-      changeTitle={changeTitle}
-      changeContent={changeContent}
       submit={submit}
       isEdit={props.isEdit}
       update={update}
       data={props.data}
       cancel={cancel}
-      changeUtube={changeUtube}
       isModalVisible={isModalVisible}
       showModal={showModal}
       onCompletePostcode={onCompletePostcode}
-      zonecode={Zonecode}
-      address={address}
-      changeAdress={changeAdress}
-      changeAdressDetail={changeAdressDetail}
       onAsk={onAsk}
       isAskVisible={isAskVisible}
+      inputs={inputs}
+      changeInputs={changeInputs}
+      onClickImg={onClickImg}
+      fileRef={fileRef}
+      onChangeFile={onChangeFile}
     />
   );
 }

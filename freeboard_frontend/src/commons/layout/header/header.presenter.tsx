@@ -8,38 +8,51 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
   return (
     <div>
       {props.isVisible.signUp && (
-        <SignUpPage isVisible={props.isVisible} Cancel={props.Cancel} />
+        <SignUpPage
+          isVisible={props.isVisible}
+          Cancel={props.Cancel}
+          userData={props.userData}
+        />
       )}
       {props.isVisible.signIn && (
-        <SignInPage isVisible={props.isVisible} Cancel={props.Cancel} />
+        <SignInPage
+          isVisible={props.isVisible}
+          Cancel={props.Cancel}
+          setUserData={props.setUserData}
+        />
       )}
 
       <he.Menu>
         <he.inner>
-          <he.logo src="/images/nasa3.png" onClick={props.homePage}></he.logo>
+          <he.logo
+            src="/images/nasa3.png"
+            onClick={props.moveHomePage}
+          ></he.logo>
 
           <he.signup
             id="signUp"
-            onClick={props.registerPage}
+            onClick={props.moveRegisterPage}
             isVisible={props.isVisible}
           >
-            회원가입
+            {props.userData.email ? "회원정보" : "회원가입"}
           </he.signup>
-          <he.signin id="signIn" onClick={props.registerPage}>
-            로그인
+          <he.signin
+            id="signIn"
+            onClick={props.moveRegisterPage}
+            isVisible={props.isVisible}
+          >
+            {props.userData.email ? "로그아웃" : "로그인"}
           </he.signin>
           <he.mainMenu>
-            <he.H3L address={props.address} onClick={props.imagePage}>
+            <he.H3L address={props.address} onClick={props.moveFirePage}>
+              파이어 베이스
+            </he.H3L>
+            <he.H3L address={props.address} onClick={props.moveImagePage}>
               사진
             </he.H3L>
-            <he.H3L address={props.address} onClick={props.listPage}>
+            <he.H3L address={props.address} onClick={props.moveListPage}>
               게시판 목록
             </he.H3L>
-            <he.H3 address={props.address}>게시글 보기</he.H3>
-            <he.H3N address={props.address} onClick={props.newPage}>
-              게시판 등록
-            </he.H3N>
-            <he.H3E address={props.address}>게시판 수정</he.H3E>
           </he.mainMenu>
         </he.inner>
       </he.Menu>

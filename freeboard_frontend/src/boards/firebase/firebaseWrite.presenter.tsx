@@ -1,7 +1,7 @@
 import { Modal } from "antd";
 
 import { IBoardUIIProps } from "../list/boardList.types";
-import * as A from "./boardWrite.styles";
+import * as A from "./firebaseWrite.styles";
 
 export default function BoardWriteUI(props: IBoardUIIProps) {
   return (
@@ -58,8 +58,8 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
           <A.InputNum
             placeholder={"0512"}
             value={
-              props.inputs.Zonecode
-                ? props.inputs.Zonecode
+              props.inputs.zonecode
+                ? props.inputs.zonecode
                 : props.data?.fetchBoard.boardAddress.zipcode
             }
           ></A.InputNum>
@@ -111,25 +111,15 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
         <A.OptionWrapper>
           <A.Title>사진 첨부</A.Title>
           <A.BoxGroup>
-            <A.Box onClick={props.onClickImg}>
-              +<br></br>Upload
-            </A.Box>
             <A.Box>
               +<br></br>Upload
             </A.Box>
             <A.Box>
+              +<br></br>/firebase
+            </A.Box>
+            <A.Box>
               +<br></br>Upload
             </A.Box>
-            <input
-              style={{ display: "none" }}
-              onChange={props.onChangeFile}
-              type="file"
-              ref={props.fileRef}
-              multiple
-            />
-            <img
-              src={`https://storage.googleapis.com/${props.inputs.imgUrl}`}
-            />
           </A.BoxGroup>
         </A.OptionWrapper>
         <A.OptionWrapper>

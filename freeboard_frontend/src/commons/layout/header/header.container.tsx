@@ -9,39 +9,49 @@ export default function HeaderPage() {
     signUp: false,
     signIn: false,
   });
+  const [userData, setUserData] = useState({
+    creationTime: "",
+    lastSignInTime: "",
+    email: "",
+    emailVerified: false,
+  });
   const router = useRouter();
   const address = router.asPath;
 
-  const listPage = () => {
+  const moveListPage = () => {
     router.push("/boardList");
   };
-  const newPage = () => {
-    router.push("/NEW");
-  };
-  const registerPage = (event) => {
+
+  const moveRegisterPage = (event) => {
     setIsVisible({ ...isVisible, [event.target.id]: true });
-    // router.push("/signIn");
     console.log(isVisible);
+    // router.push("/signIn");
   };
   const Cancel = () => {
     setIsVisible({ signUp: false, signIn: false });
+    console.log(isVisible);
   };
-  const homePage = () => {
+  const moveHomePage = () => {
     router.push("/");
   };
-  const imagePage = () => {
+  const moveImagePage = () => {
     router.push("/ImageSearch");
+  };
+  const moveFirePage = () => {
+    router.push("./firebase");
   };
   return (
     <HeaderPageUI
-      imagePage={imagePage}
-      listPage={listPage}
+      moveImagePage={moveImagePage}
+      moveListPage={moveListPage}
+      moveRegisterPage={moveRegisterPage}
       address={address}
-      newPage={newPage}
-      registerPage={registerPage}
       isVisible={isVisible}
       Cancel={Cancel}
-      homePage={homePage}
+      userData={userData}
+      setUserData={setUserData}
+      moveHomePage={moveHomePage}
+      moveFirePage={moveFirePage}
       // loginVisible={loginVisible}
     />
   );

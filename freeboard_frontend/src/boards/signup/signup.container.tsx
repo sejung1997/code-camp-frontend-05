@@ -85,7 +85,7 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
       domainAdress: event.target.value,
     });
   };
-
+  console.log(props.userData);
   return (
     <SignUpPageUI
       changeInputs={changeInputs}
@@ -94,6 +94,7 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
       Cancel={props.Cancel}
       isVisible={props.isVisible}
       validMsg={validMsg}
+      userData={props.userData}
       selectDomain={selectDomain}
     />
   );

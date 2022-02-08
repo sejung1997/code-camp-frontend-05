@@ -138,3 +138,13 @@ export const ButtonRegister = styled.button`
       ? "background-color: #6482b9;"
       : "background-color: #fff;color:#ccc"}; */
 `;
+export const email = styled.div`
+  margin-bottom: 10px;
+`;
+export const creationTime = styled.div`
+  margin-bottom: 10px;
+`;
+export const lastSignTime = styled.div`
+  margin-bottom: 10px;
+`;
+export const emailValid = styled.div``;

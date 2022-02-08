@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 `;
 
 export const todayUniverse = styled.div`
-  margin-top: 300px;
+  margin-top: 150px;
   padding: 50px 100px;
   width: 1200px;
   margin: auto;
@@ -41,10 +41,11 @@ export const todayImg = styled.img`
   margin-right: 50px;
 `;
 export const searchBtn = styled.button`
-  color: #fff;
-  background-color: black;
   width: 80px;
   height: 35px;
+  margin-left: 10px;
+  background: black;
+  color: #fff;
 `;
 export const title = styled.div`
   font-size: 30px;
