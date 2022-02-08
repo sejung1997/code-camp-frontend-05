@@ -24,7 +24,7 @@ export default function LayoutPage(props: Iprops) {
   //   };
   // }, []);
   const Body = styled.div`
-    margin-top: 150px;
+    /* margin-top: 150px; */
     background-image: url("/images/un.png");
     background-position: center;
     background-size: cover;
@@ -34,13 +34,14 @@ export default function LayoutPage(props: Iprops) {
   `;
   const Rocket = styled.img`
     width: 200px;
+    left: 0;
     top: 400px;
     position: absolute;
     /* left: ${(props) => props.rocketPosition}; */
   `;
   const Rocket2 = styled.img`
     width: 250px;
-    top: 150px;
+    top: 0;
     position: absolute;
     right: 50px;
   `;

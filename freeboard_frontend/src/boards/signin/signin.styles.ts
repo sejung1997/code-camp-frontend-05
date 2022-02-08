@@ -114,12 +114,16 @@ export const ButtonRegister = styled.button`
   background-color: #6482b9;
   color: #fff;
   :hover {
+    cursor: pointer;
+    background-color: #3c5087;
+  }
+  /* :hover {
     ${(props) =>
-      props.isValid ? "cursor: pointer;background-color: #3c5087;" : "none"}
+    props.isValid ? "cursor: pointer;background-color: #3c5087;" : "none"}
   }
 
   ${(props) =>
     props.isValid
       ? "background-color: #6482b9;"
-      : "background-color: #fff;color:#ccc"};
+      : "background-color: #fff;color:#ccc"}; */
 `;

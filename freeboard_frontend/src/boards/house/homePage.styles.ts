@@ -5,15 +5,6 @@ export const Wrapper = styled.div`
   color: #fff;
 `;
 
-export const SliderItem = styled.img`
-  height: 250px;
-  display: block;
-  margin: auto;
-  right: 0;
-  left: 0;
-`;
-export const planet = styled.div``;
-
 export const todayUniverse = styled.div`
   margin-top: 300px;
   padding: 50px 100px;

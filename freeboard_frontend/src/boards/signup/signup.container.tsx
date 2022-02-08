@@ -7,6 +7,7 @@ import {
   IMutation,
   IMutationCreateUserArgs,
 } from "../../commons/types/generated/types";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function SignUpPage(props: IBoardSignUpPageProps) {
   const [inputs, setInputs] = useState({
@@ -16,14 +17,11 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
     name: "",
     domainAdress: "",
   });
-  const [validMsg, setValidMsg] = useState({
-    emailMsg: "",
-    passMsg: "",
-  });
-  const [createUser] = useMutation<
-    Pick<IMutation, "createUser">,
-    IMutationCreateUserArgs
-  >(CREATE_USER);
+  const [validMsg, setValidMsg] = useState("");
+  // const [createUser] = useMutation<
+  //   Pick<IMutation, "createUser">,
+  //   IMutationCreateUserArgs
+  // >(CREATE_USER);
 
   const changeInputs = (event: ChangeEvent<HTMLInputElement>) => {
     setInputs({
@@ -31,36 +29,49 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
       [event.target.id]: event.target.value,
     });
     if (event.target.id === "password2") {
-      setValidMsg({ ...validMsg, passMsg: "비밀번호가 일치하지 않습니다" });
+      setValidMsg("비밀번호가 일치하지 않습니다");
+      if (inputs.password === inputs.password2)
+        setValidMsg("비밀번호가 일치합니다");
     }
-    if (inputs.password === inputs.password2)
-      setValidMsg({ ...validMsg, passMsg: "비밀번호가 일치합니다" });
   };
 
   const register = async () => {
     try {
-      console.log(inputs);
-      await createUser({
-        variables: {
-          createUserInput: {
-            email: inputs.email,
-            password: inputs.password,
-            name: inputs.name,
-          },
-        },
-      });
+      const auth = getAuth();
+      createUserWithEmailAndPassword(
+        auth,
+        `${inputs.email}@${inputs.domainAdress}`,
+        inputs.password
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          message.info("회원가입이 완료되었습니다");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          message.info(errorCode);
+          const errorMessage = error.message;
+          message.info(errorMessage);
+
+          // ..
+        });
+      // console.log(inputs);
+      // await createUser({
+      //   variables: {
+      //     createUserInput: {
+      //       email: inputs.email,
+      //       password: inputs.password,
+      //       name: inputs.name,
+      //     },
+      //   },
+      // });
       props.Cancel();
-      message.info("회원가입이 완료되었습니다");
     } catch (error) {
-      alert(error.message);
+      message.info(error.message);
     }
   };
-  // if (inputs.email && inputs.email.includes("@"))
-  //   setValidMsg({ ...validMsg, emailMsg: "사용 가능한 이메일 입니다." });
-  // else setValidMsg({ ...validMsg, emailMsg: "사용 불가능한 이메일 입니다." });
-  const isValid =
-    validMsg.emailMsg === "사용 가능한 이메일 입니다." &&
-    validMsg.passMsg === "비밀번호가 일치합니다";
 
   const selectDomain = (event) => {
     // if (event.target.value === "직접입력") {
@@ -74,6 +85,7 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
       domainAdress: event.target.value,
     });
   };
+
   return (
     <SignUpPageUI
       changeInputs={changeInputs}
@@ -82,7 +94,6 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
       Cancel={props.Cancel}
       isVisible={props.isVisible}
       validMsg={validMsg}
-      isValid={isValid}
       selectDomain={selectDomain}
     />
   );

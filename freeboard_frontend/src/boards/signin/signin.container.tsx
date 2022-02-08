@@ -7,7 +7,15 @@ import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../commons/types/generated/types";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebaseui/dist/firebaseui.css";
 
+import * as firebaseui from "firebaseui";
 export default function SignUpPage(props: IBoardSignInPageProps) {
   const [inputs, setInputs] = useState({
     email: "",
@@ -28,24 +36,50 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
   };
   if (inputs.email && inputs.password) inputs.isValid = true;
   if (!inputs.email || !inputs.password) inputs.isValid = false;
+  const auth = getAuth();
 
   const register = async () => {
     console.log(inputs);
     try {
-      console.log(inputs);
-      await loginUser({
-        variables: {
-          email: inputs.email,
-          password: inputs.password,
-        },
-      });
+      signInWithEmailAndPassword(auth, inputs.email, inputs.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          user.displayName;
+          // ...
+          message.info("로그인이 완료되었습니다");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          message.info(errorCode);
+          message.info(errorMessage);
+        });
+      // console.log(inputs);
+      // await loginUser({
+      //   variables: {
+      //     email: inputs.email,
+      //     password: inputs.password,
+      //   },
+      // });
       props.Cancel();
-      message.info("로그인이 완료되었습니다");
     } catch (error) {
       message.info(error.message);
     }
   };
-
+  const user = auth.currentUser;
+  if (user !== null) console.log(user.emailVerified);
+  const ui = new firebaseui.auth.AuthUI(firebase.auth())
+  ui.start('#firebaseui-auth-container', {
+    signInOptions: [{
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,  
+      signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
+    },
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      
+    ],
+    // Other config options...
+  });)
   return (
     <SignUpPageUI
       changeInputs={changeInputs}

@@ -16,20 +16,27 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
 
       <he.Menu>
         <he.inner>
-          <he.logo src="/images/nasa3.png" onClick={props.h}></he.logo>
+          <he.logo src="/images/nasa3.png" onClick={props.homePage}></he.logo>
 
-          <he.signup id="signUp" onClick={props.r} isVisible={props.isVisible}>
+          <he.signup
+            id="signUp"
+            onClick={props.registerPage}
+            isVisible={props.isVisible}
+          >
             회원가입
           </he.signup>
-          <he.signin id="signIn" onClick={props.r}>
+          <he.signin id="signIn" onClick={props.registerPage}>
             로그인
           </he.signin>
           <he.mainMenu>
-            <he.H3L address={props.address} onClick={props.l}>
+            <he.H3L address={props.address} onClick={props.imagePage}>
+              사진
+            </he.H3L>
+            <he.H3L address={props.address} onClick={props.listPage}>
               게시판 목록
             </he.H3L>
             <he.H3 address={props.address}>게시글 보기</he.H3>
-            <he.H3N address={props.address} onClick={props.n}>
+            <he.H3N address={props.address} onClick={props.newPage}>
               게시판 등록
             </he.H3N>
             <he.H3E address={props.address}>게시판 수정</he.H3E>

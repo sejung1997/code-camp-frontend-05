@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 export const Wrapper = styled.div`
-  /* margin-top: 176px; */
+  margin-top: 150px;
   /* background-color: black; */
-  background-image: url("/images/fgh.jfif");
+  background-image: url("/images/un.png");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* padding: 100px 50px; */
+  padding: 100px 50px;
   border: none;
 `;
 

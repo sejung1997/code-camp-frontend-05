@@ -12,13 +12,13 @@ export default function HeaderPage() {
   const router = useRouter();
   const address = router.asPath;
 
-  const l = () => {
+  const listPage = () => {
     router.push("/boardList");
   };
-  const n = () => {
+  const newPage = () => {
     router.push("/NEW");
   };
-  const r = (event) => {
+  const registerPage = (event) => {
     setIsVisible({ ...isVisible, [event.target.id]: true });
     // router.push("/signIn");
     console.log(isVisible);
@@ -26,19 +26,22 @@ export default function HeaderPage() {
   const Cancel = () => {
     setIsVisible({ signUp: false, signIn: false });
   };
-  const h = () => {
-    router.push("/boardList");
+  const homePage = () => {
+    router.push("/");
   };
-
+  const imagePage = () => {
+    router.push("/ImageSearch");
+  };
   return (
     <HeaderPageUI
-      l={l}
+      imagePage={imagePage}
+      listPage={listPage}
       address={address}
-      n={n}
-      r={r}
+      newPage={newPage}
+      registerPage={registerPage}
       isVisible={isVisible}
       Cancel={Cancel}
-      h={h}
+      homePage={homePage}
       // loginVisible={loginVisible}
     />
   );

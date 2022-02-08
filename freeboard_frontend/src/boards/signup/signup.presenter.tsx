@@ -13,12 +13,7 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
         <s.ButtonBack key="back" onClick={props.Cancel}>
           돌아가기
         </s.ButtonBack>,
-        <s.ButtonRegister
-          key="submit"
-          onClick={props.register}
-          disabled={!props.isValid}
-          isValid={props.isValid}
-        >
+        <s.ButtonRegister key="submit" onClick={props.register}>
           제출하기
         </s.ButtonRegister>,
       ]}
@@ -33,10 +28,7 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
             placeholder="이메일을 입력하세요"
           ></s.id>
           <s.inputdomain
-            readOnly={
-              props.inputs.inpuinAdress !== "직접입력" &&
-              props.inputs.domainAdress !== ""
-            }
+            value={`@${props.inputs.domainAdress}`}
           ></s.inputdomain>
           <s.domainAddress id="domainAdress" onChange={props.selectDomain}>
             <option>직접입력</option>
@@ -45,7 +37,7 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
             <option>hanmail.net</option>
             <option>nate.com</option>
           </s.domainAddress>
-          <s.validBtn onClick={props.authority}>인증번호 전송</s.validBtn>
+          {/* <s.validBtn onClick={props.authority}>인증번호 전송</s.validBtn> */}
           <s.validId>{props.validMsg.emailMsg}</s.validId>
           비밀번호 <br />
           <s.password
@@ -60,7 +52,9 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
             onChange={props.changeInputs}
             placeholder="비밀번호를 다시 입력하세요"
           ></s.password>
-          <s.validPs>{props.validMsg.passMsg}</s.validPs>
+          <s.validPs isValid={props.validMsg === "비밀번호가 일치합니다"}>
+            {props.validMsg}
+          </s.validPs>
           이름 <br />
           <s.name
             id="name"

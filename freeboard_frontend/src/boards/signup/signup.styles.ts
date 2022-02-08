@@ -79,7 +79,7 @@ export const validPs = styled.div`
   margin-bottom: 20px;
   padding: 5px 3px;
   font-size: 9px;
-  color: red;
+  color: ${(props) => (props.isValid ? "blue" : "red")};
 `;
 
 export const name = styled.input`
@@ -128,13 +128,13 @@ export const ButtonRegister = styled.button`
   border: none;
   background-color: #6482b9;
   color: #fff;
-  :hover {
+  /* :hover {
     ${(props) =>
-      props.isValid ? "cursor: pointer;background-color: #3c5087;" : "none"}
+    props.isValid ? "cursor: pointer;background-color: #3c5087;" : "none"}
   }
 
   ${(props) =>
     props.isValid
       ? "background-color: #6482b9;"
-      : "background-color: #fff;color:#ccc"};
+      : "background-color: #fff;color:#ccc"}; */
 `;
