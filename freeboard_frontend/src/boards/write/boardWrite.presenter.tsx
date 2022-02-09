@@ -118,6 +118,7 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
                 imgUrl={props.imgUrl}
                 setImgUrl={props.setImgUrl}
                 defaultUrl={props.data?.fetchBoard.images}
+                isEdit={props.isEdit}
               />
             ))}
           </A.BoxGroup>

@@ -44,7 +44,7 @@ export default function boardListPage(props) {
   //   >(FETCH_BOARDS);
   //   refetch({ page: 1, search: keyword });
   // };
-  console.log(s?.fetchBoards);
+  // console.log(s?.fetchBoards);
   return (
     <BoardListPageUI
       register={register}
@@ -55,8 +55,8 @@ export default function boardListPage(props) {
       count={dataBoardCount?.fetchBoardsCount}
       dataSearch={dataSearch}
       keyword={keyword}
-      onClickSearch={onClickSearch}
-      s={s}
+      // onClickSearch={onClickSearch}
+      // s={s}
     />
   );
 }

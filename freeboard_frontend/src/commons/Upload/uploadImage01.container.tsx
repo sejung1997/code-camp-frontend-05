@@ -12,7 +12,6 @@ import UploadImagePageUI from "./uploadImage01.presenter";
 import { IUploadImagePage } from "./uploadImage01.gql.types";
 export default function UploadImagePage(props: IUploadImagePage) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [isChange, setIsChange] = useState(false);
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
@@ -24,7 +23,6 @@ export default function UploadImagePage(props: IUploadImagePage) {
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const isValid = checkFileValidataion(file);
-    setIsChange(true);
     // console.log(file);
 
     if (!isValid) return;
@@ -50,7 +48,7 @@ export default function UploadImagePage(props: IUploadImagePage) {
       imgUrl={props.imgUrl}
       index={props.index}
       defaultUrl={props.defaultUrl}
-      isChange={isChange}
+      isEdit={props.isEdit}
     />
   );
 }

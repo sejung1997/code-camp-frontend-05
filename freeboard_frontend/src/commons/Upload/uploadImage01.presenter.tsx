@@ -7,7 +7,7 @@ export default function UploadImagePageUI(props) {
         <A.img
           imgUrl={props.imgUrl[props.index] || props.defaultUrl?.[props.index]}
           src={
-            props.defaultUrl?.[props.index] && !props.isChange
+            props.defaultUrl?.[props.index] && !props.isEdit
               ? `https://storage.googleapis.com/${
                   props.defaultUrl?.[props.index]
                 }`

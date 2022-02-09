@@ -25,7 +25,7 @@ export default function Home(props: IBoardListIProps) {
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
-
+  props.
   function changeInputs(event: ChangeEvent<HTMLInputElement>) {
     setInputs({ ...inputs, [event.target.id]: event.target.value });
   }
