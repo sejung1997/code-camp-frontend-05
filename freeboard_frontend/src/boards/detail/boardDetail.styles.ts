@@ -32,10 +32,10 @@ export const Title = styled.div`
   font-weight: bold;
   padding-top: 80px;
 `;
-export const MainImg = styled.div`
+export const MainImg = styled.img`
   margin-top: 40px;
-  width: 996px;
-  height: 286px;
+  width: 200px;
+  height: 200px;
   background-color: transparent;
 `;
 export const Contents = styled.div`

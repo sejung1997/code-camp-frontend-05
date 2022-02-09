@@ -2,21 +2,12 @@ import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./boardWrite.presenter";
-import {
-  CREATE_BOARD,
-  UPDATE_BOARD,
-  UPLOAD_FILE,
-} from "./boardWrite.container.mutation";
-import {
-  IMutation,
-  IMutationUploadFileArgs,
-} from "../../commons/types/generated/types";
+import { CREATE_BOARD, UPDATE_BOARD } from "./boardWrite.container.mutation";
+
 import { IBoardListIProps } from "../list/boardList.types";
 import { message } from "antd";
-import { checkFileValidataion } from "../../commons/validation/index";
 export default function Home(props: IBoardListIProps) {
-  const [imgUrls, setImgUrls] = useState([]);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [imgUrl, setImgUrl] = useState(["", "", ""]);
   const [inputs, setInputs] = useState({
     writer: "",
     password: "",
@@ -26,7 +17,6 @@ export default function Home(props: IBoardListIProps) {
     Zonecode: "",
     address: "",
     addressDetail: "",
-    imgUrl: "",
   });
   const [isAskVisible, setIsAskVisible] = useState(false);
 
@@ -35,35 +25,16 @@ export default function Home(props: IBoardListIProps) {
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
-  const [uploadFile] = useMutation<
-    Pick<IMutation, "uploadFile">,
-    IMutationUploadFileArgs
-  >(UPLOAD_FILE);
+
   function changeInputs(event: ChangeEvent<HTMLInputElement>) {
     setInputs({ ...inputs, [event.target.id]: event.target.value });
   }
-  const onClickImg = () => {
-    fileRef.current?.click();
-  };
-  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files.length);
-    // {name: 'planet1.png', lastModified: 1644122148003, lastModifiedDate: Sun Feb 06 2022 13:35:48 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 1967536, …}
 
-    for (let i = 0; i < event.target.files.length; i++) {
-      // eslint-disable-next-line no-unused-expressions
-      const file = event.target.files?.[i];
-      const isValid = checkFileValidataion(file);
-
-      if (!isValid) return;
-      try {
-        const result = await uploadFile({ variables: { file } });
-        // setImgUrls[i](result.data?.uploadFile.url || "");
-      } catch (error) {
-        message.info(message);
-      }
-    }
-  };
-  console.log(imgUrls);
+  // const onSetImgUrl = (data, index) => {
+  //   const fileUrl = [...imgUrls];
+  //   fileUrl[index] = data;
+  //   setImgUrls(fileUrl);
+  // };
   async function submit() {
     try {
       const result = await createBoard({
@@ -87,14 +58,15 @@ export default function Home(props: IBoardListIProps) {
     contents: String;
     youtubeUrl?: String;
     boardAddress?: any;
+    images?: any[];
   }
   interface Isubmit {
     createBoardInput: IcreateBoardInput;
   }
   interface IboardAddress {
-    zipcode: String;
-    address: String;
-    addressDetail: String;
+    zipcode?: String;
+    address?: String;
+    addressDetail?: String;
   }
   const boardAddress: IboardAddress = {
     zipcode: inputs.Zonecode,
@@ -108,6 +80,7 @@ export default function Home(props: IBoardListIProps) {
       password: inputs.password,
       contents: inputs.contents,
       youtubeUrl: inputs.utube,
+      images: imgUrl,
       boardAddress,
     },
   };
@@ -196,9 +169,9 @@ export default function Home(props: IBoardListIProps) {
       isAskVisible={isAskVisible}
       inputs={inputs}
       changeInputs={changeInputs}
-      onClickImg={onClickImg}
-      fileRef={fileRef}
-      onChangeFile={onChangeFile}
+      imgUrl={imgUrl}
+      // onSetImgUrl={onSetImgUrl(data,index)}
+      setImgUrl={setImgUrl}
     />
   );
 }

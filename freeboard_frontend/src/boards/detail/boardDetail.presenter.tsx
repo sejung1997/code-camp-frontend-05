@@ -4,6 +4,8 @@ import WriteCommentPage from "../comment/writeComment.container";
 import ListCommentPage from "../comment/listComment.container";
 
 export default function BoardDetailPageUI(props) {
+  console.log(props.data?.fetchBoard?.images);
+
   return (
     <L.div>
       <L.Main>
@@ -23,7 +25,15 @@ export default function BoardDetailPageUI(props) {
           </L.AddressInfo>
         </L.Baner>
         <L.Title> {props.data?.fetchBoard.title}</L.Title>
-        <L.MainImg></L.MainImg>
+        {props.data?.fetchBoard.images
+          .filter((x) => x)
+          .map((x) => (
+            <L.MainImg
+              key={x}
+              src={`https://storage.googleapis.com/${x}`}
+            ></L.MainImg>
+          ))}
+
         <L.Contents>내용: {props.data?.fetchBoard.contents}</L.Contents>
         <L.Video>
           <ReactPlayer

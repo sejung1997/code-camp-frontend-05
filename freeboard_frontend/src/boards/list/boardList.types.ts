@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, SetStateAction } from "react";
 import { ApolloQueryResult } from "@apollo/client";
 
 import {
@@ -7,14 +7,14 @@ import {
 } from "../../commons/types/generated/types";
 
 export interface IBoardUIIProps {
-  changeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  changePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  changeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  changeContent: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  changeInputs: (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   submit: () => void;
   isEdit: boolean;
   update: () => void;
   data: any;
+  inputs: any;
   cancel: () => void;
   changeUtube: (event: ChangeEvent<HTMLInputElement>) => void;
   isModalVisible: boolean;
@@ -26,6 +26,9 @@ export interface IBoardUIIProps {
   address: any;
   onAsk: () => void;
   isAskVisible: boolean;
+  // onSetImgUrl: (data: any, index: number) => void;
+  imgUrl: any[];
+  setImgUrl: SetStateAction<string>;
 }
 
 export interface IBoardListIProps {

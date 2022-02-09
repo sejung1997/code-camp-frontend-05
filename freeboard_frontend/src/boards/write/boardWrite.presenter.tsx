@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-
+import UploadImagePage from "../../commons/Upload/uploadImage01.container";
 import { IBoardUIIProps } from "../list/boardList.types";
 import * as A from "./boardWrite.styles";
 
@@ -111,25 +111,15 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
         <A.OptionWrapper>
           <A.Title>사진 첨부</A.Title>
           <A.BoxGroup>
-            <A.Box onClick={props.onClickImg}>
-              +<br></br>Upload
-            </A.Box>
-            <A.Box>
-              +<br></br>Upload
-            </A.Box>
-            <A.Box>
-              +<br></br>Upload
-            </A.Box>
-            <input
-              style={{ display: "none" }}
-              onChange={props.onChangeFile}
-              type="file"
-              ref={props.fileRef}
-              multiple
-            />
-            <img
-              src={`https://storage.googleapis.com/${props.inputs.imgUrl}`}
-            />
+            {new Array(3).fill(1).map((_, index) => (
+              <UploadImagePage
+                key={index}
+                index={index}
+                imgUrl={props.imgUrl}
+                setImgUrl={props.setImgUrl}
+                defaultUrl={props.data?.fetchBoard.images}
+              />
+            ))}
           </A.BoxGroup>
         </A.OptionWrapper>
         <A.OptionWrapper>

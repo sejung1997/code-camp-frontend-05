@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   margin-top: 150px;
   /* background-color: black; */
-  background-image: url("/images/");
+  background-image: url("/images/un.png");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;

@@ -130,19 +130,7 @@ export const InputYoutube = styled.input`
 export const YoutubeWrapper = styled.div`
   padding-top: 7px;
 `;
-export const Box = styled.div`
-  width: 78px;
-  height: 78px;
-  background-color: transparent;
-  text-align: center;
-  padding-top: 23px;
-  font-size: 12px;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-`;
+
 export const BoxGroup = styled.div`
   display: flex;
   justify-content: space-between;

@@ -34,24 +34,24 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
             onClick={props.moveRegisterPage}
             isVisible={props.isVisible}
           >
-            {props.userData.email ? "회원정보" : "회원가입"}
+            {props.userData.email ? "My Information" : "Sign In"}
           </he.signup>
           <he.signin
             id="signIn"
             onClick={props.moveRegisterPage}
             isVisible={props.isVisible}
           >
-            {props.userData.email ? "로그아웃" : "로그인"}
+            {props.userData.email ? "Logout" : "Sign Up"}
           </he.signin>
           <he.mainMenu>
             <he.H3L address={props.address} onClick={props.moveFirePage}>
-              파이어 베이스
+              firebase
             </he.H3L>
             <he.H3L address={props.address} onClick={props.moveImagePage}>
-              사진
+              photo
             </he.H3L>
             <he.H3L address={props.address} onClick={props.moveListPage}>
-              게시판 목록
+              board
             </he.H3L>
           </he.mainMenu>
         </he.inner>
