@@ -4,7 +4,6 @@ import { useQuery } from "@apollo/client";
 import {
   FETCH_BOARDS,
   FETCH_BOARDS_COUNT,
-  FETCH_BOARDS_SEARCH,
 } from "../../boards/list/boardList.queries";
 import {
   IQuery,
@@ -13,14 +12,15 @@ import {
 } from "../../../src/commons/types/generated/types";
 import _ from "lodash";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 export default function boardListPage(props) {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
   const { data: a, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
-  >(FETCH_BOARDS);
+  >(FETCH_BOARDS, {
+    variables: { page: 1 },
+  });
 
   const { data: dataBoardCount } = useQuery<
     Pick<IQuery, "fetchBoardsCount">,
@@ -34,17 +34,17 @@ export default function boardListPage(props) {
   const detailPage = (id: any) => {
     router.push(`/${id}`);
   };
-  const dataSearch = (event) => {
-    setKeyword(event.target.value);
+  const debounce = _.debounce((data) => {
+    refetch({ search: data, page: 1 });
+    setKeyword(data);
+  }, 500);
+  const changeKeyword = (event) => {
+    debounce(event.target.value);
   };
-  // const onClickSearch = () => {
-  //   const { data: s } = useQuery<
-  //     Pick<IQuery, "fetchBoards">,
-  //     IQueryFetchBoardsArgs
-  //   >(FETCH_BOARDS);
-  //   refetch({ page: 1, search: keyword });
-  // };
-  // console.log(s?.fetchBoards);
+  const onClickSearch = () => {
+    refetch({ page: 1, search: keyword });
+    console.log("dd" + keyword);
+  };
   return (
     <BoardListPageUI
       register={register}
@@ -53,10 +53,9 @@ export default function boardListPage(props) {
       a={a}
       refetch={refetch}
       count={dataBoardCount?.fetchBoardsCount}
-      dataSearch={dataSearch}
+      changeKeyword={changeKeyword}
       keyword={keyword}
-      // onClickSearch={onClickSearch}
-      // s={s}
+      onClickSearch={onClickSearch}
     />
   );
 }

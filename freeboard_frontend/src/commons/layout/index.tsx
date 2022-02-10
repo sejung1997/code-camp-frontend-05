@@ -2,7 +2,7 @@ import { ReactChild, useEffect, useState } from "react";
 import HeaderPage from "./header/header.container";
 // import LayoutFooter from "./footer";
 // import LayoutNavi from "./navigation";
-import LayoutBanner from "./banner/banner.container";
+// import LayoutBanner from "./banner/banner.container";
 import styled from "@emotion/styled";
 
 interface Iprops {
@@ -24,7 +24,7 @@ export default function LayoutPage(props: Iprops) {
   //   };
   // }, []);
   const Body = styled.div`
-    /* margin-top: 150px; */
+    margin-top: 150px;
     background-image: url("/images/un.png");
     background-position: center;
     background-size: cover;
@@ -49,7 +49,7 @@ export default function LayoutPage(props: Iprops) {
   return (
     <div>
       <HeaderPage />
-      <LayoutBanner></LayoutBanner>
+      {/* <LayoutBanner></LayoutBanner> */}
       {/* <LayoutNavi></LayoutNavi> */}
       <Body>
         {props.children}

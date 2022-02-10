@@ -14,6 +14,9 @@ export const Column = styled.div`
 export const Row = styled.div`
   display: flex;
 `;
+export const word = styled.span`
+  color: ${(props) => (props.isMatched ? "red" : "#fff")};
+`;
 export const TopRow = styled.div`
   display: flex;
   height: calc(583px / 11);
