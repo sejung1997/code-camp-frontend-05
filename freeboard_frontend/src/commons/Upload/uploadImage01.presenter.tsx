@@ -1,25 +1,21 @@
 import * as A from "./uploadImage01.styles";
 export default function UploadImagePageUI(props) {
-  console.log(props.isChange);
+  console.log(props.imgUrl);
   return (
     <>
       <A.Box1 onClick={props.onClickImgBox}>
         <A.img
-          imgUrl={props.imgUrl[props.index] || props.defaultUrl?.[props.index]}
-          src={
-            props.defaultUrl?.[props.index] && !props.isEdit
-              ? `https://storage.googleapis.com/${
-                  props.defaultUrl?.[props.index]
-                }`
-              : `https://storage.googleapis.com/${props.imgUrl[props.index]}`
+          imgUrl={
+            props.imgUrl?.[props.index] || props.defaultUrl?.[props.index]
           }
+          src={`https://storage.googleapis.com/${props.imgUrl?.[props.index]}`}
         />
 
-        {props.imgUrl[props.index] || props.defaultUrl?.[props.index]
+        {props.imgUrl?.[props.index] || props.defaultUrl?.[props.index]
           ? ""
           : "+"}
         <br></br>
-        {props.imgUrl[props.index] || props.defaultUrl?.[props.index]
+        {props.imgUrl?.[props.index] || props.defaultUrl?.[props.index]
           ? ""
           : "Upload"}
       </A.Box1>

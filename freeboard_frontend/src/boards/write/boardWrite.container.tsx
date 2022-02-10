@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./boardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./boardWrite.container.mutation";
@@ -7,7 +7,7 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./boardWrite.container.mutation";
 import { IBoardListIProps } from "../list/boardList.types";
 import { message } from "antd";
 export default function Home(props: IBoardListIProps) {
-  const [imgUrl, setImgUrl] = useState(["", "", ""]);
+  console.log(props.data?.fetchBoard?.images);
   const [inputs, setInputs] = useState({
     writer: "",
     password: "",
@@ -25,14 +25,13 @@ export default function Home(props: IBoardListIProps) {
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
-  props.
   function changeInputs(event: ChangeEvent<HTMLInputElement>) {
     setInputs({ ...inputs, [event.target.id]: event.target.value });
   }
 
   // const onSetImgUrl = (data, index) => {
   //   const fileUrl = [...imgUrls];
-  //   fileUrl[index] = data;
+  //   fileUrl[index] = data;zzz
   //   setImgUrls(fileUrl);
   // };
   async function submit() {
@@ -80,7 +79,7 @@ export default function Home(props: IBoardListIProps) {
       password: inputs.password,
       contents: inputs.contents,
       youtubeUrl: inputs.utube,
-      images: imgUrl,
+      images: props.imgUrl,
       boardAddress,
     },
   };
@@ -94,6 +93,7 @@ export default function Home(props: IBoardListIProps) {
     interface Iupdate {
       title?: String;
       contents?: String;
+      images: any[];
       boardAddress?: IboardAdressUp;
     }
     interface IMyVariables {
@@ -102,7 +102,9 @@ export default function Home(props: IBoardListIProps) {
       password: String;
     }
 
-    const updateBoardInput: Iupdate = {};
+    const updateBoardInput: Iupdate = {
+      images: props.imgUrl,
+    };
     const MyVariables: IMyVariables = {
       updateBoardInput,
       boardId: String(router.query.aaa),
@@ -169,9 +171,9 @@ export default function Home(props: IBoardListIProps) {
       isAskVisible={isAskVisible}
       inputs={inputs}
       changeInputs={changeInputs}
-      imgUrl={imgUrl}
+      imgUrl={props.imgUrl}
       // onSetImgUrl={onSetImgUrl(data,index)}
-      setImgUrl={setImgUrl}
+      setImgUrl={props.setImgUrl}
     />
   );
 }
