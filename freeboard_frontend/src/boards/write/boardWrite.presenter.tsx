@@ -26,6 +26,7 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
             <A.Title>비밀번호</A.Title>
             <A.InputName
               id="password"
+              type="password"
               placeholder="비밀번호를 입력해주세요"
               onChange={props.changeInputs}
               defaultValue={props.isEdit ? props.data?.fetchBoard.password : ""}
@@ -117,7 +118,6 @@ export default function BoardWriteUI(props: IBoardUIIProps) {
                 index={index}
                 imgUrl={props.imgUrl}
                 setImgUrl={props.setImgUrl}
-                defaultUrl={props.data?.fetchBoard.images}
                 isEdit={props.isEdit}
               />
             ))}

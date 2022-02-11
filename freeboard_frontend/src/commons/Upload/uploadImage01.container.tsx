@@ -36,8 +36,6 @@ export default function UploadImagePage(props: IUploadImagePage) {
       // message.info(message);
     }
   };
-  console.log(`default ${props.defaultUrl}`);
-  console.log(props.imgUrl);
 
   return (
     <UploadImagePageUI
@@ -46,8 +44,6 @@ export default function UploadImagePage(props: IUploadImagePage) {
       fileRef={fileRef}
       imgUrl={props.imgUrl}
       index={props.index}
-      defaultUrl={props.defaultUrl}
-      isEdit={props.isEdit}
     />
   );
 }

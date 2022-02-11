@@ -5,19 +5,13 @@ export default function UploadImagePageUI(props) {
     <>
       <A.Box1 onClick={props.onClickImgBox}>
         <A.img
-          imgUrl={
-            props.imgUrl?.[props.index] || props.defaultUrl?.[props.index]
-          }
+          imgUrl={props.imgUrl?.[props.index]}
           src={`https://storage.googleapis.com/${props.imgUrl?.[props.index]}`}
         />
 
-        {props.imgUrl?.[props.index] || props.defaultUrl?.[props.index]
-          ? ""
-          : "+"}
+        {props.imgUrl?.[props.index] ? "" : "+"}
         <br></br>
-        {props.imgUrl?.[props.index] || props.defaultUrl?.[props.index]
-          ? ""
-          : "Upload"}
+        {props.imgUrl?.[props.index] ? "" : "Upload"}
       </A.Box1>
       <input
         style={{ display: "none" }}

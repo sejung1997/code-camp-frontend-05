@@ -12,6 +12,6 @@ export default function boardWritePage() {
     data?.fetchBoard?.images ? [...data?.fetchBoard?.images] : ["", "", ""]
   );
   return (
-    <Home isEdit={true} data={data} imgUrl={imgUrl} setImgUrl={setImgUrl} />
+    <Home isEdit={true} data={data}  />
   );
 }

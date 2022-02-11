@@ -10,7 +10,7 @@ export default function boardListPageUI(props: IBoardListIProps) {
         <B.SearchTitle
           type="text"
           placeholder="제목을 검색해주세요"
-          onClick={props.changeKeyword}
+          onChange={props.changeKeyword}
         ></B.SearchTitle>
         <B.SearchYear placeholder="YYYY.MM.DD  YYYY.MM.DD"></B.SearchYear>
         <B.SearchBtn onClick={props.onClickSearch}>검색하기</B.SearchBtn>

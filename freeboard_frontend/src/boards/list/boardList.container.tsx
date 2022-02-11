@@ -12,6 +12,7 @@ import {
 } from "../../../src/commons/types/generated/types";
 import _ from "lodash";
 import { useState } from "react";
+import { ContactsOutlined } from "@ant-design/icons";
 export default function boardListPage(props) {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
@@ -37,14 +38,15 @@ export default function boardListPage(props) {
   const debounce = _.debounce((data) => {
     refetch({ search: data, page: 1 });
     setKeyword(data);
+    console.log(data);
   }, 500);
   const changeKeyword = (event) => {
+    console.log(event.target.value);
     debounce(event.target.value);
   };
-  const onClickSearch = () => {
-    refetch({ page: 1, search: keyword });
-    console.log("dd" + keyword);
-  };
+  // const onClickSearch = () => {
+  //   refetch({ page: 1, search: keyword });
+  // };
   return (
     <BoardListPageUI
       register={register}
@@ -55,7 +57,7 @@ export default function boardListPage(props) {
       count={dataBoardCount?.fetchBoardsCount}
       changeKeyword={changeKeyword}
       keyword={keyword}
-      onClickSearch={onClickSearch}
+      // onClickSearch={onClickSearch}
     />
   );
 }

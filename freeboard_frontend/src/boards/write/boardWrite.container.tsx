@@ -7,7 +7,6 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./boardWrite.container.mutation";
 import { IBoardListIProps } from "../list/boardList.types";
 import { message } from "antd";
 export default function Home(props: IBoardListIProps) {
-  console.log(props.data?.fetchBoard?.images);
   const [inputs, setInputs] = useState({
     writer: "",
     password: "",
@@ -19,12 +18,13 @@ export default function Home(props: IBoardListIProps) {
     addressDetail: "",
   });
   const [isAskVisible, setIsAskVisible] = useState(false);
-
+  const [imgUrl, setImgUrl] = useState(["", "", ""]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+
   function changeInputs(event: ChangeEvent<HTMLInputElement>) {
     setInputs({ ...inputs, [event.target.id]: event.target.value });
   }
@@ -79,7 +79,7 @@ export default function Home(props: IBoardListIProps) {
       password: inputs.password,
       contents: inputs.contents,
       youtubeUrl: inputs.utube,
-      images: props.imgUrl,
+      images: imgUrl,
       boardAddress,
     },
   };
@@ -103,7 +103,7 @@ export default function Home(props: IBoardListIProps) {
     }
 
     const updateBoardInput: Iupdate = {
-      images: props.imgUrl,
+      images: imgUrl,
     };
     const MyVariables: IMyVariables = {
       updateBoardInput,
@@ -157,6 +157,9 @@ export default function Home(props: IBoardListIProps) {
       } else message.info("모두 입력해주세요");
     } else setIsAskVisible((prev) => !prev);
   };
+  useEffect(() => {
+    setImgUrl([...props.data?.fetchBoard?.images]);
+  }, [props.data]);
   return (
     <BoardWriteUI
       submit={submit}
@@ -171,9 +174,9 @@ export default function Home(props: IBoardListIProps) {
       isAskVisible={isAskVisible}
       inputs={inputs}
       changeInputs={changeInputs}
-      imgUrl={props.imgUrl}
+      imgUrl={imgUrl}
       // onSetImgUrl={onSetImgUrl(data,index)}
-      setImgUrl={props.setImgUrl}
+      setImgUrl={setImgUrl}
     />
   );
 }
