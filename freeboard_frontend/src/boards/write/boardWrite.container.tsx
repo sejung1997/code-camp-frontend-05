@@ -93,8 +93,9 @@ export default function Home(props: IBoardListIProps) {
     interface Iupdate {
       title?: String;
       contents?: String;
-      images: any[];
+      images?: any[];
       boardAddress?: IboardAdressUp;
+      youtubeUrl?: String;
     }
     interface IMyVariables {
       updateBoardInput?: Iupdate;
@@ -102,9 +103,7 @@ export default function Home(props: IBoardListIProps) {
       password: String;
     }
 
-    const updateBoardInput: Iupdate = {
-      images: imgUrl,
-    };
+    const updateBoardInput: Iupdate = {};
     const MyVariables: IMyVariables = {
       updateBoardInput,
       boardId: String(router.query.aaa),
@@ -127,7 +126,9 @@ export default function Home(props: IBoardListIProps) {
     if (inputs.addressDetail !== "")
       MyVariables.updateBoardInput.boardAddress.addressDetail =
         inputs.addressDetail;
-
+    if (props.data?.fetchBoard?.images !== imgUrl)
+      MyVariables.updateBoardInput.images = imgUrl;
+    if (inputs.utube) MyVariables.updateBoardInput.youtubeUrl = inputs.utube;
     try {
       const result2 = await updateBoard({
         variables: MyVariables,
@@ -158,7 +159,8 @@ export default function Home(props: IBoardListIProps) {
     } else setIsAskVisible((prev) => !prev);
   };
   useEffect(() => {
-    setImgUrl([...props.data?.fetchBoard?.images]);
+    if (props.data?.fetchBoard?.images)
+      setImgUrl([...props.data?.fetchBoard?.images]);
   }, [props.data]);
   return (
     <BoardWriteUI
