@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_BOARD_COMMENT } from "./Comment.mutation";
+import { FETCH_BOARD_COMMENTS } from "./Comment.mutation";
 import {
   IQuery,
   IQueryFetchBoardCommentsArgs,
@@ -12,7 +12,7 @@ export default function ListCommentPage() {
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENT, {
+  >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: String(router.query.aaa) },
   });
 
@@ -24,7 +24,6 @@ export default function ListCommentPage() {
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult?.fetchBoardComments)
           return { fetchBoardComments: [...prev.fetchBoardComments] };
-
         return {
           fetchBoardComments: [
             ...prev.fetchBoardComments,

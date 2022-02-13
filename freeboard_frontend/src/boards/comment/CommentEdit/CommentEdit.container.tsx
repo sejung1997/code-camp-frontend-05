@@ -2,7 +2,7 @@ import CommentEditPage from "./CommentEdit.presenter";
 import { useMutation } from "@apollo/client";
 import {
   UPDATE_BOARD_COMMENT,
-  FETCH_BOARD_COMMENT,
+  FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
 } from "../Comment.mutation";
 import { useRouter } from "next/router";
@@ -16,90 +16,20 @@ import {
 
 export default function CommentEdit(props) {
   const router = useRouter();
-  const [inputs, setinputs] = useState({
-    password: "",
-    contents: "",
-    boardCommentId: "",
-  });
+
   const [ps, setPs] = useState("");
 
   const [isVisible, setIsVisible] = useState(false);
 
   const [commentId, setCommentId] = useState("");
 
-  const [length, setLength] = useState("0");
-
-  const [rating, setRating] = useState(0);
   const [deleteBoardComment] = useMutation<
     Pick<IMutation, "deleteBoardComment">,
     IMutationDeleteBoardCommentArgs
   >(DELETE_BOARD_COMMENT);
 
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
-
-  const [isEdits, setIsEdits] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-  const onchangeInput = (event) => {
-    setinputs({
-      ...inputs,
-      [event.target.id]: event.target.value,
-    });
-  };
-  const onchangeRate = (value) => {
-    setRating(value);
-  };
-
-  const update = async () => {
-    const myVariables = {
-      updateBoardCommentInput: {},
-      password: inputs.password,
-      boardCommentId: String(inputs.boardCommentId),
-    };
-    if (inputs.contents)
-      myVariables.updateBoardCommentInput.contents = inputs.contents;
-    if (rating) myVariables.updateBoardCommentInput.rating = rating;
-    console.log(myVariables);
-
-    await updateBoardComment({
-      variables: myVariables,
-      refetchQueries: [
-        {
-          query: FETCH_BOARD_COMMENT,
-          variables: { page: 1, boardId: String(router.query.aaa) },
-        },
-      ],
-    });
-  };
-
-  const updateComment = (event) => {
-    inputs.boardCommentId = event.target.id;
-    setinputs({
-      ...inputs,
-      boardCommentId: event.target.id,
-    });
-    isEdits[props.index] = false;
-    setIsEdits([...isEdits]);
-    update();
-  };
-
   const onUpdate = () => {
-    isEdits[props.index] = true;
-    setIsEdits([...isEdits]);
-  };
-
-  const cancel = () => {
-    isEdits[props.index] = false;
-    setIsEdits([...isEdits]);
+    props.setIsEdits(true);
   };
   const changePs = (event: ChangeEvent<HTMLInputElement>) => {
     setPs(event.target.value);
@@ -111,8 +41,8 @@ export default function CommentEdit(props) {
         variables: { password: ps, boardCommentId: commentId },
         refetchQueries: [
           {
-            query: FETCH_BOARD_COMMENT,
-            variables: { page: 1, boardId: router.query.aaa },
+            query: FETCH_BOARD_COMMENTS,
+            variables: { page: 1, boardId: String(router.query.aaa) },
           },
         ],
       });

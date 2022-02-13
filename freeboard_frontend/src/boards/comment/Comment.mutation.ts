@@ -15,9 +15,9 @@ export const CREATE_BOARD_COMMENT = gql`
     }
   }
 `;
-export const FETCH_BOARD_COMMENT = gql`
-  query fetchBoardComments($page: Int, $boardId: ID!) {
-    fetchBoardComments(page: $page, boardId: $boardId) {
+export const FETCH_BOARD_COMMENTS = gql`
+  query fetchBoardComments($boardId: ID!, $page: Int) {
+    fetchBoardComments(boardId: $boardId, page: $page) {
       writer
       contents
       rating

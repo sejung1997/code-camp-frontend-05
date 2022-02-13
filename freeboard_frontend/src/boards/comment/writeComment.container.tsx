@@ -1,7 +1,11 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState, ChangeEvent } from "react";
-import { CREATE_BOARD_COMMENT, FETCH_BOARD_COMMENT } from "./Comment.mutation";
+import {
+  CREATE_BOARD_COMMENT,
+  FETCH_BOARD_COMMENTS,
+  UPDATE_BOARD_COMMENT,
+} from "./Comment.mutation";
 import {
   IMutation,
   IMutationCreateBoardCommentArgs,
@@ -9,24 +13,25 @@ import {
 import WriteCommentPageUI from "./writeComment.presenter";
 
 export default function WriteCommentPage() {
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [contents, setContents] = useState("");
   const [length, setLength] = useState("0");
   const router = useRouter();
+  const [inputs, setinputs] = useState({
+    writer: "",
+    password: "",
+    contents: "",
+    boardCommentId: "",
+  });
+  const [isEdits, setIsEdits] = useState(false);
 
   const [value, setValue] = useState(3);
 
-  const changeWriter = (event: ChangeEvent<HTMLInputElement>) => {
-    setWriter(event.target.value);
-  };
-  const changePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-  const changeContents = (event: ChangeEvent<HTMLInputElement>) => {
-    setContents(event.target.value);
+  const changeinputs = (event: ChangeEvent<HTMLInputElement>) => {
+    setinputs({
+      ...inputs,
+      [event.target.id]: event.target.value,
+    });
 
-    if (event.target.value.length < 100)
+    if (event.target.id === "contents" && event.target.value.length < 100)
       setLength(String(event.target.value.length));
     else {
       setLength("100");
@@ -36,6 +41,7 @@ export default function WriteCommentPage() {
   const handleChange = (value) => {
     setValue(value);
   };
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
   const [createBoardComment] = useMutation<
     Pick<IMutation, "createBoardComment">,
@@ -44,9 +50,9 @@ export default function WriteCommentPage() {
 
   const myVariables = {
     createBoardCommentInput: {
-      writer,
-      password,
-      contents,
+      writer: inputs.writer,
+      password: inputs.password,
+      contents: inputs.contents,
       rating: value,
     },
     boardId: String(router.query.aaa),
@@ -57,22 +63,55 @@ export default function WriteCommentPage() {
       variables: myVariables,
       refetchQueries: [
         {
-          query: FETCH_BOARD_COMMENT,
+          query: FETCH_BOARD_COMMENTS,
           variables: { page: 1, boardId: String(router.query.aaa) },
         },
       ],
     });
-    setContents("");
-    setPassword("");
-    setWriter("");
+    setinputs({ ...inputs, writer: "", password: "", contents: "" });
+  };
+
+  const update = async () => {
+    const myVariables = {
+      updateBoardCommentInput: {},
+      password: inputs.password,
+      boardCommentId: String(inputs.boardCommentId),
+    };
+    if (inputs.contents)
+      myVariables.updateBoardCommentInput.contents = inputs.contents;
+    if (rating) myVariables.updateBoardCommentInput.rating = rating;
+    console.log(myVariables);
+
+    await updateBoardComment({
+      variables: myVariables,
+      refetchQueries: [
+        {
+          query: FETCH_BOARD_COMMENTS,
+          variables: { page: 1, boardId: String(router.query.aaa) },
+        },
+      ],
+    });
+  };
+
+  const updateComment = (event) => {
+    inputs.boardCommentId = event.target.id;
+    setinputs({
+      ...inputs,
+      boardCommentId: event.target.id,
+    });
+    isEdits[props.index] = false;
+    setIsEdits([...isEdits]);
+    update();
+  };
+
+  const cancel = () => {
+    setIsEdits(false);
   };
 
   return (
     <WriteCommentPageUI
-      changeContents={changeContents}
       createComment={createComment}
-      changePassword={changePassword}
-      changeWriter={changeWriter}
+      changeinputs={changeinputs}
       length={length}
       // updateComment={updateComment}
       writer={writer}
