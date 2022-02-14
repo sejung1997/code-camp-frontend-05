@@ -29,6 +29,7 @@ export default function LayoutPage(props: Iprops) {
     background-size: cover;
     background-attachment: fixed;
     position: relative;
+    height: 8000px;
   `;
   const Rocket = styled.img`
     width: 200px;

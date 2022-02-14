@@ -5,7 +5,7 @@ import { message, Modal } from "antd";
 export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
   return (
     <>
-      {props.userData.email ? (
+      {props.acessToken ? (
         <Modal
           visible={true}
           onCancel={props.Cancel}
@@ -20,15 +20,11 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
             <s.topTitle>회원정보</s.topTitle>
             <s.inputs>
               이메일 <br />
-              <s.email>{props.userData.email}</s.email>
-              가입 일시 <br />
-              <s.creationTime>{props.userData.creationTime}</s.creationTime>
-              마지막 로그인 날짜 <br />
-              <s.lastSignTime>{props.userData.lastSignInTime}</s.lastSignTime>
-              이메일 인증 여부 <br />
-              <s.emailValid>
-                {String(props.userData.emailVerified)}
-              </s.emailValid>
+              <s.email>{props.data?.email}</s.email>
+              이름 <br />
+              <s.creationTime>{props.data?.name}</s.creationTime>
+              가입 날짜 <br />
+              <s.emailValid>{String(props.data?.createdAt)}</s.emailValid>
             </s.inputs>
           </s.Main>
         </Modal>
@@ -59,7 +55,7 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
               <s.inputdomain
                 value={`@${props.inputs.domainAdress}`}
               ></s.inputdomain>
-              <s.domainAddress id="domainAdress" onChange={props.selectDomain}>
+              <s.domainAddress id="domainAdress" onChange={props.changeInputs}>
                 <option>직접입력</option>
                 <option>naver.com</option>
                 <option>gmail.com</option>

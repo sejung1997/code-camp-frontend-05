@@ -1,8 +1,8 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import HeaderPageUI from "./header.presenter";
+import { GlobalContext } from "../../../../pages/_app";
 
 export default function HeaderPage() {
   const [isVisible, setIsVisible] = useState({
@@ -15,6 +15,8 @@ export default function HeaderPage() {
     email: "",
     emailVerified: false,
   });
+  const { acessToken } = useContext(GlobalContext);
+
   const router = useRouter();
   const address = router.asPath;
 
@@ -53,6 +55,7 @@ export default function HeaderPage() {
       moveHomePage={moveHomePage}
       moveFirePage={moveFirePage}
       // loginVisible={loginVisible}
+      acessToken={acessToken}
     />
   );
 }

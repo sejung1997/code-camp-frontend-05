@@ -8,12 +8,13 @@ export const CommentArea = styled.div`
   margin: auto;
   right: 0;
   color: #fff;
-  margin-top: 325px;
+  margin-top: ${(props) => (props.isEdit ? "50px" : "325px")};
 `;
 export const Title = styled.div`
   font-size: 30px;
   font-weight: bold;
   padding: 40px 0 84px 0;
+  ${(props) => (props.isEdit === true ? "display: none" : "")}
 `;
 export const Input = styled.input`
   width: 120px;
@@ -56,6 +57,28 @@ export const submitButton = styled.button`
   color: white;
   position: absolute;
   right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 5px;
+
+  :hover {
+    cursor: pointer;
+    color: red;
+    background-color: #fff;
+  }
+`;
+export const cancelButton = styled.button`
+  /* ${(props) =>
+    props.isEdit === true ? "display: block" : "display: none"} */
+
+  display: ${(props) => (props.isEdit ? "block" : "none")};
+
+  font-size: 16px;
+  padding: 14px 16px;
+  color: white;
+  position: absolute;
+  right: 100px;
   bottom: 0;
   background-color: transparent;
   border: 1px solid #fff;

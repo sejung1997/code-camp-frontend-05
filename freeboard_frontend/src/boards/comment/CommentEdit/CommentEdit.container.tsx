@@ -1,13 +1,12 @@
 import CommentEditPage from "./CommentEdit.presenter";
 import { useMutation } from "@apollo/client";
 import {
-  UPDATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
 } from "../Comment.mutation";
 import { useRouter } from "next/router";
 
-import { useState, ChangeEvent, MouseEvent } from "react";
+import { useState, ChangeEvent } from "react";
 
 import {
   IMutation,
@@ -18,10 +17,9 @@ export default function CommentEdit(props) {
   const router = useRouter();
 
   const [ps, setPs] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
 
   const [isVisible, setIsVisible] = useState(false);
-
-  const [commentId, setCommentId] = useState("");
 
   const [deleteBoardComment] = useMutation<
     Pick<IMutation, "deleteBoardComment">,
@@ -29,7 +27,7 @@ export default function CommentEdit(props) {
   >(DELETE_BOARD_COMMENT);
 
   const onUpdate = () => {
-    props.setIsEdits(true);
+    setIsEdit(true);
   };
   const changePs = (event: ChangeEvent<HTMLInputElement>) => {
     setPs(event.target.value);
@@ -38,7 +36,7 @@ export default function CommentEdit(props) {
   const checkDelete = async () => {
     try {
       await deleteBoardComment({
-        variables: { password: ps, boardCommentId: commentId },
+        variables: { password: ps, boardCommentId: props.el?._id },
         refetchQueries: [
           {
             query: FETCH_BOARD_COMMENTS,
@@ -52,31 +50,26 @@ export default function CommentEdit(props) {
     }
   };
 
-  const clickCancle = (event: MouseEvent<HTMLImageElement>) => {
-    setIsVisible(false);
+  console.log(props.isEdit);
+  const onModal = () => {
+    setIsVisible((prev) => !prev);
   };
-
-  const onDelete = (event: MouseEvent<HTMLImageElement>) => {
-    if (event.target instanceof Element) setCommentId(event.target.id);
-    setIsVisible(true);
+  const cancel = () => {
+    setIsEdit((prev) => !prev);
   };
+  console.log(isEdit);
   return (
     <CommentEditPage
-      updateComment={updateComment}
-      cancel={cancel}
-      onchangeInput={onchangeInput}
       changePs={changePs}
       isVisible={isVisible}
       checkDelete={checkDelete}
-      onDelete={onDelete}
-      clickCancle={clickCancle}
-      // onLoadMore={props.onLoadMore}
-      length={length}
-      isEdits={isEdits}
-      onchangeRate={onchangeRate}
+      onModal={onModal}
+      isEdit={isEdit}
       onUpdate={onUpdate}
       el={props.el}
+      setIsEdit={setIsEdit}
       index={props.index}
+      cancel={cancel}
     />
   );
 }

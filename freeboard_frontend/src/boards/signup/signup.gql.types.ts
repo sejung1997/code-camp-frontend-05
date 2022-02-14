@@ -9,6 +9,15 @@ export const CREATE_USER = gql`
     }
   }
 `;
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      email
+      name
+      createdAt
+    }
+  }
+`;
 export interface IBoardSingUpPageUIProps {
   changeInputs: (event: ChangeEvent<HTMLInputElement>) => void;
   inputs: any;

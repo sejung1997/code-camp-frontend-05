@@ -8,6 +8,11 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+export const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
 export interface IBoardSingInPageUIProps {
   changeInputs: (event: ChangeEvent<HTMLInputElement>) => void;
   inputs: any;

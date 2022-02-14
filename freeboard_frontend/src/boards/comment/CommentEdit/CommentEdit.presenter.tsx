@@ -6,11 +6,7 @@ export default function CommentEditPage(props) {
   return (
     <div>
       {props.isVisible && (
-        <Modal
-          visible={true}
-          onOk={props.checkDelete}
-          onCancel={props.clickCancle}
-        >
+        <Modal visible={true} onOk={props.checkDelete} onCancel={props.onModal}>
           <input
             title="비밀번호를 입력해주세요"
             type="password"
@@ -19,7 +15,7 @@ export default function CommentEditPage(props) {
           />
         </Modal>
       )}
-      {props.isEdits === false && (
+      {props.isEdit === false && (
         <C.Comment>
           <C.CommentInfo>
             <C.Img src="/images/Vector.png"></C.Img>
@@ -34,8 +30,7 @@ export default function CommentEditPage(props) {
 
               <C.buttonDelete
                 src="/images/x.png"
-                onClick={props.onDelete}
-                id={props.el._id}
+                onClick={props.onModal}
               ></C.buttonDelete>
             </C.wrapper>
           </C.CommentInfo>
@@ -44,8 +39,13 @@ export default function CommentEditPage(props) {
         </C.Comment>
       )}
 
-      {props.isEdits === true && (
-        <BoardWriteContainer />
+      {props.isEdit === true && (
+        <BoardWriteContainer
+          isEdit={props.isEdit}
+          setIsEdit={props.setIsEdit}
+          el={props.el}
+          cancel={props.cancel}
+        />
         // <C.Comment>
         //   <C.privateInfo>
         //     <C.Input

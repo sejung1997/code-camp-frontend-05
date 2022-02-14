@@ -34,14 +34,14 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
             onClick={props.moveRegisterPage}
             isVisible={props.isVisible}
           >
-            {props.userData.email ? "My Information" : "Sign In"}
+            {props.acessToken ? "My Information" : "Sign Up"}
           </he.signup>
           <he.signin
             id="signIn"
             onClick={props.moveRegisterPage}
             isVisible={props.isVisible}
           >
-            {props.userData.email ? "Logout" : "Sign Up"}
+            {props.acessToken ? "Logout" : "Sign In"}
           </he.signin>
           <he.mainMenu>
             <he.H3L address={props.address} onClick={props.moveFirePage}>

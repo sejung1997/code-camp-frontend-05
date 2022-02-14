@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import {
   CREATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
@@ -12,16 +12,14 @@ import {
 } from "../../../src/commons/types/generated/types";
 import WriteCommentPageUI from "./writeComment.presenter";
 
-export default function WriteCommentPage() {
+export default function WriteCommentPage(props) {
   const [length, setLength] = useState("0");
   const router = useRouter();
   const [inputs, setinputs] = useState({
     writer: "",
     password: "",
     contents: "",
-    boardCommentId: "",
   });
-  const [isEdits, setIsEdits] = useState(false);
 
   const [value, setValue] = useState(3);
 
@@ -48,17 +46,18 @@ export default function WriteCommentPage() {
     IMutationCreateBoardCommentArgs
   >(CREATE_BOARD_COMMENT);
 
-  const myVariables = {
-    createBoardCommentInput: {
-      writer: inputs.writer,
-      password: inputs.password,
-      contents: inputs.contents,
-      rating: value,
-    },
-    boardId: String(router.query.aaa),
-  };
-
   const createComment = async () => {
+    console.log(inputs);
+    console.log(router.query.aaa);
+    const myVariables = {
+      createBoardCommentInput: {
+        writer: inputs.writer,
+        password: inputs.password,
+        contents: inputs.contents,
+        rating: value,
+      },
+      boardId: String(router.query.aaa),
+    };
     await createBoardComment({
       variables: myVariables,
       refetchQueries: [
@@ -70,16 +69,17 @@ export default function WriteCommentPage() {
     });
     setinputs({ ...inputs, writer: "", password: "", contents: "" });
   };
+  useEffect(() => {}, [createBoardComment]);
 
   const update = async () => {
     const myVariables = {
       updateBoardCommentInput: {},
       password: inputs.password,
-      boardCommentId: String(inputs.boardCommentId),
+      boardCommentId: props.el._id,
     };
     if (inputs.contents)
       myVariables.updateBoardCommentInput.contents = inputs.contents;
-    if (rating) myVariables.updateBoardCommentInput.rating = rating;
+    if (value) myVariables.updateBoardCommentInput.rating = value;
     console.log(myVariables);
 
     await updateBoardComment({
@@ -91,21 +91,7 @@ export default function WriteCommentPage() {
         },
       ],
     });
-  };
-
-  const updateComment = (event) => {
-    inputs.boardCommentId = event.target.id;
-    setinputs({
-      ...inputs,
-      boardCommentId: event.target.id,
-    });
-    isEdits[props.index] = false;
-    setIsEdits([...isEdits]);
-    update();
-  };
-
-  const cancel = () => {
-    setIsEdits(false);
+    props.setIsEdit((prev) => !prev);
   };
 
   return (
@@ -114,11 +100,12 @@ export default function WriteCommentPage() {
       changeinputs={changeinputs}
       length={length}
       // updateComment={updateComment}
-      writer={writer}
-      password={password}
-      contents={contents}
+      isEdit={props.isEdit}
       handleChange={handleChange}
       value={value}
+      el={props.el}
+      cancel={props.cancel}
+      update={update}
     />
   );
 }
