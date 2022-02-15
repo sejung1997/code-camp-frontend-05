@@ -14,7 +14,13 @@ import { createUploadLink } from "apollo-upload-client";
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
-import { createContext, SetStateAction, useState, Dispatch } from "react";
+import {
+  createContext,
+  SetStateAction,
+  useState,
+  Dispatch,
+  useEffect,
+} from "react";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -43,6 +49,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     acessToken,
     setAcessToken,
   };
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setAcessToken(localStorage.getItem("accessToken") || "");
+    }
+  }, []);
 
   const uploadLink = createUploadLink({
     uri: "http://backend05.codebootcamp.co.kr/graphql",

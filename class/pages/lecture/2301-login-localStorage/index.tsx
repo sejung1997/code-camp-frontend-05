@@ -46,8 +46,11 @@ export default function LoginPage() {
 
       if (setAcessToken) {
         setAcessToken(accessToken);
+        localStorage.setItem("accessToken", accessToken);
+
+        console.log(localStorage.getItem("accessToken"));
       }
-      router.push("/lecture/2202-login-sucess");
+      router.push("/lecture/2302-login-sucess");
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }

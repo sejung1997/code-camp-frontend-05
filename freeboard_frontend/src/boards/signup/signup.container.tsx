@@ -11,7 +11,6 @@ import {
   IMutation,
   IMutationCreateUserArgs,
 } from "../../commons/types/generated/types";
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { GlobalContext } from "../../../pages/_app";
 
 export default function SignUpPage(props: IBoardSignUpPageProps) {
@@ -29,6 +28,7 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
   >(CREATE_USER);
 
   const { acessToken } = useContext(GlobalContext);
+
   const changeInputs = (event: ChangeEvent<HTMLInputElement>) => {
     setInputs({
       ...inputs,
@@ -40,6 +40,7 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
         setValidMsg("비밀번호가 일치합니다");
     }
   };
+
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   console.log();
   const register = async () => {
@@ -66,16 +67,26 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
       //   // ..
       // });
       // console.log(inputs);
-      const result = await createUser({
-        variables: {
-          createUserInput: {
-            email: `${inputs.email}@${inputs.domainAdress}`,
-            password: inputs.password,
-            name: inputs.name,
+      if (!/^[a-zA-Z1-9]([-_\.]?[0-9a-zA-Z])*/.test(inputs.email))
+        message.info("유효하지않은 이메일입니다");
+      else if (
+        // (?=.*?[a-z])(?=.*?[A-Z])(?=.*?[!@#$%^*+-_])
+        !/^[a-z][A-Z][!@#$%^*+-_].{8,}&/.test(inputs.password)
+      )
+        message.info("비밀번호는 대/소문자 특수기호가 포함되어야 합니다");
+      else {
+        await createUser({
+          variables: {
+            createUserInput: {
+              email: `${inputs.email}@${inputs.domainAdress}`,
+              password: inputs.password,
+              name: inputs.name,
+            },
           },
-        },
-      });
-      props.Cancel();
+        });
+        message.info("회원가입이 완료됐습니다.");
+        props.Cancel();
+      }
     } catch (error) {
       message.info(error.message);
     }

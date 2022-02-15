@@ -64,14 +64,28 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
       //     message.info(errorCode);
       //     message.info(errorMessage);
       //   });
-      const token = await loginUser({
-        variables: {
-          email: inputs.email,
-          password: inputs.password,
-        },
-      });
-      setAcessToken(token.data?.loginUser?.accessToken);
-      props.Cancel();
+      if (
+        !/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
+          inputs.email
+        )
+      )
+        return message.info("이메일을 확인해주세요");
+      if (!/([0-9]+[a-z]+[A-Z]+){8,12}/.test(inputs.password))
+        return message.info("비밀번호는 8-12자리 입니다");
+      else {
+        const token = await loginUser({
+          variables: {
+            email: inputs.email,
+            password: inputs.password,
+          },
+        });
+        const accessToken = result.data?.loginUser.accessToken || "";
+        if (accessToken) {
+          setAcessToken(accessToken);
+          localStorage.setItem("accessToken", accessToken);
+        }
+        props.Cancel();
+      }
     } catch (error) {
       message.info(error.message);
     }

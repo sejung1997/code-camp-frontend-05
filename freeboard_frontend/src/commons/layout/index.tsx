@@ -4,13 +4,27 @@ import HeaderPage from "./header/header.container";
 // import LayoutNavi from "./navigation";
 import LayoutBanner from "./banner/banner.container";
 import styled from "@emotion/styled";
+import _, { debounce } from "lodash";
+import { keyframes } from "@emotion/react";
 
 interface Iprops {
   children: ReactChild;
 }
 
 export default function LayoutPage(props: Iprops) {
-  const [rocketPosition, setRocketPosition] = useState(0);
+  const [rocket, setRocket] = useState(0);
+  const onrocket = _.debounce((rocket) => {
+    if (rocket === 10) return;
+    const newRocket = rocket + 1;
+    setRocket(newRocket);
+    onrocket(newRocket);
+  }, 1000);
+
+  console.log(rocket);
+  useEffect(() => {
+    onrocket(rocket);
+  }, []);
+
   // useEffect(() => {
   //   const addlistener = () => {
   //     window.addEventListener("scroll", function () {
@@ -31,20 +45,116 @@ export default function LayoutPage(props: Iprops) {
     position: relative;
     height: 8000px;
   `;
-  const Rocket = styled.img`
-    width: 200px;
-    left: 0;
-    top: 400px;
-    position: absolute;
-    /* left: ${(props) => props.rocketPosition}; */
-  `;
-  const Rocket2 = styled.img`
-    width: 250px;
-    top: 0;
-    position: absolute;
-    right: 50px;
-  `;
 
+  const sat = keyframes`
+   from{
+     right: 0;
+     top: 50%;
+     transform: rotateY(0deg);
+
+
+   }
+   25%{
+    right: 50%;
+    top: 0;
+    transform: rotateY(90deg);
+
+   }
+   50%{
+    right:95% ;
+    top: 50%;
+    transform: rotateY(180deg);
+
+
+   }
+   75%{
+    right: 50%;
+    top: 92%;
+    transform: rotateY(270deg);
+
+
+   }
+   to{
+     right: 0%;
+     top: 50%;
+     transform: rotateY(360deg);
+
+   }
+`;
+  const rck = keyframes`
+  from{
+    top: 1000px;
+
+  }
+  50%{
+    top: 0;
+
+
+  }
+  to{
+    top: 1000px;
+
+  }
+  `;
+  const fire = keyframes`
+    from{
+      top: 1350px;
+      height: 100px;
+      opacity: 0.5,
+
+    }
+    50%{
+      top: 350px;
+      height: 500px;
+      opacity:1
+
+
+  
+    }
+    to{
+      top: 1350px;
+      height: 100px;
+      opacity: 0.5,
+
+
+    }
+    `;
+
+  const Satelite = styled.img((props) => ({
+    width: "400px",
+    height: "400px",
+    right: "0",
+    top: "50%",
+    position: "fixed",
+    zIndex: "3",
+    animation: props.rocket === 10 ? `${sat} 15s ease-in-out  forwards` : "",
+  }));
+  const Rocket = styled.img((props) => ({
+    width: "200px",
+    height: "400px",
+    position: "fixed",
+    top: "1000px",
+    zIndex: "3",
+    animation: props.rocket === 10 ? `${rck} 10s ease-in-out  forwards` : "",
+  }));
+  const Fire = styled.img((props) => ({
+    width: "200px",
+    height: "100px",
+    position: "fixed",
+    opacity: "0.2",
+
+    top: "1300px",
+    zIndex: "3",
+    animation: props.rocket === 10 ? `${fire} 10s ease-in-out  forwards` : "",
+  }));
+
+  const Time = styled.h1`
+    font-size: 300px;
+    right: 50%;
+    top: 10%;
+    position: fixed;
+    color: #fff;
+  `;
   return (
     <div>
       <HeaderPage />
@@ -52,11 +162,10 @@ export default function LayoutPage(props: Iprops) {
       {/* <LayoutNavi></LayoutNavi> */}
       <Body>
         {props.children}
-        <Rocket2 src="/images/rocket3.png"></Rocket2>
-        <Rocket
-          // rocketPosition={rocketPosition}
-          src="/images/rocket2.png"
-        ></Rocket>
+        <Time>{rocket === 10 ? "" : rocket}</Time>
+        <Satelite rocket={rocket} src="/images/rocket3.png" />
+        <Rocket rocket={rocket} src="/images/rocket2.png" />
+        <Fire rocket={rocket} src="/images/fire2.png" />
       </Body>
       {/* <LayoutFooter></LayoutFooter> */}
     </div>

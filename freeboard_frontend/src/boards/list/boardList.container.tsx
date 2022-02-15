@@ -12,7 +12,6 @@ import {
 } from "../../../src/commons/types/generated/types";
 import _ from "lodash";
 import { useState } from "react";
-import { ContactsOutlined } from "@ant-design/icons";
 export default function boardListPage(props) {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();

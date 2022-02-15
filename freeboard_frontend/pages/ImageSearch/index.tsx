@@ -1,5 +1,7 @@
 import ImageSearchPage from "../../src/boards/imageSearch/imageSearch.container";
+import { withAuth } from "../../src/commons/hocs/withAuth";
 
-export default function ImagePage() {
+const ImagePage = () => {
   return <ImageSearchPage />;
-}
+};
+export default withAuth(ImagePage);

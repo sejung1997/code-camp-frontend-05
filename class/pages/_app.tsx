@@ -13,7 +13,15 @@ import { createUploadLink } from "apollo-upload-client";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import { widthAuth } from "../scr/components/commons/hocs/withAuth";
+import LoginSucessPage from "./lecture/2302-login-sucess-localStorage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -42,6 +50,21 @@ function MyApp({ Component, pageProps }: AppProps) {
     accessToken,
     setAcessToken,
   };
+  //
+  
+  // 브라우져 일때
+  // if (typeof window !== "undefined") {
+  //   if (localStorage.getItem("accessToken")) {
+  //     setAcessToken(localStorage.getItem("accessToken") || "");
+  //   }
+  // }
+  // useEfect는 서버에서 실행 안되고 브라우져에서만
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setAcessToken(localStorage.getItem("accessToken") || "");
+    }
+  }, []);
+  // @ts-ignore
   const uploadLink = createUploadLink({
     uri: "http://backend05.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
@@ -56,6 +79,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <Global styles={globalStyles} />
         <Layout>
+          {/* <>{widthAuth(LoginSucessPage)}({...pageProps} />)</> */}
           <Component {...pageProps} />
         </Layout>
       </ApolloProvider>

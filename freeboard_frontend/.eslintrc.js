@@ -13,7 +13,11 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint"],
-  rules: { "react/react-in-jsx-scope": "off", "react/prop-types": "off" },
+  rules: {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+  },
   settings: {
     react: {
       version: "detect",

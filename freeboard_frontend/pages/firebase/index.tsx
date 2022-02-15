@@ -1,10 +1,13 @@
 import FirebaseWritePage from "../../src/boards/firebase/firebaseWrite.container";
 import FirebaseListPage from "../../src/boards/firebase/firebaseList.container";
-export default function FirebasePage() {
+import { withAuth } from "../../src/commons/hocs/withAuth";
+
+const FirebasePage = () => {
   return (
     <div>
       <FirebaseWritePage />
       <FirebaseListPage />
     </div>
   );
-}
+};
+export default withAuth(FirebasePage);
