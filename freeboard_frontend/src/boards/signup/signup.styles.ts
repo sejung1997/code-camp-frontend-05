@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IIsValid } from "./signup.gql.types";
 
 export const Main = styled.div`
   padding: 50px 50px 80px;
@@ -15,7 +16,7 @@ export const topTitle = styled.div`
   padding-bottom: 35px;
   text-align: center;
 `;
-export const inputs = styled.div`
+export const inputs = styled.form`
   position: relative;
 `;
 export const id = styled.input`
@@ -29,6 +30,14 @@ export const id = styled.input`
   height: 30px;
 `;
 export const inputdomain = styled.input`
+  width: 150px;
+  color: grey;
+  border: 1px solid grey;
+  border-radius: 2px;
+  height: 30px;
+  margin-right: 17px;
+`;
+export const inputdomain1 = styled.input`
   width: 150px;
   color: grey;
   border: 1px solid grey;
@@ -79,7 +88,7 @@ export const validPs = styled.div`
   margin-bottom: 20px;
   padding: 5px 3px;
   font-size: 9px;
-  color: ${(props) => (props.isValid ? "blue" : "red")};
+  color: ${(props: IIsValid) => (props.isValid ? "blue" : "red")};
 `;
 
 export const name = styled.input`

@@ -1,8 +1,4 @@
-import {
-  CREATE_USER,
-  FETCH_USER_LOGGED_IN,
-  IBoardSignUpPageProps,
-} from "./signup.gql.types";
+import { CREATE_USER, IBoardSignUpPageProps } from "./signup.gql.types";
 import { useMutation, useQuery } from "@apollo/client";
 import SignUpPageUI from "./signup.presenter";
 import { ChangeEvent, useContext, useState } from "react";
@@ -12,75 +8,83 @@ import {
   IMutationCreateUserArgs,
 } from "../../commons/types/generated/types";
 import { GlobalContext } from "../../../pages/_app";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("이메일 형식이 적합하지 않습니다.")
+    .required("이메일은 필수 입력 사항입니다."),
+  password1: yup
+    .string()
+    .min(4, "비밀번호는 최소 4자리 이상 입력해주세요")
+    .max(15, "비밀번호는 최대 15자리 입니다.")
+    .required("비밀번호는 필수 입력 사항입니다"),
+  password2: yup
+
+    .string()
+    .min(4, "비밀번호는 최소 4자리 이상 입력해주세요")
+    .max(15, "비밀번호는 최대 15자리 입니다.")
+    .required("비밀번호는 필수 입력 사항입니다"),
+});
 export default function SignUpPage(props: IBoardSignUpPageProps) {
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-    password2: "",
-    name: "",
-    domainAdress: "",
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
   });
-  const [validMsg, setValidMsg] = useState("");
+  const [domainAdress, setDomainAdress] = useState("");
+
   const [createUser] = useMutation<
     Pick<IMutation, "createUser">,
     IMutationCreateUserArgs
   >(CREATE_USER);
 
-  const { acessToken } = useContext(GlobalContext);
-
-  const changeInputs = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputs({
-      ...inputs,
-      [event.target.id]: event.target.value,
-    });
-    if (event.target.id === "password2") {
-      setValidMsg("비밀번호가 일치하지 않습니다");
-      if (inputs.password === inputs.password2)
-        setValidMsg("비밀번호가 일치합니다");
-    }
+  const changeDomain = (event) => {
+    setDomainAdress(event.target.value);
+    if (event.target.value === "직접입력") setDomainAdress("");
   };
 
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  console.log();
-  const register = async () => {
+  const { userInfo } = useContext(GlobalContext);
+
+  // const changeInputs =
+  //   (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
+  //     setInputs({
+  //       ...inputs,
+  //       [id]: event.target.value,
+  //     });
+  //     if (event.target.value === "직접입력") {
+  //       setInputs({
+  //         ...inputs,
+  //         domainAdress: "",
+  //       });
+  //     }
+  //     if (event.target.id === "password2") {
+  //       setValidMsg("비밀번호가 일치하지 않습니다");
+  //       if (inputs.password === inputs.password2)
+  //         setValidMsg("비밀번호가 일치합니다");
+  //     }
+  //     console.log(inputs);
+  //   };
+
+  const onclickSubmit = async (data) => {
+    console.log(data);
     try {
-      // const auth = getAuth();
-      // createUserWithEmailAndPassword(
-      //   auth,
-      //   `${inputs.email}@${inputs.domainAdress}`,
-      //   inputs.password
-      // )
-      //   .then((userCredential) => {
-      //     // Signed in
-      //     const user = userCredential.user;
-      //     // ...
-      //     message.info("회원가입이 완료되었습니다");
-      //   })
-
-      // .catch((error) => {
-      //   const errorCode = error.code;
-      //   message.info(errorCode);
-      //   const errorMessage = error.message;
-      //   message.info(errorMessage);
-
-      //   // ..
-      // });
-      // console.log(inputs);
-      if (!/^[a-zA-Z1-9]([-_\.]?[0-9a-zA-Z])*/.test(inputs.email))
+      if (!/^[a-zA-Z1-9]([-_\.]?[0-9a-zA-Z])*/.test(data.email))
         message.info("유효하지않은 이메일입니다");
-      else if (
-        // (?=.*?[a-z])(?=.*?[A-Z])(?=.*?[!@#$%^*+-_])
-        !/^[a-z][A-Z][!@#$%^*+-_].{8,}&/.test(inputs.password)
-      )
-        message.info("비밀번호는 대/소문자 특수기호가 포함되어야 합니다");
+      // else if (
+      //   // (?=.*?[a-z])(?=.*?[A-Z])(?=.*?[!@#$%^*+-_])
+      //   !/^[a-z][A-Z][!@#$%^*+-_].{8,}&/.test(data.password)
+      // )
+      //   message.info("비밀번호는 대/소문자 특수기호가 포함되어야 합니다");
       else {
         await createUser({
           variables: {
             createUserInput: {
-              email: `${inputs.email}@${inputs.domainAdress}`,
-              password: inputs.password,
-              name: inputs.name,
+              email: `${data.email}@${domainAdress}`,
+              password: String(data.password),
+              name: data.name,
             },
           },
         });
@@ -92,28 +96,17 @@ export default function SignUpPage(props: IBoardSignUpPageProps) {
     }
   };
 
-  // const selectDomain = (event) => {
-  //    if (event.target.value === "직접입력") {
-  //    setInputs({
-  //        ...inputs,
-  //        domainAdress: "",
-  //      });
-
-  //   setInputs({
-  //     ...inputs,
-  //     domainAdress: event.target.value,
-  //   });
-  // };
   return (
     <SignUpPageUI
-      changeInputs={changeInputs}
-      inputs={inputs}
-      register={register}
       Cancel={props.Cancel}
       isVisible={props.isVisible}
-      validMsg={validMsg}
-      acessToken={acessToken}
-      data={data?.fetchUserLoggedIn}
+      userInfo={userInfo}
+      register={register}
+      handleSubmit={handleSubmit}
+      onclickSubmit={onclickSubmit}
+      domainAdress={domainAdress}
+      changeDomain={changeDomain}
+      formState={formState}
     />
   );
 }

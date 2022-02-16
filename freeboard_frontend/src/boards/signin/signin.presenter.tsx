@@ -5,10 +5,10 @@ import { Modal } from "antd";
 export default function SignUpPageUI(props: IBoardSingInPageUIProps) {
   return (
     <>
-      {props.acessToken ? (
+      {props.userInfo ? (
         <Modal
           visible={true}
-          onOk={props.register}
+          onOk={props.logout}
           onCancel={props.Cancel}
           width={560}
           footer={[
@@ -34,26 +34,29 @@ export default function SignUpPageUI(props: IBoardSingInPageUIProps) {
             <s.ButtonBack key="back" onClick={props.Cancel}>
               돌아가기
             </s.ButtonBack>,
-            <s.ButtonRegister key="submit" onClick={props.register}>
+            <s.ButtonRegister
+              key="submit"
+              onClick={props.handleSubmit(props.onclickSubmit)}
+            >
               제출하기
             </s.ButtonRegister>,
           ]}
         >
           <s.Main>
             <s.topTitle>로그인</s.topTitle>
-            <s.inputs>
+            <s.inputs onSubmit={props.handleSubmit(props.onclickSubmit)}>
               이메일 <br />
               <s.id
-                id="email"
-                onChange={props.changeInputs}
+                {...props.register("email")}
+                // onChange={props.changeInputs("email")}
                 placeholder="이메일을 입력하세요"
               ></s.id>
               <br />
               비밀번호 <br />
               <s.password
-                id="password"
+                {...props.register("password")}
                 type="password"
-                onChange={props.changeInputs}
+                // onChange={props.changeInputs("password")}
                 placeholder="비밀번호를 입력하세요"
               ></s.password>
             </s.inputs>

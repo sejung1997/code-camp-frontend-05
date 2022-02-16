@@ -2,27 +2,33 @@ import {
   LOGIN_USER,
   IBoardSignInPageProps,
   LOGOUT_USER,
+  FETCH_USER_LOGGED_IN,
 } from "./signIn.gql.types";
-import { useMutation } from "@apollo/client";
+import { useMutation, useApolloClient } from "@apollo/client";
 import SignUpPageUI from "./signIn.presenter";
 import { ChangeEvent, useContext, useState } from "react";
-import { message } from "antd";
+import { message, Modal } from "antd";
 import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../commons/types/generated/types";
 import { GlobalContext } from "../../../pages/_app";
+import { useForm } from "react-hook-form";
+
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 // import firebase from "firebase/compat/app";
 // import "firebaseui/dist/firebaseui.css";
 
 // import * as firebaseui from "firebaseui";
 export default function SignUpPage(props: IBoardSignInPageProps) {
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-    isValid: false,
-  });
+  const { register, handleSubmit } = useForm();
+
+  const client = useApolloClient();
+  // const [inputs, setInputs] = useState({
+  //   email: "",
+  //   password: "",
+  //   isValid: false,
+  // });
 
   const [loginUser] = useMutation<
     Pick<IMutation, "loginUser">,
@@ -30,64 +36,55 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
   >(LOGIN_USER);
   const [logoutUser] = useMutation(LOGOUT_USER);
 
-  const { setAcessToken, acessToken } = useContext(GlobalContext);
-  const changeInputs = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputs({
-      ...inputs,
-      [event.target.id]: event.target.value,
-    });
-  };
+  const { setAcessToken, acessToken, setUserInfo, userInfo } =
+    useContext(GlobalContext);
+  // const changeInputs = (id) => (event: ChangeEvent<HTMLInputElement>) => {
+  //   setInputs({
+  //     ...inputs,
+  //     [id]: event.target.value,
+  //   });
+  // };
 
   // const auth = getAuth();
 
-  const register = async () => {
+  const onclickSubmit = async (data) => {
+    console.log(data);
     try {
-      // signInWithEmailAndPassword(auth, inputs.email, inputs.password)
-      //   .then((userCredential) => {
-      //     // Signed in
-      //     // ...
-      //     message.info("로그인이 완료되었습니다");
-      //     const user = auth.currentUser;
-
-      //     if (user !== null) {
-      //       props.setUserData({
-      //         creationTime: user.metadata.creationTime,
-      //         lastSignInTime: user.metadata.lastSignInTime,
-      //         email: user.email,
-      //         emailVerified: user.emailVerified,
-      //       });
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     const errorCode = error.code;
-      //     const errorMessage = error.message;
-      //     message.info(errorCode);
-      //     message.info(errorMessage);
-      //   });
       if (
         !/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(
-          inputs.email
+          data.email
         )
       )
         return message.info("이메일을 확인해주세요");
-      if (!/([0-9]+[a-z]+[A-Z]+){8,12}/.test(inputs.password))
-        return message.info("비밀번호는 8-12자리 입니다");
+      // if (!/([0-9]+[a-z]+[A-Z]+){8,12}/g.test(data.password))
+      //   return message.info("비밀번호는 8-12자리 입니다");
       else {
         const token = await loginUser({
           variables: {
-            email: inputs.email,
-            password: inputs.password,
+            email: String(data?.email),
+            password: String(data?.password),
           },
         });
-        const accessToken = result.data?.loginUser.accessToken || "";
-        if (accessToken) {
-          setAcessToken(accessToken);
-          localStorage.setItem("accessToken", accessToken);
-        }
+        const accessToken = token.data?.loginUser?.accessToken || "";
+        if (setAcessToken) setAcessToken(accessToken);
+        localStorage.setItem("accessToken", accessToken);
+
+        const resultUserInfo = await client.query({
+          query: FETCH_USER_LOGGED_IN,
+          // headers: { Authorization: `Bearer ${acessToken}` },
+
+          // app에서 세팅되어서 없어도 됨
+        });
+        const userInfo = resultUserInfo.data?.fetchUserLoggedIn;
+
+        if (setUserInfo) setUserInfo(userInfo);
+
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
         props.Cancel();
       }
     } catch (error) {
-      message.info(error.message);
+      // message.info(error.message);
+      if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
 
@@ -109,16 +106,19 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
   //   ],
   //   // Other config options...
   // });
-
+  console.log(userInfo);
   return (
     <SignUpPageUI
-      changeInputs={changeInputs}
-      inputs={inputs}
-      register={register}
+      // changeInputs={changeInputs}
+      // inputs={inputs}
       Cancel={props.Cancel}
       isVisible={props.isVisible}
       acessToken={acessToken}
       logout={logout}
+      register={register}
+      handleSubmit={handleSubmit}
+      onclickSubmit={onclickSubmit}
+      userInfo={userInfo}
     />
   );
 }

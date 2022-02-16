@@ -1,11 +1,11 @@
 import * as s from "./signup.styles";
 import { IBoardSingUpPageUIProps } from "./signup.gql.types";
-import { message, Modal } from "antd";
+import { Modal } from "antd";
 
 export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
   return (
     <>
-      {props.acessToken ? (
+      {props.userInfo ? (
         <Modal
           visible={true}
           onCancel={props.Cancel}
@@ -18,44 +18,56 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
         >
           <s.Main>
             <s.topTitle>회원정보</s.topTitle>
-            <s.inputs>
+            <form>
               이메일 <br />
-              <s.email>{props.data?.email}</s.email>
+              <s.email>{JSON.parse(props.userInfo).email}</s.email>
               이름 <br />
-              <s.creationTime>{props.data?.name}</s.creationTime>
+              <s.lastSignTime>{JSON.parse(props.userInfo).name}</s.lastSignTime>
               가입 날짜 <br />
-              <s.emailValid>{String(props.data?.createdAt)}</s.emailValid>
-            </s.inputs>
+              <s.creationTime>
+                {JSON.parse(props.userInfo).createdAt}
+              </s.creationTime>
+            </form>
           </s.Main>
         </Modal>
       ) : (
         <Modal
           visible={true}
-          onOk={props.register}
+          onOk={props.submit}
           onCancel={props.Cancel}
           width={560}
           footer={[
             <s.ButtonBack key="back" onClick={props.Cancel}>
               돌아가기
             </s.ButtonBack>,
-            <s.ButtonRegister key="submit" onClick={props.register}>
+            <s.ButtonRegister
+              key="submit"
+              onClick={props.handleSubmit(props.onclickSubmit)}
+            >
               제출하기
             </s.ButtonRegister>,
           ]}
         >
           <s.Main>
             <s.topTitle>회원가입</s.topTitle>
-            <s.inputs>
+
+            <s.inputs onSubmit={props.handleSubmit(props.onclickSubmit)}>
               이메일 <br />
               <s.id
-                id="email"
-                onChange={props.changeInputs}
+                {...props.register("email")}
+                // onChange={props.changeInputs("email")}
                 placeholder="이메일을 입력하세요"
               ></s.id>
-              <s.inputdomain
-                value={`@${props.inputs.domainAdress}`}
-              ></s.inputdomain>
-              <s.domainAddress id="domainAdress" onChange={props.changeInputs}>
+              <div>{props.formState.errors.email?.message}</div>
+              {props.domainAdress === "" ? (
+                <s.inputdomain1
+                  defaultValue=""
+                  placeholder="직접입력해주세요"
+                ></s.inputdomain1>
+              ) : (
+                <s.inputdomain value={`@${props.domainAdress}`}></s.inputdomain>
+              )}
+              <s.domainAddress onChange={props.changeDomain}>
                 <option>직접입력</option>
                 <option>naver.com</option>
                 <option>gmail.com</option>
@@ -63,27 +75,30 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
                 <option>nate.com</option>
               </s.domainAddress>
               {/* <s.validBtn onClick={props.authority}>인증번호 전송</s.validBtn> */}
-              <s.validId>{props.validMsg.emailMsg}</s.validId>
+              {/* <s.validId>{props.validMsg.emailMsg}</s.validId> */}
               비밀번호 <br />
               <s.password
-                id="password"
                 type="password"
-                onChange={props.changeInputs}
+                {...props.register("password1")}
+                // onChange={props.changeInputs("password")}
                 placeholder="비밀번호를 입력하세요"
               ></s.password>
+              <div>{props.formState.errors.password1?.message}</div>
               <s.password
-                id="password2"
                 type="password"
-                onChange={props.changeInputs}
+                {...props.register("password2")}
+                // onChange={props.changeInputs("password2")}
                 placeholder="비밀번호를 다시 입력하세요"
               ></s.password>
-              <s.validPs isValid={props.validMsg === "비밀번호가 일치합니다"}>
-                {props.validMsg}
-              </s.validPs>
+              <div>{props.formState.errors.password2?.message}</div>
+              {/* <s.validPs isValid={props.validMsg === "비밀번호가 일치합니다"}> */}
+              {/* {props.validMsg} */}
+              {/* </s.validPs> */}
+              <br />
               이름 <br />
               <s.name
-                id="name"
-                onChange={props.changeInputs}
+                {...props.register("name")}
+                // onChange={props.changeInputs("name")}
                 placeholder="이름을 입력하세요"
               ></s.name>
               <br />

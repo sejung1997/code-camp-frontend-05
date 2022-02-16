@@ -39,19 +39,29 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 
+interface IUserInfo {
+  name?: String;
+  email?: string;
+  picture?: string;
+}
 interface IGlobalContext {
   accessToken?: String;
   setAcessToken?: Dispatch<SetStateAction<String>>;
+  setUserInfo?: Dispatch<SetStateAction<IUserInfo>>;
+  userInfo?: IUserInfo;
 }
 export const GlobalContext = createContext<IGlobalContext>({});
 function MyApp({ Component, pageProps }: AppProps) {
   const [accessToken, setAcessToken] = useState("");
+  const [userInfo, setUserInfo] = useState<IUserInfo>({});
   const Value = {
     accessToken,
     setAcessToken,
+    userInfo,
+    setUserInfo,
   };
   //
-  
+
   // 브라우져 일때
   // if (typeof window !== "undefined") {
   //   if (localStorage.getItem("accessToken")) {

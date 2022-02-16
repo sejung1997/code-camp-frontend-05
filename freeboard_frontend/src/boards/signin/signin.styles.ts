@@ -15,7 +15,7 @@ export const topTitle = styled.div`
   padding-bottom: 35px;
   text-align: center;
 `;
-export const inputs = styled.div`
+export const inputs = styled.form`
   position: relative;
 `;
 export const id = styled.input`

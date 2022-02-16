@@ -100,13 +100,13 @@ export default function LayoutPage(props: Iprops) {
     from{
       top: 1350px;
       height: 100px;
-      opacity: 0.5,
+      opacity: 0;
 
     }
     50%{
       top: 350px;
+      opacity: 1;
       height: 500px;
-      opacity:1
 
 
   
@@ -114,7 +114,7 @@ export default function LayoutPage(props: Iprops) {
     to{
       top: 1350px;
       height: 100px;
-      opacity: 0.5,
+      opacity: 0;
 
 
     }
@@ -141,7 +141,6 @@ export default function LayoutPage(props: Iprops) {
     width: "200px",
     height: "100px",
     position: "fixed",
-    opacity: "0.2",
 
     top: "1300px",
     zIndex: "3",
@@ -162,7 +161,7 @@ export default function LayoutPage(props: Iprops) {
       {/* <LayoutNavi></LayoutNavi> */}
       <Body>
         {props.children}
-        <Time>{rocket === 10 ? "" : rocket}</Time>
+        <Time>{rocket === 10 ? "" : 10 - rocket}</Time>
         <Satelite rocket={rocket} src="/images/rocket3.png" />
         <Rocket rocket={rocket} src="/images/rocket2.png" />
         <Fire rocket={rocket} src="/images/fire2.png" />

@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { ChangeEvent } from "react";
+import { ChangeEvent, ChangeEventHandler } from "react";
 
 export const CREATE_USER = gql`
   mutation createUser($createUserInput: CreateUserInput!) {
@@ -9,26 +9,32 @@ export const CREATE_USER = gql`
     }
   }
 `;
-export const FETCH_USER_LOGGED_IN = gql`
-  query fetchUserLoggedIn {
-    fetchUserLoggedIn {
-      email
-      name
-      createdAt
-    }
-  }
-`;
+interface IUserInfo {
+  name?: string;
+  email?: string;
+  picture?: string;
+  createdAt?: string;
+}
 export interface IBoardSingUpPageUIProps {
-  changeInputs: (event: ChangeEvent<HTMLInputElement>) => void;
+  changeInputs: (
+    id: string
+  ) => (
+    event: ChangeEvent<HTMLInputElement> | ChangeEventHandler<HTMLSelectElement>
+  ) => void;
   inputs: any;
-  register: () => void;
   Cancel: () => void;
   isVisible: boolean;
+  userInfo: IUserInfo;
+  acessToken?: String;
+  data: any;
   valid: () => void;
   validMsg: any;
-  isValid: boolean;
+  isValid: boolean | any;
 }
 export interface IBoardSignUpPageProps {
   isVisible: boolean;
   Cancel: () => void;
+}
+export interface IIsValid {
+  isValid: Boolean;
 }

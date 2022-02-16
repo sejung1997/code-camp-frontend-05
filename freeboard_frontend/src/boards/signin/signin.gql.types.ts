@@ -13,15 +13,25 @@ export const LOGOUT_USER = gql`
     logoutUser
   }
 `;
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      email
+      name
+      createdAt
+    }
+  }
+`;
 export interface IBoardSingInPageUIProps {
-  changeInputs: (event: ChangeEvent<HTMLInputElement>) => void;
+  changeInputs: (id: String) => (event: ChangeEvent<HTMLInputElement>) => void;
   inputs: any;
-  register: () => void;
   Cancel: () => void;
   isVisible: boolean;
   valid: () => void;
   validMsg: any;
   isValid: boolean;
+  logout: () => void;
+  acessToken: String;
 }
 export interface IBoardSignInPageProps {
   isVisible: boolean;

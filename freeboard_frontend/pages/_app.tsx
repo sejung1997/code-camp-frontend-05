@@ -37,21 +37,35 @@ const firebaseConfig = {
 
 // Initialize Firebaseexport
 export const fireApp = initializeApp(firebaseConfig);
+interface IUserInfo {
+  name?: string;
+  email?: string;
+  picture?: string;
+  createdAt?: string;
+}
 interface IGlobalContext {
   acessToken?: String;
   setAcessToken?: Dispatch<SetStateAction<String>>;
+  userInfo?: IUserInfo;
+  setUserInfo?: Dispatch<SetStateAction<IUserInfo>>;
 }
 export const GlobalContext = createContext<IGlobalContext>({});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [acessToken, setAcessToken] = useState("");
+  const [userInfo, setUserInfo] = useState<IUserInfo>({});
   const Value = {
     acessToken,
     setAcessToken,
+    userInfo,
+    setUserInfo,
   };
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       setAcessToken(localStorage.getItem("accessToken") || "");
+    }
+    if (localStorage.getItem("userInfo")) {
+      setUserInfo(localStorage.getItem("userInfo") || "");
     }
   }, []);
 
