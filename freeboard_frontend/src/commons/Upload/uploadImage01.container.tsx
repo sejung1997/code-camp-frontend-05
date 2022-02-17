@@ -30,11 +30,14 @@ export default function UploadImagePage(props: IUploadImagePage) {
     try {
       const result = await uploadFile({ variables: { file } });
       const fileUrl = [...props.imgUrl];
+
       fileUrl[props.index] = result.data?.uploadFile.url;
       props.setImgUrl(fileUrl);
+      console.log(result);
     } catch (error) {
       // message.info(message);
     }
+    console.log(props.imgUrl);
   };
 
   return (

@@ -19,4 +19,5 @@ export const SliderItem = styled.img`
   right: 0;
   left: 0;
 `;
+
 export const planet = styled.div``;
