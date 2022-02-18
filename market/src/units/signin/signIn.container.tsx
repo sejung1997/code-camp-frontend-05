@@ -1,10 +1,14 @@
-import {useForm} from "react-hook-form"
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-
-import SignInPresenter from "./signIn.presenter"
-
+import { LOGIN_USER, FETCH_USER_LOGGED_IN } from "./signIn.gql";
+import { FormValues } from "./signIn.types";
+import SignInPresenter from "./signIn.presenter";
+import { useMutation, useApolloClient } from "@apollo/client";
+import { GlobalContext } from "../../../pages/_app";
+import { useContext } from "react";
+import { useRouter } from "next/router";
+import { message } from "antd";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -16,24 +20,45 @@ const schema = yup.object().shape({
     .max(15, "비밀번호는 최대 15자리 입니다.")
     .required("비밀번호는 필수 입력 사항입니다"),
 });
-interface FormValues {
-  email?: string;
-  password?: string;
-}
-export default function SignInContainer() {
 
-  
-  const {register, handleSubmit, formState} = useForm({
+export default function SignInContainer() {
+  const client = useApolloClient();
+  const router = useRouter();
+  const { setAcessToken, setUserInfo, userInfo } = useContext(GlobalContext);
+  const [loginUser] = useMutation(LOGIN_USER);
+  const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
-
-    })
-  const onclickSubmit = (data: FormValues) => {
+  });
+  const onclickSubmit = async (data: FormValues) => {
     console.log(data);
+    const token = await loginUser({
+      variables: {
+        email: data.email,
+        password: data.password,
+      },
+    });
+    const accessToken = token.data?.loginUser?.accessToken || "";
+    if (setAcessToken) setAcessToken(accessToken);
+    localStorage.setItem("accessToken", accessToken);
+
+    const resultUserInfo = await client.query({
+      query: FETCH_USER_LOGGED_IN,
+    });
+    const Info = resultUserInfo.data?.fetchUserLoggedIn;
+    if (setUserInfo) setUserInfo(Info);
+    localStorage.setItem("userInfo", JSON.stringify(Info));
+    router.push("/");
+    message.info(`${Info.name}님 환영합니다`);
   };
   return (
     <>
-   <SignInPresenter register={register} handleSubmit={handleSubmit} formState={formState} onclickSubmit={onclickSubmit}/>
+      <SignInPresenter
+        register={register}
+        handleSubmit={handleSubmit}
+        formState={formState}
+        onclickSubmit={onclickSubmit}
+      />
     </>
-  )
+  );
 }

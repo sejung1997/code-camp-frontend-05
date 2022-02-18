@@ -1,4 +1,3 @@
-// import { globalStyles } from "../src/commons/styles/globalStyles";
 import "antd/dist/antd.css";
 import {
   ApolloClient,
@@ -7,9 +6,9 @@ import {
   ApolloLink,
 } from "@apollo/client";
 import { AppProps } from "next/app";
-// import Layout from "../src/commons/layout/";
 import { Global } from "@emotion/react";
 import { createUploadLink } from "apollo-upload-client";
+import Layout from "../src/commons/layout/index";
 
 // Import the functions you need from the SDKs you need
 
@@ -65,7 +64,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setAcessToken(localStorage.getItem("accessToken") || "");
     }
     if (localStorage.getItem("userInfo")) {
-      setUserInfo(localStorage.getItem("userInfo") || "");
+      setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
     }
   }, []);
 
@@ -80,11 +79,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    // <GlobalContext.Provider value={Value}>
-    <ApolloProvider client={client}>
-      <Component {...pageProps} />
-    </ApolloProvider>
-    // </GlobalContext.Provider>
+    <GlobalContext.Provider value={Value}>
+      <ApolloProvider client={client}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+    </GlobalContext.Provider>
   );
 }
 
