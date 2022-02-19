@@ -9,6 +9,7 @@ export function Input02(props) {
       placeholder={props.placeholder}
       type={props.type}
       defaultValue={props.defaultValue}
+      {...props.register}
     />
   );
 }

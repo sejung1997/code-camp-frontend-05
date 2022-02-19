@@ -1,50 +1,68 @@
 import { Modal } from "antd";
-import UploadImagePage from "../../../commons/Upload/uploadImage01.container";
-import { IBoardUIIProps } from "../list/boardList.types";
-import * as A from "./boardWrite.styles";
-import Input02 from "../../commons/inputs/input02";
+import UploadImagePage from "../../commons/uploadImage/uploadImage01/container";
+import { IBoardUIIProps } from "./createItem.types";
+import * as A from "./createItem.styles";
+import { Input02 } from "../../commons/inputs/input02";
 
-export default function CreateItemPresenter() {
+export default function CreateItemPresenter(props: IBoardUIIProps) {
   return (
     <>
       <A.Main>
         <A.TopTitle>상품 {props.isEdit ? "수정" : "등록"}</A.TopTitle>
-        <A.WritterWrapper>
+        <A.WritterWrapper onSubmit={props.handleSubmit(props.onclickSubmit)}>
           <A.OptionWrapper>
-            <A.Title>작성자</A.Title>
-            <Input02 />
+            <A.Title>상품명</A.Title>
+            <Input02
+              placeholder={"상품명을 입력해주세요"}
+              type={"text"}
+              register={props.register("name")}
+            />
+            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
 
           <A.OptionWrapper>
-            <A.Title>설명</A.Title>
-            <Input02 />
+            <A.Title>한줄요약</A.Title>
+            <Input02
+              placeholder={"간단하게 상품을 요약해주세요"}
+              type={"text"}
+              register={props.register("remarks")}
+            />
+            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>내용</A.Title>
-            <Input02 />
+            <Input02
+              placeholder={"내용을 입력해주세요"}
+              type={"textArea"}
+              register={props.register("contents")}
+            />
+            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>가격</A.Title>
-            <Input02 />
+            <Input02
+              placeholder={"가격을 입력해주세요"}
+              type={"text"}
+              register={props.register("price")}
+            />
+            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>태그</A.Title>
-            <Input02 />
-          </A.OptionWrapper>
-          <A.OptionWrapper>
-            <A.Title>가격</A.Title>
-            <Input02 />
+            <Input02
+              placeholder={"#태그 #태그 #태그"}
+              type={"text"}
+              register={props.register("tags")}
+            />
+            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
 
-          <A.OptionWrapper>
-            <A.Title>주소</A.Title>
-            <Input02 />
-          </A.OptionWrapper>
+          <A.OptionWrapper></A.OptionWrapper>
         </A.WritterWrapper>
         <A.OptionWrapper>
           <A.Title>사진 첨부</A.Title>
           <A.BoxGroup>
-            {new Array(3).fill(1).map((_, index) => (
+            {new Array(6).fill(1).map((_, index) => (
               <UploadImagePage
                 key={index}
                 index={index}
@@ -57,16 +75,16 @@ export default function CreateItemPresenter() {
         </A.OptionWrapper>
         <A.OptionWrapper></A.OptionWrapper>
 
-        <A.OptionWrapper>
+        {/* <A.OptionWrapper>
           <A.Title>메인 설정</A.Title>
           <A.InputMain type="radio" name="main" />
           <A.Youtube>유트브</A.Youtube>
           <A.InputMain type="radio" name="main" />
           <A.Youtube>사진</A.Youtube>
-        </A.OptionWrapper>
+        </A.OptionWrapper> */}
 
         <A.BottomButton>
-          <A.BottomSubmit onClick={props.onAsk}>
+          <A.BottomSubmit onClick={props.handleSubmit(props.onclickSubmit)}>
             {props.isEdit ? "수정하기" : "등록하기"}
           </A.BottomSubmit>
           <A.BottomCancel onClick={props.cancel}>취소하기</A.BottomCancel>

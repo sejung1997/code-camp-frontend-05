@@ -1,15 +1,15 @@
-import { checkFileValidataion } from "../../commons/validation/index";
+import { checkFileValidataion } from "../../../commons/validation/index";
 import {
   IMutation,
   IMutationUploadFileArgs,
-} from "../../commons/types/generated/types";
+} from "../../../commons/types/generated/types";
 import { message } from "antd";
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 
-import { UPLOAD_FILE } from "../Upload/uploadImage01.gql.types";
-import UploadImagePageUI from "./uploadImage01.presenter";
-import { IUploadImagePage } from "./uploadImage01.gql.types";
+import { UPLOAD_FILE } from "./gql";
+import UploadImagePageUI from "./preesenter";
+import { IUploadImagePage } from "./types";
 export default function UploadImagePage(props: IUploadImagePage) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation<
@@ -24,7 +24,7 @@ export default function UploadImagePage(props: IUploadImagePage) {
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const isValid = checkFileValidataion(file);
-    console.log(file);
+    // console.log(file);
 
     if (!isValid) return;
     try {
