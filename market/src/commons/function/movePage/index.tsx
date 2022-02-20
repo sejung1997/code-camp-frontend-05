@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-
 export function useMovePage() {
   const router = useRouter();
   const movePage = (url) => () => {
@@ -7,3 +6,6 @@ export function useMovePage() {
   };
   return movePage;
 }
+// export const movePage = (url) => {
+//   Router.push(`/${url}`);
+// };

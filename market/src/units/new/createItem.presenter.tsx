@@ -1,8 +1,9 @@
+import styled from "@emotion/styled";
 import { Modal } from "antd";
 import UploadImagePage from "../../commons/uploadImage/uploadImage01/container";
 import { IBoardUIIProps } from "./createItem.types";
 import * as A from "./createItem.styles";
-import { Input02 } from "../../commons/inputs/input02";
+// import { Input02 } from "../../commons/inputs/input02";
 
 export default function CreateItemPresenter(props: IBoardUIIProps) {
   return (
@@ -12,47 +13,53 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
         <A.WritterWrapper onSubmit={props.handleSubmit(props.onclickSubmit)}>
           <A.OptionWrapper>
             <A.Title>상품명</A.Title>
-            <Input02
+            <A.Input02
               placeholder={"상품명을 입력해주세요"}
               type={"text"}
-              register={props.register("name")}
+              defaultValue={props.defaultData?.fetchUseditem?.name}
+              {...props.register("name")}
             />
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
 
           <A.OptionWrapper>
             <A.Title>한줄요약</A.Title>
-            <Input02
+            <A.Input02
               placeholder={"간단하게 상품을 요약해주세요"}
+              defaultValue={props.defaultData?.fetchUseditem?.remarks}
               type={"text"}
-              register={props.register("remarks")}
+              {...props.register("remarks")}
             />
+
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>내용</A.Title>
-            <Input02
+            <A.Input02
+              defaultValue={props.defaultData?.fetchUseditem?.contents}
               placeholder={"내용을 입력해주세요"}
               type={"textArea"}
-              register={props.register("contents")}
+              {...props.register("contents")}
             />
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>가격</A.Title>
-            <Input02
+            <A.Input02
+              defaultValue={props.defaultData?.fetchUseditem?.price}
               placeholder={"가격을 입력해주세요"}
               type={"text"}
-              register={props.register("price")}
+              {...props.register("price")}
             />
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>태그</A.Title>
-            <Input02
+            <A.Input02
+              defaultValue={props.defaultData?.fetchUseditem?.tags}
               placeholder={"#태그 #태그 #태그"}
               type={"text"}
-              register={props.register("tags")}
+              {...props.register("tags")}
             />
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
@@ -84,7 +91,13 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
         </A.OptionWrapper> */}
 
         <A.BottomButton>
-          <A.BottomSubmit onClick={props.handleSubmit(props.onclickSubmit)}>
+          <A.BottomSubmit
+            onClick={
+              props.isEdit
+                ? props.handleSubmit(props.onclickUpdate)
+                : props.handleSubmit(props.onclickSubmit)
+            }
+          >
             {props.isEdit ? "수정하기" : "등록하기"}
           </A.BottomSubmit>
           <A.BottomCancel onClick={props.cancel}>취소하기</A.BottomCancel>

@@ -13,6 +13,9 @@ export const Main = styled.div`
   right: 0;
   left: 0;
 `;
+export const Input02 = styled.input`
+  width: 200px;
+`;
 export const ErrorMsg = styled.div``;
 export const TopTitle = styled.h1`
   text-align: center;
@@ -133,7 +136,7 @@ export const YoutubeWrapper = styled.div`
 export const BoxGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  width: calc(78px * 3 + 24px * 2);
+  width: calc(78px * 6 + 24px * 5);
 `;
 export const InputMain = styled.input`
   width: 20px;

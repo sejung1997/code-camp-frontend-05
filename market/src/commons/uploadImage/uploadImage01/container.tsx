@@ -33,7 +33,7 @@ export default function UploadImagePage(props: IUploadImagePage) {
 
       fileUrl[props.index] = result.data?.uploadFile.url;
       props.setImgUrl(fileUrl);
-      console.log(result);
+      console.log(file);
     } catch (error) {
       // message.info(message);
     }

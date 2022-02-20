@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import Button01 from "../../commons/button01";
-import Input01 from "../../inputs/input01";
+import Input01 from "../../commons/inputs/input01";
 import * as SI from "./signUp.styles";
 
 export default function SignInPresenter(props) {

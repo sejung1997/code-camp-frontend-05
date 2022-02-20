@@ -6,9 +6,10 @@ import { FormValues } from "./signIn.types";
 import SignInPresenter from "./signIn.presenter";
 import { useMutation, useApolloClient } from "@apollo/client";
 import { GlobalContext } from "../../../pages/_app";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { message } from "antd";
+import { async } from "@firebase/util";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -32,25 +33,30 @@ export default function SignInContainer() {
   });
   const onclickSubmit = async (data: FormValues) => {
     console.log(data);
-    const token = await loginUser({
+    const result = await loginUser({
       variables: {
         email: data.email,
         password: data.password,
       },
     });
-    const accessToken = token.data?.loginUser?.accessToken || "";
-    if (setAcessToken) setAcessToken(accessToken);
-    localStorage.setItem("accessToken", accessToken);
-
-    const resultUserInfo = await client.query({
-      query: FETCH_USER_LOGGED_IN,
-    });
-    const Info = resultUserInfo.data?.fetchUserLoggedIn;
-    if (setUserInfo) setUserInfo(Info);
-    localStorage.setItem("userInfo", JSON.stringify(Info));
-    router.push("/");
-    message.info(`${Info.name}님 환영합니다`);
+    const token = result.data?.loginUser?.accessToken || "";
+    if (setAcessToken) setAcessToken(token);
+    localStorage.setItem("accessToken", token);
+    setInfomation();
   };
+  const setInfomation = async () => {
+    if (localStorage.getItem("accessToken")) {
+      const resultUserInfo = await client.query({
+        query: FETCH_USER_LOGGED_IN,
+      });
+      const Info = resultUserInfo.data?.fetchUserLoggedIn;
+
+      if (setUserInfo) setUserInfo(Info);
+      localStorage.setItem("userInfo", JSON.stringify(Info));
+    }
+    router.push("./");
+  };
+
   return (
     <>
       <SignInPresenter

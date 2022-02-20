@@ -5,8 +5,8 @@ export const Box1 = styled.div`
   text-align: center;
   padding-top: 23px;
   font-size: 12px;
-  color: #fff;
-  border: 1px solid #fff;
+  color: green;
+  border: 1px solid green;
 
   border-radius: 5px;
   font-weight: 600;
