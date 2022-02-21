@@ -1,7 +1,8 @@
 import * as C from "../CommentEdit/CommentEdit.styles";
 import { Modal } from "antd";
 import CreateCommentContainer from "../createComment.container";
-import CommentReply from "../CommentReply/createCommentReply.container";
+import CreateCommentReply from "../createCommentReply/createCommentReply.container";
+import CommnetReplyContainer from "../commentReply/reply.container";
 export default function CommentEditPage(props) {
   return (
     <div>
@@ -32,30 +33,16 @@ export default function CommentEditPage(props) {
             <C.date>{props.el.createdAt.slice(0, 10)}</C.date>
           </C.Comment>
 
-          {props.answerData?.fetchUseditemQuestionAnswers?.map((el) => (
-            <C.replyWrapper key={el._id}>
-              <C.replyCommentInfo>
-                <C.Img src="/images/Vector.png"></C.Img>
-                <C.Writer>{el.user.name}</C.Writer>
-                <C.wrapper>
-                  <C.buttonUpdate
-                    src="/images/edit.png"
-                    onClick={() => props.onToggle("edit")}
-                  ></C.buttonUpdate>
-
-                  <C.buttonDelete
-                    src="/images/x.png"
-                    onClick={props.checkDeleteAnswer(el.id)}
-                  ></C.buttonDelete>
-                </C.wrapper>
-              </C.replyCommentInfo>
-              <C.content>{el.contents}</C.content>
-              <C.buttonReplyReply onClick={() => props.onToggle("answer")}>
-                답글달기
-              </C.buttonReplyReply>
-              <C.date>{el.createdAt?.slice(0, 10)}</C.date>
-            </C.replyWrapper>
-          ))}
+          {props.answerData?.fetchUseditemQuestionAnswers &&
+            props.answerData?.fetchUseditemQuestionAnswers?.map((el, index) => (
+              <CommnetReplyContainer
+                key={el._id}
+                index={index}
+                el={el}
+                questionId={props.el._id}
+                checkDeleteAnswer={props.checkDeleteAnswer}
+              />
+            ))}
         </>
       )}
 
@@ -68,11 +55,10 @@ export default function CommentEditPage(props) {
         />
       )}
       {props.isAnswer === true && (
-        <CommentReply
-          el={props.el}
+        <CreateCommentReply
+          questionId={props.el._id}
           onToggle={props.onToggle}
-          setIsAnswer={props.setIsAnswer}
-          index={props.index}
+          setIsEdit={props.setIsEdit}
         />
       )}
     </div>

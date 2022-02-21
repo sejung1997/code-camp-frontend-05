@@ -9,7 +9,6 @@ export const CommentInfo = styled.div`
 export const replyCommentInfo = styled.div`
   display: flex;
   margin-bottom: 4px;
-  width: 1200px;
   position: relative;
 `;
 export const Img = styled.img`
@@ -18,20 +17,23 @@ export const Img = styled.img`
 `;
 export const wrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   position: absolute;
   top: 15px;
   right: 0;
 `;
 export const replyWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   right: 0;
+  padding-top: 10px;
+  position: relative;
   margin-left: 50px;
+  flex-direction: column;
+  width: 1150px;
   border-bottom: 1px solid green;
 `;
 export const Writer = styled.div`
   font-size: 16px;
+  padding-top: 10px;
   font-weight: 600;
 `;
 export const buttonUpdate = styled.img`
@@ -65,8 +67,8 @@ export const buttonReply = styled.button`
 `;
 export const buttonReplyReply = styled.button`
   position: absolute;
-  top: 50px;
   right: 0;
+  top: 60px;
   background-color: #fff;
   border: 0.5px solid green;
   :hover {

@@ -56,7 +56,10 @@ export default function fetchItemPresenter(props) {
             수정하기
           </L.ButtonUpdate>
           <L.ButtonList onClick={props.movePage("list")}>목록으로</L.ButtonList>
-          <L.ButtonDelete onClick={props.deleteBtn}>삭제하기</L.ButtonDelete>
+          <L.ButtonList onClick={props.deleteBtn}>삭제하기</L.ButtonList>
+          <L.ButtonDelete onClick={props.pickUp}>
+            장바구니에 담기
+          </L.ButtonDelete>
         </L.buttonGroup>
         <CreateCommentContainer />
         <FetchCommentList />

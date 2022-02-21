@@ -1,21 +1,22 @@
 import CreateCommentPresenter from "./createCommentReply.presenter";
 import {
   CREATE_USED_ITEM_QUESTION_ANSWER,
-  UPDATE_USED_ITEM_QUESTION,
-  FETCH_USED_ITEM_QUESTIONS,
+  UPDATE_USED_ITEM_QUESTION_ANSWER,
+  FETCH_USED_ITEM_QUESTIONS_ANSWERS,
 } from "./CommentReply.gql&types";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { message } from "antd";
-import { kebabCase } from "lodash";
 
 export default function createCommentContainer(props) {
   const router = useRouter();
   const [createUseditemQuestionAnswer] = useMutation(
     CREATE_USED_ITEM_QUESTION_ANSWER
   );
-  const [updateUseditemQuestion] = useMutation(UPDATE_USED_ITEM_QUESTION);
+  const [updateUseditemQuestionAnswer] = useMutation(
+    UPDATE_USED_ITEM_QUESTION_ANSWER
+  );
   const [inputs, setinputs] = useState({
     contents: "",
     length: "0",
@@ -34,27 +35,38 @@ export default function createCommentContainer(props) {
           createUseditemQuestionAnswerInput: {
             contents: inputs.contents,
           },
-          useditemQuestionId: props.el._id,
+          useditemQuestionId: props.questionId,
+        },
+        update(cache, { data }) {
+          cache.modify({
+            fields: {
+              fetchUseditemQuestionAnswers: (prev) => {
+                return [data.createUseditemQuestionAnswer, ...prev];
+              },
+            },
+          });
         },
       });
+      props.onToggle("answer");
     } catch (error) {
       message.info(error.message);
     }
   };
 
   const update = async () => {
+    console.log(props.questionId);
     try {
-      await updateUseditemQuestion({
+      await updateUseditemQuestionAnswer({
         variables: {
-          updateUseditemQuestionInput: {
+          updateUseditemQuestionAnswerInput: {
             contents: inputs.contents,
           },
-          useditemQuestionId: props.el._id,
+          useditemQuestionAnswerId: props.el._id,
         },
         refetchQueries: [
           {
-            query: FETCH_USED_ITEM_QUESTIONS,
-            variables: { page: 1, useditemId: String(router.query.id) },
+            query: FETCH_USED_ITEM_QUESTIONS_ANSWERS,
+            variables: { page: 1, useditemQuestionId: props.questionId },
           },
         ],
       });

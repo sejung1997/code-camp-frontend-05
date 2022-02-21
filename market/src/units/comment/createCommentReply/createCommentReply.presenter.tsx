@@ -5,7 +5,8 @@ export default function createCommentPresenter(props) {
     <>
       <C.CommentArea isEdit={props.isAnswer}>
         <C.Title isEdit={props.isAnswer}>
-          <C.Image src="/images/Vector(3).png" /> 답글
+          <C.Image src="/images/Vector(3).png" />
+          {props.isEdit ? "답글 수정" : "답글 달기"}
         </C.Title>
 
         <C.contents>

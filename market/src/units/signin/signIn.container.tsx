@@ -25,7 +25,8 @@ const schema = yup.object().shape({
 export default function SignInContainer() {
   const client = useApolloClient();
   const router = useRouter();
-  const { setAcessToken, setUserInfo, userInfo } = useContext(GlobalContext);
+  const { setAcessToken, setUserInfo, userInfo, acessToken } =
+    useContext(GlobalContext);
   const [loginUser] = useMutation(LOGIN_USER);
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
@@ -42,7 +43,6 @@ export default function SignInContainer() {
     const token = result.data?.loginUser?.accessToken || "";
     if (setAcessToken) setAcessToken(token);
     localStorage.setItem("accessToken", token);
-    setInfomation();
   };
   const setInfomation = async () => {
     if (localStorage.getItem("accessToken")) {
@@ -56,6 +56,9 @@ export default function SignInContainer() {
     }
     router.push("./");
   };
+  useEffect(() => {
+    if (acessToken) setInfomation();
+  }, [setAcessToken]);
 
   return (
     <>

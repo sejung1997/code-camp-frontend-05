@@ -42,29 +42,44 @@ interface IUserInfo {
   picture?: string;
   createdAt?: string;
 }
+interface IToday {
+  id?: string;
+  seller?: string;
+  product?: string;
+  price?: Number;
+}
 interface IGlobalContext {
   acessToken?: String;
   setAcessToken?: Dispatch<SetStateAction<String>>;
   userInfo?: IUserInfo;
   setUserInfo?: Dispatch<SetStateAction<IUserInfo>>;
+  setTodayProduct?: Dispatch<SetStateAction<IToday>>;
+  todayProduct?: [];
 }
 export const GlobalContext = createContext<IGlobalContext>({});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [acessToken, setAcessToken] = useState("");
+  const [todayProduct, setTodayProduct] = useState([]);
   const [userInfo, setUserInfo] = useState<IUserInfo>({});
   const Value = {
     acessToken,
     setAcessToken,
     userInfo,
     setUserInfo,
+    todayProduct,
+    setTodayProduct,
   };
+
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       setAcessToken(localStorage.getItem("accessToken") || "");
     }
     if (localStorage.getItem("userInfo")) {
       setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
+    }
+    if (localStorage.getItem("today")) {
+      setTodayProduct(JSON.parse(localStorage.getItem("today")) || "[]");
     }
   }, []);
 

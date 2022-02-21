@@ -46,7 +46,9 @@ export default function fetchUseditemsPresenter(props) {
           count={props.count}
           keyword={props.keyword}
         /> */}
-        <List.Button onClick={props.register}>게시물 등록하기</List.Button>
+        <List.Button onClick={props.movePage("NEW")}>
+          게시물 등록하기
+        </List.Button>
       </List.List>
     </>
   );
