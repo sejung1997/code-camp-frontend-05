@@ -14,3 +14,7 @@ export const ErrMsg = styled.div`
   font-size: 9px;
   color: red;
 `;
+export const PayBtn = styled.button`
+  width: 120px;
+  height: 40px;
+`;

@@ -33,19 +33,28 @@ const TodayLabel = styled.div`
   font-size: 20px;
   color: green;
 `;
-
+const DataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Img = styled.img`
+  width: 100px;
+  left: 0;
+`;
 export default function HeaderPage() {
-  const { userInfo, todayProduct } = useContext(GlobalContext);
+  const { userInfo, date, todayProduct } = useContext(GlobalContext);
   const [newData, setNewData] = useState([]);
-  console.log(todayProduct);
-  const date = String(new Date()).slice(0, 10);
 
   // useEffect(() => {
   //   setNewData([...todayProduct]);
   // }, [todayProduct]);
-  useEffect(() => {
-    setNewData(JSON.parse(localStorage.getItem(date)));
-  }, []);
+  // useEffect(() => {
+  //   setNewData(JSON.parse(localStorage.getItem(date)));
+  // }, []);
+
+  console.log("s");
+  console.log(todayProduct);
+
   const movePage = useMovePage();
   return (
     <>
@@ -72,13 +81,14 @@ export default function HeaderPage() {
           </MenuWrapper>
           <TodayProduct>
             <TodayLabel>오늘 본 상품</TodayLabel>
-            {newData?.map((el, index) => (
-              <div key={el.id}>
+            {todayProduct?.map((el, index) => (
+              <DataWrapper key={el.id}>
                 <div>{index + 1}</div>
-                <div>{el.seller}</div>
                 <div>{el.name}</div>
-                <div>{el.price}</div>
-              </div>
+                <Img src={`https://storage.googleapis.com/${el.images}`} />
+                <div>{el.price}원</div>
+                <button>삭제하기</button>
+              </DataWrapper>
             ))}
           </TodayProduct>
         </Inner>

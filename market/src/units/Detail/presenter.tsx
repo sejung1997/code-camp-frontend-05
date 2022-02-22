@@ -1,6 +1,8 @@
 import * as L from "./styles";
 import FetchCommentList from "../comment/fetchCommentList";
 import CreateCommentContainer from "../comment/createComment.container";
+import Dompurify from "dompurify";
+
 export default function fetchItemPresenter(props) {
   return (
     <>
@@ -39,7 +41,18 @@ export default function fetchItemPresenter(props) {
               ></L.MainImg>
             ))}
 
-          <L.Contents>내용: {props.data?.fetchUseditem?.contents}</L.Contents>
+          <L.Contents>
+            내용:
+            {process.browser && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: Dompurify.sanitize(
+                    String(props.data?.fetchUseditem?.contents)
+                  ),
+                }}
+              />
+            )}
+          </L.Contents>
 
           {/* <L.Like>
             <L.LikeOut onClick={props.up} />

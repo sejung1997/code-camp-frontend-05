@@ -2,25 +2,27 @@ import CreateItemPresenter from "./createItem.presenter";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { GlobalContext } from "../../../pages/_app";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./createItem.gql";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { message } from "antd";
+
 const schema = yup.object().shape({
   name: yup.string().required("상품명은 필수 입력 사항입니다."),
   remarks: yup.string().required("한줄요약은 필수 입력 사항입니다"),
   contents: yup.string().required("상세내용은 필수 입력 사항입니다"),
   price: yup.string().required("상품가격은 필수 입력 사항입니다"),
 });
+
 export default function createItemContainer(props) {
   const router = useRouter();
   const [imgUrl, setImgUrl] = useState(["", "", "", "", "", ""]);
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
+    mode: "onChange",
   });
   const onclickSubmit = async (data) => {
     try {
@@ -74,6 +76,10 @@ export default function createItemContainer(props) {
     }
   }, [props.defaultData]);
 
+  const handleChange = (value) => {
+    setValue("contents", value === "<p><br></p)" ? "" : value);
+    trigger("contents");
+  };
   return (
     <CreateItemPresenter
       setImgUrl={setImgUrl}
@@ -88,6 +94,7 @@ export default function createItemContainer(props) {
       formState={formState}
       defaultData={props.defaultData}
       onclickUpdate={onclickUpdate}
+      handleChange={handleChange}
     />
   );
 }

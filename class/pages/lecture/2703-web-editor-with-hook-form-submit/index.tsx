@@ -4,14 +4,11 @@ import { Modal } from "antd";
 // import ReactQuill from "react-quill"; // 다이나믹 임포트로 변경하기
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import { async } from "@firebase/util";
 import {
   IMutation,
   IMutationCreateBoardArgs,
 } from "../../../scr/commons/types/generated/type";
 import { useRouter } from "next/router";
-import Password from "antd/lib/input/Password";
-import { object } from "yup/lib/locale";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false }); // 서버사이드렌더링 false
 

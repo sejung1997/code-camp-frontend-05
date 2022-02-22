@@ -3,7 +3,11 @@ import { Modal } from "antd";
 import UploadImagePage from "../../commons/uploadImage/uploadImage01/container";
 import { IBoardUIIProps } from "./createItem.types";
 import * as A from "./createItem.styles";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
 // import { Input02 } from "../../commons/inputs/input02";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function CreateItemPresenter(props: IBoardUIIProps) {
   return (
@@ -33,18 +37,9 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
 
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
+
           <A.OptionWrapper>
-            <A.Title>내용</A.Title>
-            <A.Input02
-              defaultValue={props.defaultData?.fetchUseditem?.contents}
-              placeholder={"내용을 입력해주세요"}
-              type={"textArea"}
-              {...props.register("contents")}
-            />
-            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
-          </A.OptionWrapper>
-          <A.OptionWrapper>
-            <A.Title>가격</A.Title>
+            <A.Title>가격(원)</A.Title>
             <A.Input02
               defaultValue={props.defaultData?.fetchUseditem?.price}
               placeholder={"가격을 입력해주세요"}
@@ -63,24 +58,31 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             />
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.OptionWrapper>
-
-          <A.OptionWrapper></A.OptionWrapper>
+          <A.contentsWrapper>
+            <A.Title>내용</A.Title>
+            <ReactQuill
+              style={{ width: "1000px", height: "300px" }}
+              defaultValue={props.defaultData?.fetchUseditem?.contents}
+              placeholder="내용을 입력해주세요"
+              onChange={props.handleChange}
+            />
+            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
+          </A.contentsWrapper>
+          <A.OptionWrapper>
+            <A.Title>사진 첨부</A.Title>
+            <A.BoxGroup>
+              {new Array(6).fill(1).map((_, index) => (
+                <UploadImagePage
+                  key={index}
+                  index={index}
+                  imgUrl={props.imgUrl}
+                  setImgUrl={props.setImgUrl}
+                  isEdit={props.isEdit}
+                />
+              ))}
+            </A.BoxGroup>
+          </A.OptionWrapper>
         </A.WritterWrapper>
-        <A.OptionWrapper>
-          <A.Title>사진 첨부</A.Title>
-          <A.BoxGroup>
-            {new Array(6).fill(1).map((_, index) => (
-              <UploadImagePage
-                key={index}
-                index={index}
-                imgUrl={props.imgUrl}
-                setImgUrl={props.setImgUrl}
-                isEdit={props.isEdit}
-              />
-            ))}
-          </A.BoxGroup>
-        </A.OptionWrapper>
-        <A.OptionWrapper></A.OptionWrapper>
 
         {/* <A.OptionWrapper>
           <A.Title>메인 설정</A.Title>

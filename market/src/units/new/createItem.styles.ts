@@ -14,7 +14,9 @@ export const Main = styled.div`
   left: 0;
 `;
 export const Input02 = styled.input`
-  width: 200px;
+  width: 300px;
+  height: 40px;
+  padding-left: 10px;
 `;
 export const ErrorMsg = styled.div``;
 export const TopTitle = styled.h1`
@@ -24,13 +26,17 @@ export const TopTitle = styled.h1`
 `;
 export const WritterWrapper = styled.form`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
 `;
 
 export const OptionWrapper = styled.div`
+  margin-top: 40px;
+`;
+export const contentsWrapper = styled.div`
   padding-top: 40px;
+  margin-bottom: 40px;
 `;
 export const Title = styled.h4`
   font-size: 16px;

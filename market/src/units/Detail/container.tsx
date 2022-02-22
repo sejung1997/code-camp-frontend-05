@@ -8,7 +8,7 @@ import { useMovePage } from "../../commons/function/movePage";
 import { message } from "antd";
 export default function FetchItemContainer() {
   const movePage = useMovePage();
-  const { userInfo } = useContext(GlobalContext);
+  const { userInfo, date, setTodayProduct } = useContext(GlobalContext);
   const router = useRouter();
   const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
   const { data } = useQuery(FETCH_USED_ITEM, {
@@ -24,26 +24,25 @@ export default function FetchItemContainer() {
       message.info(error.message);
     }
   };
-  // interface IData {
-  //   seller?: unknown;
-  //   product?: unknown;
-  //   price?: unknown;
-  // }
-  const todayData = {
-    id: data?.fetchUseditem?._id,
-    seller: data?.fetchUseditem?.seller.name,
-    name: data?.fetchUseditem?.name,
-    price: data?.fetchUseditem?.price,
-  };
-  const date = String(new Date()).slice(0, 10);
-  console.log(date);
   useEffect(() => {
     if (!data) return;
+    setTodayData();
+  }, [data]);
+
+  const todayData = {
+    id: data?.fetchUseditem?._id,
+    name: data?.fetchUseditem?.name,
+    price: data?.fetchUseditem?.price,
+    images: data?.fetchUseditem?.images.filter((x) => x),
+  };
+  const setTodayData = () => {
     const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
     if (todaySeen[todaySeen.length - 1]?.id !== todayData.id)
       todaySeen.push(todayData);
     localStorage.setItem(date, JSON.stringify(todaySeen));
-  }, [data]);
+    // setTodayProduct(todaySeen);
+  };
+
   const pickUp = () => {
     const pickUpData = JSON.parse(localStorage.getItem("baskets") || "[]");
     if (pickUpData[pickUpData.length - 1]?.id !== todayData.id)

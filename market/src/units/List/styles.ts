@@ -13,6 +13,7 @@ export const Column = styled.div`
 `;
 export const Row = styled.div`
   display: flex;
+  height: 100px;
 `;
 export const word = styled.span`
   color: ${(props) => (props.isMatched ? "red" : "green")};
@@ -34,7 +35,7 @@ export const List = styled.div`
 export const Button = styled.button`
   margin-top: 140px;
   width: 270px;
-  hegiht: 51px;
+  height: 51px;
   background-color: transparent;
   border: 1px solid green;
   border-radius: 5px;
@@ -99,3 +100,13 @@ export const SearchBtn = styled.button`
   }
   border-radius: 5px;
 `;
+export const images = styled.img``;
+export const SliderItem = styled.img`
+  height: 100px;
+  display: block;
+  margin: auto;
+  right: 0;
+  left: 0;
+`;
+
+export const planet = styled.div``;
