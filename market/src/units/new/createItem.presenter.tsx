@@ -82,15 +82,50 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               ))}
             </A.BoxGroup>
           </A.OptionWrapper>
-        </A.WritterWrapper>
+          <A.OptionWrapper>
+            <A.Title>주소</A.Title>
+            <A.InputNum
+              placeholder={"0512"}
+              value={
+                props.inputs.zipcode
+                  ? props.inputs.zipcode
+                  : props.data?.fetchBoard.boardAddress.zipcode
+              }
+            ></A.InputNum>
 
-        {/* <A.OptionWrapper>
-          <A.Title>메인 설정</A.Title>
-          <A.InputMain type="radio" name="main" />
-          <A.Youtube>유트브</A.Youtube>
-          <A.InputMain type="radio" name="main" />
-          <A.Youtube>사진</A.Youtube>
-        </A.OptionWrapper> */}
+            <A.SearchBtn onClick={props.showModal}>우편번호 검색</A.SearchBtn>
+
+            {props.isModalVisible && (
+              <Modal
+                title="우편번호 검색"
+                visible={true}
+                onOk={props.showModal}
+                onCancel={props.showModal}
+              >
+                <A.Postcode onComplete={props.onCompletePostcode} />
+              </Modal>
+            )}
+            <A.Input
+              placeholder="주소를 입력해주세요"
+              value={
+                props.inputs.address
+                  ? props.inputs.address
+                  : props.data?.fetchBoard.boardAddress.address
+                // props.address ||
+                // props.data?.fetchBoard.boardAddress.address
+              }
+            />
+            <A.Input
+              placeholder="상세 주소를 입력해주세요"
+              defaultValue={
+                props.isEdit
+                  ? props.data?.fetchBoard.boardAddress.addressDetail
+                  : ""
+              }
+              {...props.register("addressDetail")}
+            />
+          </A.OptionWrapper>
+        </A.WritterWrapper>
 
         <A.BottomButton>
           <A.BottomSubmit

@@ -46,11 +46,10 @@ export default function HeaderPage() {
   const [newData, setNewData] = useState([]);
 
   // useEffect(() => {
+  //   console.log("todayProduct");
+  //   console.log(todayProduct);
   //   setNewData([...todayProduct]);
   // }, [todayProduct]);
-  // useEffect(() => {
-  //   setNewData(JSON.parse(localStorage.getItem(date)));
-  // }, []);
 
   console.log("s");
   console.log(todayProduct);

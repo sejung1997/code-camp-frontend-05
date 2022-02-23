@@ -1,16 +1,17 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { ChangeEvent, useState } from "react";
-import FetchUseditemsPresenter from "./presenter";
-import { FETCH_USED_ITEMS } from "./gql&types";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import { useMovePage } from "../../commons/function/movePage";
+import { FETCH_USED_ITEMS } from "./gql&types";
+import FetchUseditemsPresenter from "./presenter";
 
 export default function fetchUseditemsContainer() {
   const [keyword, setKeyword] = useState("");
   const [srchDate, setSrchDate] = useState(["", ""]);
   const movePage = useMovePage();
+
   const { data, fetchMore, refetch } = useQuery(FETCH_USED_ITEMS, {
     variables: { page: 1 },
   });

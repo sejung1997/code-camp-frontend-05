@@ -18,6 +18,11 @@ const schema = yup.object().shape({
 export default function createItemContainer(props) {
   const router = useRouter();
   const [imgUrl, setImgUrl] = useState(["", "", "", "", "", ""]);
+  const [inputs, setInputs] = useState({
+    zipcode: "",
+    address: "",
+  });
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
   const { register, handleSubmit, formState, setValue, trigger } = useForm({
@@ -35,6 +40,11 @@ export default function createItemContainer(props) {
             price: Number(data.price),
             tags: data.tags.split("#").slice(1),
             images: imgUrl,
+            useditemAddress: {
+              zipcode: inputs.zipcode,
+              address: inputs.address,
+              addressDetail: data.addressDetail,
+            },
           },
         },
       });
@@ -80,6 +90,13 @@ export default function createItemContainer(props) {
     setValue("contents", value === "<p><br></p)" ? "" : value);
     trigger("contents");
   };
+  const onCompletePostcode = (code) => {
+    setInputs({ zipcode: code.zonecode, address: code.address });
+    setIsModalVisible((prev) => !prev);
+  };
+  const showModal = () => {
+    setIsModalVisible((prev) => !prev);
+  };
   return (
     <CreateItemPresenter
       setImgUrl={setImgUrl}
@@ -95,6 +112,10 @@ export default function createItemContainer(props) {
       defaultData={props.defaultData}
       onclickUpdate={onclickUpdate}
       handleChange={handleChange}
+      onCompletePostcode={onCompletePostcode}
+      inputs={inputs}
+      showModal={showModal}
+      isModalVisible={isModalVisible}
     />
   );
 }

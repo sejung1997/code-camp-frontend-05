@@ -54,7 +54,7 @@ interface IGlobalContext {
   userInfo?: IUserInfo;
   setUserInfo?: Dispatch<SetStateAction<IUserInfo>>;
   setTodayProduct?: Dispatch<SetStateAction<IToday>>;
-  todayProduct?: [];
+  todayProduct?: [any];
   date: string;
 }
 export const GlobalContext = createContext<IGlobalContext>({});
@@ -82,10 +82,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (localStorage.getItem("userInfo")) {
       setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
     }
-    if (localStorage.getItem("today")) {
-      setTodayProduct(JSON.parse(localStorage.getItem("today")) || "[]");
+    if (localStorage.getItem(date)) {
+      setTodayProduct(JSON.parse(localStorage.getItem(date)) || "[]");
     }
-  }, [2000]);
+  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("today")) {
+  //     setTodayProduct(JSON.parse(localStorage.getItem("today")) || "[]");
+  //   }
+  // }, [localStorage]);
 
   const uploadLink = createUploadLink({
     uri: "http://backend05.codebootcamp.co.kr/graphql",

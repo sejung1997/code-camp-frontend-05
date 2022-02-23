@@ -2,10 +2,17 @@ import * as L from "./styles";
 import FetchCommentList from "../comment/fetchCommentList";
 import CreateCommentContainer from "../comment/createComment.container";
 import Dompurify from "dompurify";
+import Head from "next/head";
 
 export default function fetchItemPresenter(props) {
   return (
     <>
+      <Head>
+        <script
+          type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4e89be21e672c2ea6ecbba62c71fa54a"
+        ></script>
+      </Head>
       <L.div>
         <L.Main>
           <L.Baner>
@@ -53,6 +60,7 @@ export default function fetchItemPresenter(props) {
               />
             )}
           </L.Contents>
+          <div id="map" style={{ width: 500, height: 400 }}></div>
 
           {/* <L.Like>
             <L.LikeOut onClick={props.up} />
