@@ -19,6 +19,7 @@ const SignIn = styled.div`
 `;
 const MenuWrapper = styled.div`
   display: flex;
+  position: relative;
 `;
 const TodayProduct = styled.div`
   position: fixed;
@@ -41,8 +42,21 @@ const Img = styled.img`
   width: 100px;
   left: 0;
 `;
+const UserInfo = styled.div`
+  font-size: 20px;
+  position: absolute;
+  color: #fff;
+  right: 0;
+  bottom: -50px;
+`;
+const Point = styled.div`
+  font-size: 20px;
+  position: absolute;
+  color: #fff;
+  right: 0;
+`;
 export default function HeaderPage() {
-  const { userInfo, date, todayProduct } = useContext(GlobalContext);
+  const { userInfo, date, todayProduct, point } = useContext(GlobalContext);
   const [newData, setNewData] = useState([]);
 
   // useEffect(() => {
@@ -72,11 +86,12 @@ export default function HeaderPage() {
             <SignIn onClick={movePage("pick")}>장바구니</SignIn>
 
             <br />
-            <SignIn onClick={movePage("signUp")}>
+            <UserInfo onClick={movePage("signUp")}>
               {userInfo.name
                 ? userInfo.name + "님 안녕하세요"
                 : "로그인을 해주세요"}
-            </SignIn>
+              <Point> 포인트: {point}원</Point>
+            </UserInfo>
           </MenuWrapper>
           <TodayProduct>
             <TodayLabel>오늘 본 상품</TodayLabel>

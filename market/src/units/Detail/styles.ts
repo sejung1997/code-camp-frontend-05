@@ -171,7 +171,7 @@ export const ButtonDelete = styled.button`
   background-color: transparent;
   border: 1px solid green;
   font-weight: bold;
-
+  color: green;
   border-radius: 7px;
   :hover {
     cursor: pointer;

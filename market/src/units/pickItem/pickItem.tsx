@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
+import PurchaseItem from "../../commons/purchaseItem/index";
 const Label = styled.div`
   font-size: 30px;
   font-weight: bold;
@@ -19,6 +20,7 @@ const Wrpper = styled.div`
   padding: 50px 20px;
   position: relative;
   border: 1px solid green;
+  margin-bottom: 100px;
 `;
 const DIV = styled.div`
   font-size: 23px;
@@ -62,6 +64,7 @@ export default function PickUpPage() {
             </BtnGroup>
           </Wrpper>
         ))}
+      <PurchaseItem allData={data} />
     </Main>
   );
 }

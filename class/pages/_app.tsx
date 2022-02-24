@@ -10,7 +10,8 @@ import { AppProps } from "next/app";
 import Layout from "../scr/components/commons/layout";
 import { Global } from "@emotion/react";
 import { createUploadLink } from "apollo-upload-client";
-
+import { onError } from "@apollo/client/link/error";
+import { getAccessToken } from "../scr/commons/library/getAccessToken";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
@@ -73,14 +74,45 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (localStorage.getItem("accessToken")) {
       setAcessToken(localStorage.getItem("accessToken") || "");
     }
+
+    getAccessToken().then((newAccessToken) => {
+      setAcessToken(newAccessToken);
+    });
   }, []);
+
+  const errolink = onError(({ graphQlErrors, operation, forward }) => {
+    // 1. 에러를 캐치
+    if (graphQlErrors) {
+      for (const err of graphQlErrors) {
+        // 2. 해당 에러가 토큰 만료 에러인지 체크
+        if (err.extensions.code === "UNAUTHENTICATED") {
+          // 3. refreshToken으로 accessToken을 재발급 받기
+          getAccessToken().then((newAccessToken) => {
+            // 4. 재발급 받은 accessToken을 저장하기
+            setAcessToken(newAccessToken);
+
+            // 5. 재발급 받은 accessToken으로 방금 실패한 쿼리 재요청하기
+            operation.setContext({
+              ...operation.getContext().headers,
+              headers: {
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            }); // 설정 변경(accessToken만 바꿔치기)
+            return forward(operation); // 변경된 operation 재요청하기
+          });
+        }
+      }
+    }
+  });
+
   // @ts-ignore
   const uploadLink = createUploadLink({
-    uri: "http://backend05.codebootcamp.co.kr/graphql",
+    uri: "https://backend05.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
+    credentials: "include",
   });
   const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
+    link: ApolloLink.from([errolink, uploadLink as unknown as ApolloLink]),
     cache: new InMemoryCache(),
   });
 

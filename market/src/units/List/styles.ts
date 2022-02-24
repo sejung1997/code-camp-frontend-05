@@ -109,4 +109,6 @@ export const SliderItem = styled.img`
   left: 0;
 `;
 
-export const planet = styled.div``;
+export const planet = styled.div`
+  display: flex;
+`;

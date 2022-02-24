@@ -56,6 +56,8 @@ interface IGlobalContext {
   setTodayProduct?: Dispatch<SetStateAction<IToday>>;
   todayProduct?: [any];
   date: string;
+  point: Number;
+  setPoint: Dispatch<SetStateAction<Number>>;
 }
 export const GlobalContext = createContext<IGlobalContext>({});
 
@@ -63,6 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const date = String(new Date()).slice(0, 10);
 
   const [acessToken, setAcessToken] = useState("");
+  const [point, setPoint] = useState(0);
   const [todayProduct, setTodayProduct] = useState([]);
   const [userInfo, setUserInfo] = useState<IUserInfo>({});
   const Value = {
@@ -72,6 +75,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     setUserInfo,
     todayProduct,
     setTodayProduct,
+    point,
+    setPoint,
     date,
   };
 
@@ -84,6 +89,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     if (localStorage.getItem(date)) {
       setTodayProduct(JSON.parse(localStorage.getItem(date)) || "[]");
+    }
+    if (localStorage.getItem("point")) {
+      setPoint(Number(JSON.parse(localStorage.getItem("point"))));
     }
   }, []);
   // useEffect(() => {

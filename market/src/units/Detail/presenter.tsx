@@ -2,17 +2,16 @@ import * as L from "./styles";
 import FetchCommentList from "../comment/fetchCommentList";
 import CreateCommentContainer from "../comment/createComment.container";
 import Dompurify from "dompurify";
-import Head from "next/head";
-
+import PurchaseItem from "../../commons/purchaseItem/index";
 export default function fetchItemPresenter(props) {
   return (
     <>
-      <Head>
+      {/* <Head>
         <script
           type="text/javascript"
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4e89be21e672c2ea6ecbba62c71fa54a"
         ></script>
-      </Head>
+      </Head> */}
       <L.div>
         <L.Main>
           <L.Baner>
@@ -78,9 +77,8 @@ export default function fetchItemPresenter(props) {
           </L.ButtonUpdate>
           <L.ButtonList onClick={props.movePage("list")}>목록으로</L.ButtonList>
           <L.ButtonList onClick={props.deleteBtn}>삭제하기</L.ButtonList>
-          <L.ButtonDelete onClick={props.pickUp}>
-            장바구니에 담기
-          </L.ButtonDelete>
+          <L.ButtonList onClick={props.pickUp}>장바구니에 담기</L.ButtonList>
+          <PurchaseItem data={props.data?.fetchUseditem} />
         </L.buttonGroup>
         <CreateCommentContainer />
         <FetchCommentList />

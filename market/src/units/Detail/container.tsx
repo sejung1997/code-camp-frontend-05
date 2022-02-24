@@ -6,28 +6,51 @@ import { GlobalContext } from "../../../pages/_app";
 import { useContext, useEffect } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import { message } from "antd";
-declare const window: typeof globalThis & {
-  kakao: any;
-};
+import { KakaoMapPage } from "../../commons/kakaoMap/index";
+
 export default function FetchItemContainer() {
+  // const client = useApolloClient();
+
   const movePage = useMovePage();
   const { userInfo, date, setTodayProduct } = useContext(GlobalContext);
   const router = useRouter();
   const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
 
+  const setKaokaoMap = KakaoMapPage();
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.id) },
   });
+  const setTodayData = () => {
+    const todayData = {
+      id: data?.fetchUseditem?._id,
+      name: data?.fetchUseditem?.name,
+      price: data?.fetchUseditem?.price,
+      images: data?.fetchUseditem?.images.filter((x: any) => x),
+    };
+    const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
+    if (todaySeen[todaySeen.length - 1]?.id !== todayData.id)
+      todaySeen.push(todayData);
+    localStorage.setItem(date, JSON.stringify(todaySeen));
+  };
+
+  // useEffect(() =>{
+  //   if(!data) return
+  //   setTodayData()
+  //   setTodayProduct(JSON.parse(localStorage.getItem(date)))
+  // },[data])
+
   // const data = new Promise((resolve, reject) => {
   //   const resultUserInfo = client.query({
   //     query: FETCH_USED_ITEM,
-  //     variables: { useditemId: String(router.query.id) },
+  //     constiables: { useditemId: String(router.query.id) },
   //   });
   //   console.log(resultUserInfo);
   //   resolve(resultUserInfo);
   // })
-  // .then((res) => setTodayData())
-  // .then((res) => setTodayProduct(JSON.parse(localStorage.getItem(date))));
+
+  //   .then((res) => setTodayData())
+  //   .then((res) => setTodayProduct(JSON.parse(localStorage.getItem(date))));
+
   const deleteBtn = async () => {
     try {
       await deleteUseditem({
@@ -39,37 +62,17 @@ export default function FetchItemContainer() {
     }
   };
 
-  const setTodayData = () => {
-    const todayData = {
-      id: data?.fetchUseditem?._id,
-      name: data?.fetchUseditem?.name,
-      price: data?.fetchUseditem?.price,
-      images: data?.fetchUseditem?.images.filter((x) => x),
-    };
-    const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
-    if (todaySeen[todaySeen.length - 1]?.id !== todayData.id)
-      todaySeen.push(todayData);
-    localStorage.setItem(date, JSON.stringify(todaySeen));
-  };
-
   useEffect(() => {
-    window.kakao?.maps.load(function () {
-      const container = document.getElementById("map");
-      const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
-
-      const map = new window.kakao.maps.Map(container, options);
-    });
-  }, []);
+    setKaokaoMap(data);
+  }, [data]);
 
   const pickUp = () => {
     const todayData = {
       id: data?.fetchUseditem?._id,
       name: data?.fetchUseditem?.name,
       price: data?.fetchUseditem?.price,
-      images: data?.fetchUseditem?.images.filter((x) => x),
+      images: data?.fetchUseditem?.images.filter((x: any) => x),
+      seller: data?.fetchUseditem?.seller.name,
     };
     const pickUpData = JSON.parse(localStorage.getItem("baskets") || "[]");
     if (pickUpData[pickUpData.length - 1]?.id !== todayData.id)

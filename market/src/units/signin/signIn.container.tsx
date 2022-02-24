@@ -8,8 +8,7 @@ import { useMutation, useApolloClient } from "@apollo/client";
 import { GlobalContext } from "../../../pages/_app";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { message } from "antd";
-import { async } from "@firebase/util";
+
 const schema = yup.object().shape({
   email: yup
     .string()

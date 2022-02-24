@@ -6,51 +6,43 @@ declare const window: typeof globalThis & {
 };
 export default function KakaoMap() {
   useEffect(() => {
-    // 직접 다운로드 받고 다 받은 후에 그려주기
-    const script = document.createElement("script"); // <script></script>
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=4e89be21e672c2ea6ecbba62c71fa54a&autoload=false";
+    window.kakao?.maps.load(function () {
+      const container = document.getElementById("map");
+      const options = {
+        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      };
 
-    script.onload = () => {
-      window.kakao.maps.load(function () {
-        document.head.appendChild(script);
-        const container = document.getElementById("map");
-        const options = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3,
-        };
+      const map = new window.kakao.maps.Map(container, options);
 
-        const map = new window.kakao.maps.Map(container, options);
+      // 마커가 표시될 위치입니다
+      const markerPosition = new window.kakao.maps.LatLng(
+        33.450701,
+        126.570667
+      );
 
-        // 마커가 표시될 위치입니다
-        const markerPosition = new window.kakao.maps.LatLng(
-          33.450701,
-          126.570667
-        );
-
-        // 마커를 생성합니다
-        const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
-        });
-
-        // 마커가 지도 위에 표시되도록 설정합니다
-        marker.setMap(map);
-
-        // 지도에 클릭 이벤트를 등록합니다
-        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        window.kakao.maps.event.addListener(
-          map,
-          "click",
-          function (mouseEvent: any) {
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            const latlng = mouseEvent.latLng;
-
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-          }
-        );
+      // 마커를 생성합니다
+      const marker = new window.kakao.maps.Marker({
+        position: markerPosition,
       });
-    };
+
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(map);
+
+      // 지도에 클릭 이벤트를 등록합니다
+      // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+      window.kakao.maps.event.addListener(
+        map,
+        "click",
+        function (mouseEvent: any) {
+          // 클릭한 위도, 경도 정보를 가져옵니다
+          const latlng = mouseEvent.latLng;
+
+          // 마커 위치를 클릭한 위치로 옮깁니다
+          marker.setPosition(latlng);
+        }
+      );
+    });
   }, []);
   return (
     <>

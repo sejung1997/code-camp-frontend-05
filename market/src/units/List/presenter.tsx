@@ -2,7 +2,6 @@ import InfiniteScroll from "react-infinite-scroller";
 import { DatePicker, Space } from "antd";
 import * as List from "./styles";
 import { v4 as uuidv4 } from "uuid";
-import Slider from "react-slick";
 
 export default function fetchUseditemsPresenter(props) {
   const { RangePicker } = DatePicker;
@@ -34,7 +33,7 @@ export default function fetchUseditemsPresenter(props) {
           hasMore={true}
         >
           {props.data?.fetchUseditems
-            ?.filter((x) => x.images.length > 1)
+            ?.filter((x) => x.images?.length > 1)
             .map((el: any, index: number) => (
               <List.Row key={el._id}>
                 <List.Column>{index + 1}</List.Column>
@@ -54,17 +53,15 @@ export default function fetchUseditemsPresenter(props) {
                   </List.Title>
                 </List.Column>
                 <List.Column>{el.seller.name}</List.Column>
-                <Slider {...props.settings}>
-                  {el.images
-                    .filter((x) => x)
-                    .map((x) => (
-                      <List.planet key={x}>
-                        <List.SliderItem
-                          src={`https://storage.googleapis.com/${x}`}
-                        ></List.SliderItem>
-                      </List.planet>
-                    ))}
-                </Slider>
+                {el.images
+                  .filter((x) => x)
+                  .map((x) => (
+                    <List.planet key={x}>
+                      <List.SliderItem
+                        src={`https://storage.googleapis.com/${x}`}
+                      ></List.SliderItem>
+                    </List.planet>
+                  ))}
                 <List.images />
                 <List.Column>{el.createdAt.slice(0, 10)}</List.Column>
                 {/* <Column>{el.contents}</Column> */}

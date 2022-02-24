@@ -51,16 +51,16 @@ export default function fetchUseditemsContainer() {
     ]);
   };
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplaySpeed: 2000,
-    arrows: false,
-    cssEase: "linear",
-  };
+  // const settings = {
+  //   dots: false,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   autoplaySpeed: 2000,
+  //   arrows: false,
+  //   cssEase: "linear",
+  // };
   console.log(data?.fetchUseditems);
   return (
     <FetchUseditemsPresenter
@@ -71,7 +71,6 @@ export default function fetchUseditemsContainer() {
       keyword={keyword}
       rangePick={rangePick}
       srchDate={srchDate}
-      settings={settings}
     />
   );
 }
