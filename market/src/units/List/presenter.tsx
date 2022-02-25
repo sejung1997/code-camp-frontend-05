@@ -2,8 +2,11 @@ import InfiniteScroll from "react-infinite-scroller";
 import { DatePicker, Space } from "antd";
 import * as List from "./styles";
 import { v4 as uuidv4 } from "uuid";
+import { IFetchUseditemsPresenter } from "./gql&types";
 
-export default function fetchUseditemsPresenter(props) {
+export default function fetchUseditemsPresenter(
+  props: IFetchUseditemsPresenter
+) {
   const { RangePicker } = DatePicker;
 
   return (
@@ -15,10 +18,10 @@ export default function fetchUseditemsPresenter(props) {
           onChange={props.onChangeSearch}
         ></List.SearchTitle>
         <Space direction="vertical" size={12}>
-          <RangePicker onChange={props.rangePick} />
+          {/* <RangePicker onChange={props.rangePick} /> */}
         </Space>
 
-        <List.SearchBtn onClick={props.onClickSearch}>검색하기</List.SearchBtn>
+        {/* <List.SearchBtn onClick={props.onClickSearch}>검색하기</List.SearchBtn> */}
       </List.Search>
       <List.List>
         <List.TopRow>

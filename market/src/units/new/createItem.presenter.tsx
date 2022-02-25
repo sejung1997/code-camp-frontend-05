@@ -89,7 +89,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               value={
                 props.inputs.zipcode
                   ? props.inputs.zipcode
-                  : props.data?.fetchBoard.boardAddress.zipcode
+                  : props.defaultData?.fetchUseditem.useditemAddress.zipcode
               }
             ></A.InputNum>
 
@@ -110,7 +110,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               value={
                 props.inputs.address
                   ? props.inputs.address
-                  : props.data?.fetchBoard.boardAddress.address
+                  : props.defaultData?.fetchUseditem.useditemAddress.address
                 // props.address ||
                 // props.data?.fetchBoard.boardAddress.address
               }
@@ -118,8 +118,9 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             <A.Input
               placeholder="상세 주소를 입력해주세요"
               defaultValue={
-                props.isEdit
-                  ? props.data?.fetchBoard.boardAddress.addressDetail
+                props.defaultData
+                  ? props.defaultData?.fetchUseditem.useditemAddress
+                      .addressDetail
                   : ""
               }
               {...props.register("addressDetail")}

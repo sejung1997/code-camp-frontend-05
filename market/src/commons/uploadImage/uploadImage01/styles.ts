@@ -15,7 +15,7 @@ export const Box1 = styled.div`
 `;
 
 export const img = styled.img`
-  display: ${(props) => (props.imgUrl ? "block" : "none")};
+  display: ${(props: any) => (props.imgUrl ? "block" : "none")};
   width: 78px;
   height: 78px;
   position: absolute;

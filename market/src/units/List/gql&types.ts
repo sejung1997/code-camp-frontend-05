@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { ChangeEvent } from "react";
 
 export const FETCH_USED_ITEMS = gql`
   query fetchUseditems($search: String, $page: Int) {
@@ -17,3 +18,12 @@ export const FETCH_USED_ITEMS = gql`
     }
   }
 `;
+
+export interface IFetchUseditemsPresenter {
+  data: any;
+  movePage: (id: string) => () => void;
+  onLoadMore: () => void;
+  onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  keyword: string;
+  srchDate: string[];
+}

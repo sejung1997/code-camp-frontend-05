@@ -4,6 +4,10 @@ import { ChangeEvent, useState } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { useMovePage } from "../../commons/function/movePage";
+import {
+  IQuery,
+  IQueryFetchUseditemsArgs,
+} from "../../commons/types/generated/types";
 import { FETCH_USED_ITEMS } from "./gql&types";
 import FetchUseditemsPresenter from "./presenter";
 
@@ -12,7 +16,10 @@ export default function fetchUseditemsContainer() {
   const [srchDate, setSrchDate] = useState(["", ""]);
   const movePage = useMovePage();
 
-  const { data, fetchMore, refetch } = useQuery(FETCH_USED_ITEMS, {
+  const { data, fetchMore, refetch } = useQuery<
+    Pick<IQuery, "fetchUseditems">,
+    IQueryFetchUseditemsArgs
+  >(FETCH_USED_ITEMS, {
     variables: { page: 1 },
   });
 
@@ -44,12 +51,12 @@ export default function fetchUseditemsContainer() {
       },
     });
   };
-  const rangePick = (da) => {
-    setSrchDate([
-      JSON.stringify(da[0]._d).slice(1, 11),
-      JSON.stringify(da[1]._d).slice(1, 11),
-    ]);
-  };
+  // const rangePick = (da) => {
+  //   setSrchDate([
+  //     JSON.stringify(da[0]._d).slice(1, 11),
+  //     JSON.stringify(da[1]._d).slice(1, 11),
+  //   ]);
+  // };
 
   // const settings = {
   //   dots: false,
@@ -69,7 +76,7 @@ export default function fetchUseditemsContainer() {
       onLoadMore={onLoadMore}
       onChangeSearch={onChangeSearch}
       keyword={keyword}
-      rangePick={rangePick}
+      // rangePick={rangePick}
       srchDate={srchDate}
     />
   );

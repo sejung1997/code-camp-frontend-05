@@ -1,9 +1,8 @@
 export interface IUploadImagePage {
-  defaultUrl: any;
   imgUrl: any;
   setImgUrl(fileUrl: any[]);
   index: number;
-  onSetImgUrl: (data: any, index: number) => void;
+  isEdit: boolean;
 }
 
 export interface IUploadImagePageUI {
@@ -11,4 +10,6 @@ export interface IUploadImagePageUI {
   onChangeFile;
   fileRef: any;
   result: String;
+  isEdit: boolean;
+  imgUrl: string[];
 }

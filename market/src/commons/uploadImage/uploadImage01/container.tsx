@@ -10,6 +10,7 @@ import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { UPLOAD_FILE } from "./gql";
 import UploadImagePageUI from "./preesenter";
 import { IUploadImagePage } from "./types";
+
 export default function UploadImagePage(props: IUploadImagePage) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation<

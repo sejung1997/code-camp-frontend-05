@@ -7,37 +7,53 @@ import { useContext, useEffect } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import { message } from "antd";
 import { KakaoMapPage } from "../../commons/kakaoMap/index";
+import {
+  IMutation,
+  IMutationDeleteUseditemArgs,
+  IQuery,
+  IQueryFetchUseditemArgs,
+} from "../../commons/types/generated/types";
 
 export default function FetchItemContainer() {
   // const client = useApolloClient();
 
   const movePage = useMovePage();
+
   const { userInfo, date, setTodayProduct } = useContext(GlobalContext);
+
   const router = useRouter();
-  const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
+  const [deleteUseditem] = useMutation<
+    Pick<IMutation, "deleteUseditem">,
+    IMutationDeleteUseditemArgs
+  >(DELETE_USED_ITEM);
 
   const setKaokaoMap = KakaoMapPage();
-  const { data } = useQuery(FETCH_USED_ITEM, {
+
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USED_ITEM, {
     variables: { useditemId: String(router.query.id) },
   });
-  const setTodayData = () => {
-    const todayData = {
-      id: data?.fetchUseditem?._id,
-      name: data?.fetchUseditem?.name,
-      price: data?.fetchUseditem?.price,
-      images: data?.fetchUseditem?.images.filter((x: any) => x),
-    };
-    const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
-    if (todaySeen[todaySeen.length - 1]?.id !== todayData.id)
-      todaySeen.push(todayData);
-    localStorage.setItem(date, JSON.stringify(todaySeen));
-  };
 
-  // useEffect(() =>{
-  //   if(!data) return
-  //   setTodayData()
-  //   setTodayProduct(JSON.parse(localStorage.getItem(date)))
-  // },[data])
+  const todayData = {
+    id: data?.fetchUseditem?._id,
+    name: data?.fetchUseditem?.name,
+    price: data?.fetchUseditem?.price,
+    images: data?.fetchUseditem?.images.filter((x: any) => x),
+  };
+  useEffect(() => {
+    if (!data) return;
+
+    // if (JSON.parse(localStorage.getItem(date))) return;
+
+    const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
+    if (todaySeen[todaySeen.length - 1]?.id === todayData.id) return;
+    todaySeen.push(todayData);
+    localStorage.setItem(date, JSON.stringify(todaySeen));
+
+    setTodayProduct(JSON.parse(localStorage.getItem(date)));
+  }, [data]);
 
   // const data = new Promise((resolve, reject) => {
   //   const resultUserInfo = client.query({

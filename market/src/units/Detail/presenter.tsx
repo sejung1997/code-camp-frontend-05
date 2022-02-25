@@ -3,7 +3,9 @@ import FetchCommentList from "../comment/fetchCommentList";
 import CreateCommentContainer from "../comment/createComment.container";
 import Dompurify from "dompurify";
 import PurchaseItem from "../../commons/purchaseItem/index";
-export default function fetchItemPresenter(props) {
+import { IFetchItemPresenter } from "./gql&types";
+
+export default function fetchItemPresenter(props: IFetchItemPresenter) {
   return (
     <>
       {/* <Head>
@@ -31,9 +33,9 @@ export default function fetchItemPresenter(props) {
               {props.data?.fetchUseditem?.boardAddress?.addressDetail}
             </L.AddressInfo> */}
           </L.Baner>
-          <L.Name> 상품명{props.data?.fetchUseditem?.name} </L.Name>
+          <L.Name> 상품명: {props.data?.fetchUseditem?.name} </L.Name>
 
-          <L.Name>한줄 요약 {props.data?.fetchUseditem?.remarks}</L.Name>
+          <L.Name>한줄 요약: {props.data?.fetchUseditem?.remarks}</L.Name>
           <L.Name>가격: {props.data?.fetchUseditem?.price}원</L.Name>
           <L.Name>
             태그 {props.data?.fetchUseditem?.tags.map((x) => `${x} `)}{" "}

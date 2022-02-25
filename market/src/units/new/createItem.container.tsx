@@ -97,18 +97,20 @@ export default function createItemContainer(props) {
   const showModal = () => {
     setIsModalVisible((prev) => !prev);
   };
+  const cancel = () => {
+    window.history.back();
+  };
   return (
     <CreateItemPresenter
       setImgUrl={setImgUrl}
       imgUrl={imgUrl}
       // onAsk={onAsk}
       isEdit={props.isEdit}
-      // cancel={cancel}
+      cancel={cancel}
       register={register}
       handleSubmit={handleSubmit}
       formState={formState}
       onclickSubmit={onclickSubmit}
-      formState={formState}
       defaultData={props.defaultData}
       onclickUpdate={onclickUpdate}
       handleChange={handleChange}

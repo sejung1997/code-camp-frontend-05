@@ -56,8 +56,8 @@ const Point = styled.div`
   right: 0;
 `;
 export default function HeaderPage() {
-  const { userInfo, date, todayProduct, point } = useContext(GlobalContext);
-  const [newData, setNewData] = useState([]);
+  const { userInfo, date, todayProduct, point, setTodayProduct } =
+    useContext(GlobalContext);
 
   // useEffect(() => {
   //   console.log("todayProduct");
@@ -69,6 +69,13 @@ export default function HeaderPage() {
   console.log(todayProduct);
 
   const movePage = useMovePage();
+  const deleteProduct = (id) => () => {
+    const temp = JSON.parse(localStorage.getItem(date)).filter(
+      (el) => el.id !== id
+    );
+    localStorage.setItem(date, JSON.stringify(temp));
+    setTodayProduct(temp);
+  };
   return (
     <>
       <Menu>
@@ -99,9 +106,9 @@ export default function HeaderPage() {
               <DataWrapper key={el.id}>
                 <div>{index + 1}</div>
                 <div>{el.name}</div>
-                <Img src={`https://storage.googleapis.com/${el.images}`} />
+                <Img src={`https://storage.googleapis.com/${el.images[0]}`} />
                 <div>{el.price}원</div>
-                <button>삭제하기</button>
+                <button onClick={deleteProduct(el.id)}>삭제하기</button>
               </DataWrapper>
             ))}
           </TodayProduct>

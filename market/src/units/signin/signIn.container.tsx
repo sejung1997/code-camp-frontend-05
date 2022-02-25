@@ -8,7 +8,7 @@ import { useMutation, useApolloClient } from "@apollo/client";
 import { GlobalContext } from "../../../pages/_app";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-
+import { Modal } from "antd";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -26,35 +26,45 @@ export default function SignInContainer() {
   const router = useRouter();
   const { setAcessToken, setUserInfo, userInfo, acessToken } =
     useContext(GlobalContext);
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUserExample] = useMutation(LOGIN_USER);
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
   const onclickSubmit = async (data: FormValues) => {
-    console.log(data);
-    const result = await loginUser({
-      variables: {
-        email: data.email,
-        password: data.password,
-      },
-    });
-    const token = result.data?.loginUser?.accessToken || "";
-    if (setAcessToken) setAcessToken(token);
-    localStorage.setItem("accessToken", token);
-  };
-  const setInfomation = async () => {
-    if (localStorage.getItem("accessToken")) {
-      const resultUserInfo = await client.query({
-        query: FETCH_USER_LOGGED_IN,
+    try {
+      const result = await loginUserExample({
+        variables: {
+          email: data.email,
+          password: data.password,
+        },
       });
-      const Info = resultUserInfo.data?.fetchUserLoggedIn;
-
-      if (setUserInfo) setUserInfo(Info);
-      localStorage.setItem("userInfo", JSON.stringify(Info));
+      console.log(result);
+      const token = result.data?.loginUserExample?.accessToken || "";
+      if (setAcessToken) setAcessToken(token);
+      localStorage.setItem("accessToken", token);
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
     }
-    router.push("./");
   };
+
+  const setInfomation = async () => {
+    try {
+      if (localStorage.getItem("accessToken")) {
+        const resultUserInfo = await client.query({
+          query: FETCH_USER_LOGGED_IN,
+        });
+        const Info = resultUserInfo.data?.fetchUserLoggedIn;
+
+        if (setUserInfo) setUserInfo(Info);
+        localStorage.setItem("userInfo", JSON.stringify(Info));
+      }
+      router.push("./");
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
+    }
+  };
+
   useEffect(() => {
     if (acessToken) setInfomation();
   }, [setAcessToken]);

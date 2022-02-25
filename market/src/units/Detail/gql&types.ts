@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-
+import { MouseEventHandler } from "react";
 export const FETCH_USED_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
     fetchUseditem(useditemId: $useditemId) {
@@ -27,3 +27,16 @@ export const DELETE_USED_ITEM = gql`
     deleteUseditem(useditemId: $useditemId)
   }
 `;
+interface IUserInfo {
+  name?: string;
+  email?: string;
+  picture?: string;
+  createdAt?: string;
+}
+export interface IFetchItemPresenter {
+  data: any;
+  userInfo: IUserInfo;
+  movePage: (id: string) => () => void;
+  deleteBtn: () => void;
+  pickUp: () => void;
+}
