@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import PurchaseItem from "../../commons/purchaseItem/index";
+import Button01 from "../../commons/button01/index";
 const Label = styled.div`
   font-size: 30px;
   font-weight: bold;
@@ -17,22 +18,30 @@ const Main = styled.div`
 `;
 const Wrpper = styled.div`
   font-size: 23px;
-  padding: 50px 20px;
-  position: relative;
+  padding: 30px 20px;
   border: 1px solid green;
   margin-bottom: 100px;
+  width: 1000px;
 `;
 const DIV = styled.div`
   font-size: 23px;
+  display: flex;
+  padding: 5px 0;
+  align-items: center;
 `;
-const Btn = styled.button`
-  font-size: 23px;
-  padding: 10px 20px;
-`;
+
 const BtnGroup = styled.div`
-  position: absolute;
-  right: 30px;
-  bottom: 20px;
+  margin-left: 600px;
+  margin-top: 0;
+  display: flex;
+`;
+const CheckBox = styled.input`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+`;
+const LabelCheckBox = styled.span`
+  margin-bottom: 0;
 `;
 
 export default function PickUpPage() {
@@ -52,17 +61,29 @@ export default function PickUpPage() {
   return (
     <Main>
       <Label>장바구니</Label>
+
+      <DIV>
+        <CheckBox type="checkbox" />
+        <LabelCheckBox>모두선택</LabelCheckBox>
+      </DIV>
       {data &&
         data.map((el, index) => (
-          <Wrpper key={index}>
-            <DIV>판매자: {el.seller}</DIV>
-            <DIV>상품명: {el.name}</DIV>
-            <DIV>가격: {el.price}원</DIV>
-            <BtnGroup>
-              <Btn onClick={movePage(`/${el.id}`)}>이동하기</Btn>
-              <Btn onClick={deletekey(index)}>삭제하기</Btn>
-            </BtnGroup>
-          </Wrpper>
+          <DIV key={index}>
+            <CheckBox type="checkbox" />
+
+            <Wrpper>
+              <DIV>판매자: {el.seller}</DIV>
+              <DIV>상품명: {el.name}</DIV>
+              <DIV>가격: {el.price}원</DIV>
+              <BtnGroup>
+                <Button01
+                  onClick={movePage(`/${el.id}`)}
+                  name="이동하기"
+                ></Button01>
+                <Button01 onClick={deletekey(index)} name="삭제하기"></Button01>
+              </BtnGroup>
+            </Wrpper>
+          </DIV>
         ))}
       <PurchaseItem allData={data} />
     </Main>
