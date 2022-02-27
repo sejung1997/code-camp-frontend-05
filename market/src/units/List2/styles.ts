@@ -1,19 +1,23 @@
 import styled from "@emotion/styled";
 
 export const Column = styled.div`
-  width: 300px;
+  width: 600px;
+
   text-align: center;
   /* height: calc(583px / 11); */
-  border-bottom: 1px solid green;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   color: green;
+  font-size: 20px;
 `;
 export const Row = styled.div`
   display: flex;
-  height: 100px;
+  height: 600px;
+  width: 1500px;
+  justify-content: space-between;
 `;
 export const word = styled.span`
   color: ${(props) => (props.isMatched ? "red" : "green")};
@@ -102,8 +106,8 @@ export const SearchBtn = styled.button`
 `;
 export const images = styled.img``;
 export const SliderItem = styled.img`
-  height: 100px;
-  width: 100px;
+  height: 500px;
+  width: 500px;
   display: block;
   margin: 0 auto;
   right: 0;

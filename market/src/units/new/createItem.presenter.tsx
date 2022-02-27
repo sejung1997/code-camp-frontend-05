@@ -5,6 +5,8 @@ import { IBoardUIIProps } from "./createItem.types";
 import * as A from "./createItem.styles";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+import Dompurify from "dompurify";
+
 // import { Input02 } from "../../commons/inputs/input02";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -60,12 +62,18 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
           </A.OptionWrapper>
           <A.contentsWrapper>
             <A.Title>내용</A.Title>
-            <ReactQuill
-              style={{ width: "1000px", height: "300px" }}
-              defaultValue={props.defaultData?.fetchUseditem?.contents}
-              placeholder="내용을 입력해주세요"
-              onChange={props.handleChange}
-            />
+            {process.browser && (
+              <ReactQuill
+                style={{ width: "1000px", height: "300px" }}
+                defaultValue={props.defaultData?.fetchUseditem?.contents.slice(
+                  3,
+                  props.defaultData?.fetchUseditem?.contents.length - 4
+                )}
+                placeholder="내용을 입력해주세요"
+                onChange={props.handleChange}
+              />
+            )}
+
             <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
           </A.contentsWrapper>
           <A.OptionWrapper>
@@ -78,6 +86,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
                   imgUrl={props.imgUrl}
                   setImgUrl={props.setImgUrl}
                   isEdit={props.isEdit}
+                  defaultData={props.defaultData}
                 />
               ))}
             </A.BoxGroup>

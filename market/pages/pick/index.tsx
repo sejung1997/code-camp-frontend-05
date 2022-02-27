@@ -1,5 +1,6 @@
 import PickUpPage from "../../src/units/pickItem/pickItem";
-
-export default function DetailPage() {
+import { widthAuth } from "../../src/commons/withAuth";
+function DetailPage() {
   return <PickUpPage />;
 }
+export default widthAuth(DetailPage);

@@ -8,7 +8,7 @@ export default function fetchUseditemsPresenter(
   props: IFetchUseditemsPresenter
 ) {
   const { RangePicker } = DatePicker;
-
+  console.log(typeof props.srchDate[0]);
   return (
     <>
       <List.Search>
@@ -18,10 +18,10 @@ export default function fetchUseditemsPresenter(
           onChange={props.onChangeSearch}
         ></List.SearchTitle>
         <Space direction="vertical" size={12}>
-          {/* <RangePicker onChange={props.rangePick} /> */}
+          <RangePicker onChange={props.rangePick} />
         </Space>
 
-        {/* <List.SearchBtn onClick={props.onClickSearch}>검색하기</List.SearchBtn> */}
+        <List.SearchBtn onClick={props.onClickSearch}>검색하기</List.SearchBtn>
       </List.Search>
       <List.List>
         <List.TopRow>
@@ -36,9 +36,22 @@ export default function fetchUseditemsPresenter(
           hasMore={true}
         >
           {props.data?.fetchUseditems
-            ?.filter((x) => x.images?.length > 1)
+            ?.filter((x) => x.images[0])
+            .filter(
+              (y) =>
+                Number(props.srchDate[0]) <=
+                  Number(y.createdAt.slice(0, 10).replaceAll("-", "")) &&
+                Number(props.srchDate[1]) >=
+                  Number(y.createdAt.slice(0, 10).replaceAll("-", ""))
+            )
             .map((el: any, index: number) => (
               <List.Row key={el._id}>
+                {console.log(props.srchDate[0])}
+                {console.log(
+                  `이미지${Number(
+                    el.createdAt.slice(0, 10).replaceAll("-", "")
+                  )}`
+                )}
                 <List.Column>{index + 1}</List.Column>
                 <List.Column>
                   <List.Title onClick={props.movePage(el._id)}>
@@ -59,13 +72,12 @@ export default function fetchUseditemsPresenter(
                 {el.images
                   .filter((x) => x)
                   .map((x) => (
-                    <List.planet key={x}>
+                    <List.planet key={uuidv4()}>
                       <List.SliderItem
                         src={`https://storage.googleapis.com/${x}`}
                       ></List.SliderItem>
                     </List.planet>
                   ))}
-                <List.images />
                 <List.Column>{el.createdAt.slice(0, 10)}</List.Column>
                 {/* <Column>{el.contents}</Column> */}
               </List.Row>

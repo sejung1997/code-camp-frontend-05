@@ -13,6 +13,8 @@ import { IUploadImagePage } from "./types";
 
 export default function UploadImagePage(props: IUploadImagePage) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const [fileReaderUrl, setFileReaderUrl] = useState("");
+
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
@@ -28,17 +30,25 @@ export default function UploadImagePage(props: IUploadImagePage) {
     // console.log(file);
 
     if (!isValid) return;
+
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = (data) => {
+      if (typeof data.target?.result === "string") {
+        setFileReaderUrl(data.target?.result);
+      }
+    };
     try {
       const result = await uploadFile({ variables: { file } });
       const fileUrl = [...props.imgUrl];
 
       fileUrl[props.index] = result.data?.uploadFile.url;
       props.setImgUrl(fileUrl);
-      console.log(file);
     } catch (error) {
       // message.info(message);
     }
-    console.log(props.imgUrl);
+    console.log(`이미지${props.imgUrl}`);
   };
 
   return (
@@ -46,8 +56,10 @@ export default function UploadImagePage(props: IUploadImagePage) {
       onClickImgBox={onClickImgBox}
       onChangeFile={onChangeFile}
       fileRef={fileRef}
-      imgUrl={props.imgUrl}
       index={props.index}
+      fileReaderUrl={fileReaderUrl}
+      imgUrl={props.imgUrl}
+      defaultData={props.defaultData}
     />
   );
 }

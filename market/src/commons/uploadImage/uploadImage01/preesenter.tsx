@@ -1,17 +1,31 @@
 import * as A from "./styles";
 export default function UploadImagePageUI(props) {
-  console.log(props.imgUrl);
   return (
     <>
       <A.Box1 onClick={props.onClickImgBox}>
         <A.img
-          imgUrl={props.imgUrl?.[props.index]}
-          src={`https://storage.googleapis.com/${props.imgUrl?.[props.index]}`}
+          imgUrl={
+            props.defaultData?.fetchUseditem?.images[props.index] ||
+            props.fileReaderUrl
+          }
+          src={
+            props.defaultData?.fetchUseditem?.images[props.index]
+              ? `https://storage.googleapis.com/${
+                  props.defaultData?.fetchUseditem?.images[props.index]
+                }`
+              : props.fileReaderUrl
+          }
         />
 
-        {props.imgUrl?.[props.index] ? "" : "+"}
+        {props.defaultData?.fetchUseditem?.images[props.index] ||
+        props.fileReaderUrl
+          ? ""
+          : "+"}
         <br></br>
-        {props.imgUrl?.[props.index] ? "" : "Upload"}
+        {props.defaultData?.fetchUseditem?.images[props.index] ||
+        props.fileReaderUrl
+          ? ""
+          : "Upload"}
       </A.Box1>
       <input
         style={{ display: "none" }}

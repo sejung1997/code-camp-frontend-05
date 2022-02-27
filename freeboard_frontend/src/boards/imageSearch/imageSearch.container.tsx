@@ -28,6 +28,13 @@ export default function ImageSearchPage() {
         )}`
       );
       setData(result?.data);
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(result?.data);
+      fileReader.onload = (data) => {
+        if (typeof data.target?.result === "string") {
+          console.log(data.target?.result);
+        }
+      };
     };
     fetchPlanet();
   };

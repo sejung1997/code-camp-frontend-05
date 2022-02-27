@@ -12,8 +12,7 @@ import { FETCH_USED_ITEMS } from "./gql&types";
 import FetchUseditemsPresenter from "./presenter";
 
 export default function fetchUseditemsContainer() {
-  const [keyword, setKeyword] = useState("");
-  const [srchDate, setSrchDate] = useState<number[]>([20220000, 20230000]);
+  const [imgUrl, setImgUrl] = useState(["","" ]);
   const movePage = useMovePage();
 
   const { data, fetchMore, refetch } = useQuery<
@@ -34,6 +33,10 @@ export default function fetchUseditemsContainer() {
     refetch({ search: keyword });
   };
 
+  useEffect(() => {
+    console.log(Math.ceil(Math.random() * 10) )
+
+  })
   const onLoadMore = () => {
     if (!data) return;
 
@@ -51,27 +54,12 @@ export default function fetchUseditemsContainer() {
       },
     });
   };
+  console.log(data);
+  {data?.fetchUseditems.filter((x) => x.images[0]).map((el: any, index: number) => (
 
-  // useEffect(() => {
-  //   refetch({ search: keyword });
-  // }, [srchDate]);
-  const rangePick = (da) => {
-    setSrchDate([
-      Number(JSON.stringify(da[0]._d).slice(1, 11)?.replaceAll("-", "")),
-      Number(JSON.stringify(da[1]._d).slice(1, 11)?.replaceAll("-", "")),
-    ]);
-  };
 
-  // const settings = {
-  //   dots: false,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   autoplaySpeed: 2000,
-  //   arrows: false,
-  //   cssEase: "linear",
-  // };
+  ))}
+
   console.log(data);
   return (
     <FetchUseditemsPresenter
@@ -79,10 +67,7 @@ export default function fetchUseditemsContainer() {
       movePage={movePage}
       onLoadMore={onLoadMore}
       onChangeSearch={onChangeSearch}
-      keyword={keyword}
-      rangePick={rangePick}
-      srchDate={srchDate}
-      onClickSearch={onClickSearch}
+      imgUrl={imgUrl}
     />
   );
 }

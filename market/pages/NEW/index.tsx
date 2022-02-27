@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { widthAuth } from "../../src/commons/withAuth";
+
 import CreateItemContainer from "../../src/units/new/createItem.container";
-export default function CreateItemPage() {
+function CreateItemPage() {
   return <CreateItemContainer />;
 }
+
+export default widthAuth(CreateItemPage);

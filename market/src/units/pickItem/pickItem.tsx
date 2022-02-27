@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import PurchaseItem from "../../commons/purchaseItem/index";
 import Button01 from "../../commons/button01/index";
@@ -12,16 +12,14 @@ const Label = styled.div`
 `;
 const Main = styled.div`
   width: 1200px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
 `;
 const Wrpper = styled.div`
   font-size: 23px;
   padding: 30px 20px;
   border: 1px solid green;
-  margin-bottom: 100px;
-  width: 1000px;
+  width: 1100px;
+  position: relative;
+  border-radius: 5px;
 `;
 const DIV = styled.div`
   font-size: 23px;
@@ -31,20 +29,28 @@ const DIV = styled.div`
 `;
 
 const BtnGroup = styled.div`
-  margin-left: 600px;
-  margin-top: 0;
+  position: absolute;
+  top: 120px;
+  right: 10px;
   display: flex;
+`;
+const Contents = styled.div`
+  display: flex;
+  width: 1200px;
+  align-items: center;
+  margin-bottom: 120px;
 `;
 const CheckBox = styled.input`
   width: 30px;
   height: 30px;
-  margin-right: 10px;
+  margin-right: 30px;
 `;
 const LabelCheckBox = styled.span`
   margin-bottom: 0;
 `;
 
 export default function PickUpPage() {
+  const checked = useRef();
   const [data, setData] = useState([]);
   const movePage = useMovePage();
   useEffect(() => {
@@ -58,18 +64,35 @@ export default function PickUpPage() {
     localStorage.setItem("baskets", JSON.stringify(temp));
     window.location.reload();
   };
+
+  if (process.browser) {
+    const checkBoxes = document?.getElementById("checkALL");
+
+    checkBoxes?.addEventListener("click", () => {
+      data.forEach((_, index) => {
+        const checkBox = document.getElementById(`checkbox${index}`);
+        checkBox.checked = checkBoxes.checked;
+      });
+    });
+  }
+
+  const onClickBox = () => {};
   return (
     <Main>
       <Label>장바구니</Label>
 
       <DIV>
-        <CheckBox type="checkbox" />
+        <CheckBox type="checkbox" id="checkALL" />
         <LabelCheckBox>모두선택</LabelCheckBox>
       </DIV>
       {data &&
         data.map((el, index) => (
-          <DIV key={index}>
-            <CheckBox type="checkbox" />
+          <Contents key={index}>
+            <CheckBox
+              type="checkbox"
+              id={`checkbox${index}`}
+              onClick={onClickBox}
+            />
 
             <Wrpper>
               <DIV>판매자: {el.seller}</DIV>
@@ -83,7 +106,7 @@ export default function PickUpPage() {
                 <Button01 onClick={deletekey(index)} name="삭제하기"></Button01>
               </BtnGroup>
             </Wrpper>
-          </DIV>
+          </Contents>
         ))}
       <PurchaseItem allData={data} />
     </Main>

@@ -22,6 +22,7 @@ export default function createItemContainer(props) {
     zipcode: "",
     address: "",
   });
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
@@ -100,6 +101,7 @@ export default function createItemContainer(props) {
   const cancel = () => {
     window.history.back();
   };
+  console.log(props.defaultData);
   return (
     <CreateItemPresenter
       setImgUrl={setImgUrl}

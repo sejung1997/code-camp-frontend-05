@@ -1,5 +1,6 @@
 import FetchItemContainer from "../../src/units/List/container";
-
-export default function DetailPage() {
+import { widthAuth } from "../../src/commons/withAuth";
+const ListPage = () => {
   return <FetchItemContainer />;
-}
+};
+export default widthAuth(ListPage);

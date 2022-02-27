@@ -65,7 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setAcessToken(localStorage.getItem("accessToken") || "");
     }
     if (localStorage.getItem("userInfo")) {
-      setUserInfo(localStorage.getItem("userInfo") || "");
+      setUserInfo(JSON.parse(localStorage.getItem("userInfo") || ""));
     }
   }, []);
 
