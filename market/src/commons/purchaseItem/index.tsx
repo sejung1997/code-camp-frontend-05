@@ -5,7 +5,6 @@ import { ButtonDelete } from "../../units/Detail/styles";
 import * as SI from "../../units/signup/signUp.styles";
 import Head from "next/head";
 import { contents } from "../../units/comment/createComment.styles";
-
 export default function PurchaseItem(props) {
   const { userInfo, setPoint } = useContext(GlobalContext);
   const [amount, setAmount] = useState(0);

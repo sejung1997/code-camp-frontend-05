@@ -10,6 +10,7 @@ import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { UPLOAD_FILE } from "./gql";
 import UploadImagePageUI from "./preesenter";
 import { IUploadImagePage } from "./types";
+import { useRouter } from "next/router";
 
 export default function UploadImagePage(props: IUploadImagePage) {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -50,6 +51,11 @@ export default function UploadImagePage(props: IUploadImagePage) {
     }
     console.log(`이미지${props.imgUrl}`);
   };
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (props.defaultData?.fetchUseditem?.contents) return;
+  //   window.location.replace(`/${router.query.id}/edit`);
+  // }, []);
 
   return (
     <UploadImagePageUI

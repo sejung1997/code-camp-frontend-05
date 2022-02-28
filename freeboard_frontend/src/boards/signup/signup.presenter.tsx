@@ -5,7 +5,7 @@ import { Modal } from "antd";
 export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
   return (
     <>
-      {props.userInfo ? (
+      {props.userInfo.name ? (
         <Modal
           visible={true}
           onCancel={props.Cancel}
@@ -20,20 +20,18 @@ export default function SignUpPageUI(props: IBoardSingUpPageUIProps) {
             <s.topTitle>회원정보</s.topTitle>
             <form>
               이메일 <br />
-              <s.email>{JSON.parse(props.userInfo).email}</s.email>
+              <s.email>{props.userInfo.email}</s.email>
               이름 <br />
-              <s.lastSignTime>{JSON.parse(props.userInfo).name}</s.lastSignTime>
+              <s.lastSignTime>{props.userInfo.name}</s.lastSignTime>
               가입 날짜 <br />
-              <s.creationTime>
-                {JSON.parse(props.userInfo).createdAt}
-              </s.creationTime>
+              <s.creationTime>{props.userInfo.createdAt}</s.creationTime>
             </form>
           </s.Main>
         </Modal>
       ) : (
         <Modal
           visible={true}
-          onOk={props.submit}
+          onOk={props.onclickSubmit}
           onCancel={props.Cancel}
           width={560}
           footer={[

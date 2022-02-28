@@ -1,4 +1,4 @@
-import { globalStyles } from "../scr/components/commons/styles/globalStyles";
+import { globalStyles } from "../scr/commons/styles/globalStyles";
 import "antd/dist/antd.css";
 import {
   ApolloClient,

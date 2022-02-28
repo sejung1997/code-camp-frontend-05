@@ -4,6 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { GlobalContext } from "../../../pages/_app";
 import SignUpPresenter from "./signUp.presenter";
 import { useContext, useState } from "react";
+import { CREATE_USER } from "./signUp.types";
+import { useMutation } from "@apollo/client";
+import { message, Modal } from "antd";
+import { Router, useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup
@@ -30,17 +34,38 @@ const schema = yup.object().shape({
     .required("전화번호는 필수 입력 사항입니다"),
 });
 interface FormValues {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
+  name: string;
 }
 export default function SignInContainer() {
+  const router = useRouter();
+  const [createUser] = useMutation(CREATE_USER);
   const { userInfo, point } = useContext(GlobalContext);
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const onclickSubmit = (data: FormValues) => {
+  const onclickSubmit = async (data: FormValues) => {
     console.log(data);
+    try {
+      const userName = await createUser({
+        variables: {
+          createUserInput: {
+            email: data.email,
+            password: data.password,
+            name: data.name,
+          },
+        },
+      });
+      console.log("dfdfdfdsf");
+      console.log(userName?.data.createUser.name);
+      console.log("sadfsdf");
+      message.info("회원가입에 성공했습니다");
+      router.push("/signIn");
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
+    }
   };
 
   return (

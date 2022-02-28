@@ -42,7 +42,7 @@ export default function SignInPresenter(props) {
             <SI.label>전화번호</SI.label>
             <Input01 type="password" register={props.register("number")} />
             <SI.ErrMsg>{props.formState.errors.password?.message}</SI.ErrMsg>
-            <Button01 name="로그인" />
+            <Button01 name="회원가입" />
           </SI.InputWrapper>
         </SI.Main>
       )}

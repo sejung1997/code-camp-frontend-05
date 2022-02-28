@@ -88,9 +88,12 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
     try {
-      const b = await logoutUser();
+      logoutUser();
+
+      message.info("로그아웃했습니다");
+      window.location.reload();
     } catch (error) {
       message.info(error.message);
     }
@@ -106,7 +109,7 @@ export default function SignUpPage(props: IBoardSignInPageProps) {
   //   ],
   //   // Other config options...
   // });
-  console.log(userInfo);
+  console.log(`dsdfsdffdssfdfds${userInfo}`);
   return (
     <SignUpPageUI
       // changeInputs={changeInputs}

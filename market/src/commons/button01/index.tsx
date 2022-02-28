@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-
+import { Button } from "antd";
 interface IMyButtonProps {
   isValid?: boolean;
 }
@@ -16,11 +16,11 @@ const Button = styled.button`
   border-radius: 7px;
   :hover {
     cursor: pointer;
-    color: black;
+    color: #fff;
     background-color: green;
   }
 `;
 
 export default function Button01(props) {
-  return <Button>{props.name}</Button>;
+  return <Button onClick={props.click}>{props.name}</Button>;
 }

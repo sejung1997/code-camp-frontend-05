@@ -82,18 +82,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setAcessToken(localStorage.getItem("accessToken") || "");
-    }
-    if (localStorage.getItem("userInfo")) {
-      setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
-    }
+    // if (localStorage.getItem("accessToken")) {
+    //   setAcessToken(localStorage.getItem("accessToken") || "");
+    // }
+    // if (localStorage.getItem("userInfo")) {
+    //   setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
+    // }
     if (localStorage.getItem(date)) {
       setTodayProduct(JSON.parse(localStorage.getItem(date)) || "[]");
     }
     if (localStorage.getItem("point")) {
       setPoint(Number(JSON.parse(localStorage.getItem("point"))));
     }
+
     getAccessToken().then((newAccessToken) => {
       setAcessToken(newAccessToken);
     });
@@ -116,6 +117,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             setAcessToken(newAccessToken);
 
             // 5. 재발급 받은 accessToken으로 방금 실패한 쿼리 재요청하기
+            // operation에 실패한 쿼리들 들어가있음
             operation.setContext({
               headers: {
                 ...operation.getContext().headers,
@@ -132,7 +134,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const uploadLink = createUploadLink({
     uri: "https://backend05.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${acessToken}` },
-    credentials: "include",
+    credentials: "include", //  백엔드에서 받은 리프레쉬 토큰을 쿠키에 추가하기 위해선 https와 credentials:include 를 해준다.
   });
 
   const client = new ApolloClient({

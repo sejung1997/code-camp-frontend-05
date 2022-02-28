@@ -5,7 +5,7 @@ import { Modal } from "antd";
 export default function SignUpPageUI(props: IBoardSingInPageUIProps) {
   return (
     <>
-      {props.userInfo ? (
+      {props.userInfo.name ? (
         <Modal
           visible={true}
           onOk={props.logout}

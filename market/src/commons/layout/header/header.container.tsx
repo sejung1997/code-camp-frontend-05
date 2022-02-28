@@ -11,7 +11,7 @@ const Menu = styled.div`
 const SignIn = styled.div`
   font-size: 30px;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 30px;
   :hover {
     color: black;
     cursor: pointer;
@@ -90,7 +90,8 @@ export default function HeaderPage() {
 
             <SignIn onClick={movePage("list")}>상품 목록</SignIn>
             <SignIn onClick={movePage("new")}>상품 등록</SignIn>
-            <SignIn onClick={movePage("pick")}>장바구니</SignIn>
+            <SignIn onClick={movePage("basket")}>장바구니</SignIn>
+            <SignIn onClick={movePage("pick")}>찜한상품</SignIn>
 
             <br />
             <UserInfo onClick={movePage("signUp")}>

@@ -1,5 +1,5 @@
 import FetchItemPresenter from "./presenter";
-import { FETCH_USED_ITEM, DELETE_USED_ITEM } from "./gql&types";
+import { FETCH_USED_ITEM, DELETE_USED_ITEM, ITEM_PICK } from "./gql&types";
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { GlobalContext } from "../../../pages/_app";
@@ -26,6 +26,8 @@ export default function FetchItemContainer() {
     Pick<IMutation, "deleteUseditem">,
     IMutationDeleteUseditemArgs
   >(DELETE_USED_ITEM);
+
+  const [toggleUseditemPick] = useMutation(ITEM_PICK);
 
   const setKaokaoMap = KakaoMapPage();
 
@@ -97,6 +99,13 @@ export default function FetchItemContainer() {
     message.info("장바구니에 담기 완료");
   };
 
+  const UseditemPick = async () => {
+    await toggleUseditemPick({
+      variables: {
+        useditemId: String(router.query.id),
+      },
+    });
+  };
   return (
     <FetchItemPresenter
       data={data}
@@ -105,6 +114,7 @@ export default function FetchItemContainer() {
       router={router}
       deleteBtn={deleteBtn}
       pickUp={pickUp}
+      UseditemPick={UseditemPick}
     />
   );
 }

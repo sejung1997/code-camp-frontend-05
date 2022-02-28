@@ -6,6 +6,8 @@ import * as A from "./createItem.styles";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import Dompurify from "dompurify";
+import { useEffect } from "react";
+import Router, { useRouter } from "next/router";
 
 // import { Input02 } from "../../commons/inputs/input02";
 
@@ -65,11 +67,9 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             {process.browser && (
               <ReactQuill
                 style={{ width: "1000px", height: "300px" }}
-                defaultValue={props.defaultData?.fetchUseditem?.contents.slice(
-                  3,
-                  props.defaultData?.fetchUseditem?.contents.length - 4
-                )}
-                placeholder="내용을 입력해주세요"
+                defaultValue={
+                  props.isEdit ? props.defaultData?.fetchUseditem?.contents : ""
+                }
                 onChange={props.handleChange}
               />
             )}
@@ -97,8 +97,8 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               placeholder={"0512"}
               value={
                 props.inputs.zipcode
-                  ? props.inputs.zipcode
-                  : props.defaultData?.fetchUseditem.useditemAddress.zipcode
+                  ? props.inputs?.zipcode
+                  : props.defaultData?.fetchUseditem?.useditemAddress?.zipcode
               }
             ></A.InputNum>
 

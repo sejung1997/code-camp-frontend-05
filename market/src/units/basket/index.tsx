@@ -3,6 +3,8 @@ import { Ref, useEffect, useRef, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import PurchaseItem from "../../commons/purchaseItem/index";
 import Button01 from "../../commons/button01/index";
+import { gql, useQuery } from "@apollo/client";
+
 const Label = styled.div`
   font-size: 30px;
   font-weight: bold;
@@ -51,12 +53,12 @@ const LabelCheckBox = styled.span`
 
 export default function PickUpPage() {
   const checked = useRef();
+
   const [data, setData] = useState([]);
   const movePage = useMovePage();
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("baskets")));
   }, []);
-  console.log(data);
   const deletekey = (index) => () => {
     const temp = JSON.parse(localStorage.getItem("baskets")).filter(
       (_, pickIndex) => pickIndex !== index
