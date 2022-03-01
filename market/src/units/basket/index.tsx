@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
-import { Ref, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import PurchaseItem from "../../commons/purchaseItem/index";
-import Button01 from "../../commons/button01/index";
-import { gql, useQuery } from "@apollo/client";
+import { ButtonDelete } from "../Detail/styles";
 
 const Label = styled.div`
   font-size: 30px;
@@ -51,20 +50,23 @@ const LabelCheckBox = styled.span`
   margin-bottom: 0;
 `;
 
-export default function PickUpPage() {
+export default function BasketPageContainer() {
   const checked = useRef();
 
   const [data, setData] = useState([]);
   const movePage = useMovePage();
+
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("baskets")));
   }, []);
+
   const deletekey = (index) => () => {
     const temp = JSON.parse(localStorage.getItem("baskets")).filter(
       (_, pickIndex) => pickIndex !== index
     );
     localStorage.setItem("baskets", JSON.stringify(temp));
     window.location.reload();
+    console.log("sdfsdfsdfs");
   };
 
   if (process.browser) {
@@ -77,7 +79,7 @@ export default function PickUpPage() {
       });
     });
   }
-
+  console.log(data);
   const onClickBox = () => {};
   return (
     <Main>
@@ -101,11 +103,10 @@ export default function PickUpPage() {
               <DIV>상품명: {el.name}</DIV>
               <DIV>가격: {el.price}원</DIV>
               <BtnGroup>
-                <Button01
-                  onClick={movePage(`/${el.id}`)}
-                  name="이동하기"
-                ></Button01>
-                <Button01 onClick={deletekey(index)} name="삭제하기"></Button01>
+                <ButtonDelete onClick={movePage(`/${el.id}`)}>
+                  이동하기
+                </ButtonDelete>
+                <ButtonDelete onClick={deletekey(index)}>삭제하기</ButtonDelete>
               </BtnGroup>
             </Wrpper>
           </Contents>

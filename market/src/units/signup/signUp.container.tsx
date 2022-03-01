@@ -4,8 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { GlobalContext } from "../../../pages/_app";
 import SignUpPresenter from "./signUp.presenter";
 import { useContext, useState } from "react";
-import { CREATE_USER } from "./signUp.types";
-import { useMutation } from "@apollo/client";
+import { CREATE_USER, FETCH_USER_LOGGED_IN } from "./signUp.types";
+import { useMutation, useQuery } from "@apollo/client";
 import { message, Modal } from "antd";
 import { Router, useRouter } from "next/router";
 
@@ -41,11 +41,13 @@ interface FormValues {
 export default function SignInContainer() {
   const router = useRouter();
   const [createUser] = useMutation(CREATE_USER);
-  const { userInfo, point } = useContext(GlobalContext);
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  const { userInfo, point, acessToken } = useContext(GlobalContext);
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
   const onclickSubmit = async (data: FormValues) => {
     console.log(data);
     try {
@@ -75,8 +77,10 @@ export default function SignInContainer() {
         handleSubmit={handleSubmit}
         formState={formState}
         onclickSubmit={onclickSubmit}
-        userInfo={userInfo}
         point={point}
+        acessToken={acessToken}
+        userInfo={userInfo}
+        data={data}
       />
     </>
   );

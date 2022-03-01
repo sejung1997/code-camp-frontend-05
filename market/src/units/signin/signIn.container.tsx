@@ -24,8 +24,7 @@ const schema = yup.object().shape({
 export default function SignInContainer() {
   const client = useApolloClient();
   const router = useRouter();
-  const { setAcessToken, setUserInfo, userInfo, acessToken } =
-    useContext(GlobalContext);
+  const { setAcessToken, setUserInfo, acessToken } = useContext(GlobalContext);
   const [loginUser] = useMutation(LOGIN_USER);
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { register, handleSubmit, formState } = useForm({
@@ -35,39 +34,33 @@ export default function SignInContainer() {
 
   const onclickSubmit = async (data: FormValues) => {
     try {
-      await loginUser({
+      const result = await loginUser({
         variables: {
           email: data.email,
           password: data.password,
         },
-      })
-        .then((res) => {
-          const token = res.data?.loginUser?.accessToken || "";
-          if (setAcessToken) setAcessToken(token);
-        })
-        .then(() => {
-          setInfomation();
-        });
-    } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
-    }
-  };
-  const setInfomation = async () => {
-    try {
-      const resultUserInfo = await client.query({
-        query: FETCH_USER_LOGGED_IN,
       });
-      const Info = resultUserInfo.data?.fetchUserLoggedIn;
+      const token = result.data?.loginUser?.accessToken || "";
+      if (setAcessToken) setAcessToken(token);
 
-      if (setUserInfo) setUserInfo(Info);
-      localStorage.setItem("userInfo", JSON.stringify(Info));
-
-      message.info(`${Info.name}님 환영합니다`);
-      router.push("/");
+      // setInfomation();
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
+  // const setInfomation = async () => {
+  //   try {
+  //     const resultUserInfo = await client.query({
+  //       query: FETCH_USER_LOGGED_IN,
+  //     });
+  //     const Info = resultUserInfo.data?.fetchUserLoggedIn;
+
+  //     message.info(`${Info.name}님 환영합니다`);
+  //     router.push("/");
+  //   } catch (error) {
+  //     if (error instanceof Error) Modal.error({ content: error.message });
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (acessToken) setInfomation();
@@ -94,7 +87,7 @@ export default function SignInContainer() {
         formState={formState}
         onclickSubmit={onclickSubmit}
         logout={logout}
-        userInfo={userInfo}
+        acessToken={acessToken}
       />
     </>
   );

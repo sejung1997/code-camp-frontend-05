@@ -8,12 +8,12 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { message } from "antd";
 
-const schema = yup.object().shape({
-  name: yup.string().required("상품명은 필수 입력 사항입니다."),
-  remarks: yup.string().required("한줄요약은 필수 입력 사항입니다"),
-  contents: yup.string().required("상세내용은 필수 입력 사항입니다"),
-  price: yup.string().required("상품가격은 필수 입력 사항입니다"),
-});
+// const schema = yup.object().shape({
+//   name: yup.string().required("상품명은 필수 입력 사항입니다."),
+//   remarks: yup.string().required("한줄요약은 필수 입력 사항입니다"),
+//   // contents: yup.string().required("상세내용은 필수 입력 사항입니다"),
+//   price: yup.string().required("상품가격은 필수 입력 사항입니다"),
+// });
 
 export default function createItemContainer(props) {
   const router = useRouter();
@@ -26,10 +26,22 @@ export default function createItemContainer(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
-  const { register, handleSubmit, formState, setValue, trigger } = useForm({
-    resolver: yupResolver(schema),
+  const { register, handleSubmit, setValue, trigger, getValues } = useForm({
+    // resolver: yupResolver(schema),
     mode: "onChange",
   });
+  // const handleChange = (value: string) => {
+  //   console.log("value");
+  //   setValue("contents", value === "<p><br></p>" ? "" : value);
+  //   trigger("contents");
+  // };
+  const handleChange = (value: string) => {
+    // register로 등록하지 않고, 강제로 값을 넣어주는 기능!!
+    setValue("contents", value === "<p><br></p>" ? "" : value);
+
+    // onChange 됐는지 안됐는지 react-hook-form에 알려주는 기능!!
+    trigger("contents");
+  };
   const onclickSubmit = async (data) => {
     try {
       const result = await createUsedItem({
@@ -87,10 +99,6 @@ export default function createItemContainer(props) {
     }
   }, [props.defaultData]);
 
-  const handleChange = (value) => {
-    setValue("contents", value === "<p><br></p)" ? "" : value);
-    trigger("contents");
-  };
   const onCompletePostcode = (code) => {
     setInputs({ zipcode: code.zonecode, address: code.address });
     setIsModalVisible((prev) => !prev);
@@ -111,11 +119,12 @@ export default function createItemContainer(props) {
       cancel={cancel}
       register={register}
       handleSubmit={handleSubmit}
-      formState={formState}
+      // formState={formState}
       onclickSubmit={onclickSubmit}
       defaultData={props.defaultData}
       onclickUpdate={onclickUpdate}
       handleChange={handleChange}
+      contents={getValues("contents")}
       onCompletePostcode={onCompletePostcode}
       inputs={inputs}
       showModal={showModal}

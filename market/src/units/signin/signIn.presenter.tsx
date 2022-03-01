@@ -5,7 +5,7 @@ import * as SI from "./signIn.styles";
 export default function SignInPresenter(props) {
   return (
     <>
-      {props.userInfo?.name ? (
+      {props.acessToken ? (
         <SI.Main>
           <button name="로그아웃" onClick={props.logout}>
             로그아웃 하기

@@ -1,9 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button01 from "../../commons/button01";
-import { Ref, useEffect, useRef, useState } from "react";
+import { ButtonDelete } from "../Detail/styles";
 
 import { useMovePage } from "../../commons/function/movePage";
+import { useEffect } from "react";
 
 export default function () {
   const FETCH_USED_ITEMS_IPICK = gql`
@@ -11,6 +11,11 @@ export default function () {
       fetchUseditemsIPicked(search: $search, page: $page) {
         name
         contents
+        price
+        _id
+        seller {
+          name
+        }
       }
     }
   `;
@@ -58,34 +63,60 @@ export default function () {
     height: 30px;
     margin-right: 30px;
   `;
+  const LabelCheckBox = styled.span`
+    margin-bottom: 0;
+    font-size: 23px;
+    padding: 5px 0;
+  `;
 
   const { data } = useQuery(FETCH_USED_ITEMS_IPICK, {
     variables: { search: "" },
   });
+
   console.log(data?.fetchUseditemsIPicked);
+  console.log("data?.fetchUseditemsIPicked");
+  useEffect(() => {
+    if (!data) return;
+    const checkBoxes = document?.getElementById("checkALL");
+
+    checkBoxes?.addEventListener("click", () => {
+      data?.fetchUseditemsIPicked?.forEach((_, index) => {
+        const checkBox = document.getElementById(`checkbox${index}`);
+        checkBox.checked = checkBoxes.checked;
+      });
+    });
+  }, [data]);
+
   return (
     <>
-      <div>
-        {data &&
-          data?.fetchUseditemsIPicked.map((el, index) => (
-            <Contents key={index}>
-              <CheckBox type="checkbox" id={`checkbox${index}`} />
+      <Main>
+        <Label>찜한상품</Label>
 
-              <Wrpper>
-                <DIV>판매자: {el.seller}</DIV>
-                <DIV>상품명: {el.name}</DIV>
-                <DIV>가격: {el.price}원</DIV>
-                <BtnGroup>
-                  <Button01
-                    onClick={movePage(`/${el.id}`)}
-                    name="이동하기"
-                  ></Button01>
-                  <Button01 name="삭제하기"></Button01>
-                </BtnGroup>
-              </Wrpper>
-            </Contents>
-          ))}
-      </div>
+        <DIV>
+          <CheckBox type="checkbox" id="checkALL" />
+          <LabelCheckBox>모두선택</LabelCheckBox>
+        </DIV>
+        <div>
+          {data &&
+            data?.fetchUseditemsIPicked?.map((el, index) => (
+              <Contents key={index}>
+                <CheckBox type="checkbox" id={`checkbox${index}`} />
+
+                <Wrpper>
+                  <DIV>판매자: {el.seller.name}</DIV>
+                  <DIV>상품명: {el.name}</DIV>
+                  <DIV>가격: {el.price}원</DIV>
+                  <BtnGroup>
+                    <ButtonDelete onClick={movePage(`/${el._id}`)}>
+                      이동하기
+                    </ButtonDelete>
+                    <ButtonDelete>삭제하기</ButtonDelete>
+                  </BtnGroup>
+                </Wrpper>
+              </Contents>
+            ))}
+        </div>
+      </Main>
     </>
   );
 }

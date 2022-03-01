@@ -1,11 +1,16 @@
 import FetchItemPresenter from "./presenter";
-import { FETCH_USED_ITEM, DELETE_USED_ITEM, ITEM_PICK } from "./gql&types";
+import {
+  FETCH_USED_ITEM,
+  DELETE_USED_ITEM,
+  ITEM_PICK,
+  CREATE_POINT_TRANSACTION,
+} from "./gql&types";
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { GlobalContext } from "../../../pages/_app";
 import { useContext, useEffect } from "react";
 import { useMovePage } from "../../commons/function/movePage";
-import { message } from "antd";
+import { message, Modal } from "antd";
 import { KakaoMapPage } from "../../commons/kakaoMap/index";
 import {
   IMutation,
@@ -15,21 +20,20 @@ import {
 } from "../../commons/types/generated/types";
 
 export default function FetchItemContainer() {
-  // const client = useApolloClient();
-
   const movePage = useMovePage();
+  const [toggleUseditemPick] = useMutation(ITEM_PICK);
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION
+  );
 
   const { userInfo, date, setTodayProduct } = useContext(GlobalContext);
-
   const router = useRouter();
+  const setKaokaoMap = KakaoMapPage();
+
   const [deleteUseditem] = useMutation<
     Pick<IMutation, "deleteUseditem">,
     IMutationDeleteUseditemArgs
   >(DELETE_USED_ITEM);
-
-  const [toggleUseditemPick] = useMutation(ITEM_PICK);
-
-  const setKaokaoMap = KakaoMapPage();
 
   const { data } = useQuery<
     Pick<IQuery, "fetchUseditem">,
@@ -44,30 +48,19 @@ export default function FetchItemContainer() {
     price: data?.fetchUseditem?.price,
     images: data?.fetchUseditem?.images.filter((x: any) => x),
   };
+
   useEffect(() => {
     if (!data) return;
-
-    // if (JSON.parse(localStorage.getItem(date))) return;
+    setKaokaoMap(data);
 
     const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
-    if (todaySeen[todaySeen.length - 1]?.id === todayData.id) return;
+    const temp = todaySeen.filter((el) => el.id === todayData.id);
+    if (temp.length >= 1) return;
     todaySeen.push(todayData);
     localStorage.setItem(date, JSON.stringify(todaySeen));
-
     setTodayProduct(JSON.parse(localStorage.getItem(date)));
   }, [data]);
-
-  // const data = new Promise((resolve, reject) => {
-  //   const resultUserInfo = client.query({
-  //     query: FETCH_USED_ITEM,
-  //     constiables: { useditemId: String(router.query.id) },
-  //   });
-  //   console.log(resultUserInfo);
-  //   resolve(resultUserInfo);
-  // })
-
-  //   .then((res) => setTodayData())
-  //   .then((res) => setTodayProduct(JSON.parse(localStorage.getItem(date))));
+  useEffect(() => {}, [data]);
 
   const deleteBtn = async () => {
     try {
@@ -80,21 +73,11 @@ export default function FetchItemContainer() {
     }
   };
 
-  useEffect(() => {
-    setKaokaoMap(data);
-  }, [data]);
-
   const pickUp = () => {
-    const todayData = {
-      id: data?.fetchUseditem?._id,
-      name: data?.fetchUseditem?.name,
-      price: data?.fetchUseditem?.price,
-      images: data?.fetchUseditem?.images.filter((x: any) => x),
-      seller: data?.fetchUseditem?.seller.name,
-    };
     const pickUpData = JSON.parse(localStorage.getItem("baskets") || "[]");
-    if (pickUpData[pickUpData.length - 1]?.id !== todayData.id)
-      pickUpData.push(todayData);
+    const temp = pickUpData.filter((el) => el.id === todayData.id);
+    if (temp.length >= 1) return;
+    pickUpData.push(todayData);
     localStorage.setItem("baskets", JSON.stringify(pickUpData));
     message.info("장바구니에 담기 완료");
   };
@@ -106,6 +89,20 @@ export default function FetchItemContainer() {
       },
     });
   };
+  const purchase = async () => {
+    try {
+      const pusrchaseInfo = await createPointTransactionOfBuyingAndSelling({
+        variables: {
+          useritemId: String(router.query.id),
+        },
+      });
+      message.info(
+        `${pusrchaseInfo?.data?.createPointTransactionOfBuyingAndSelling.name}를 구매했습니다. `
+      );
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: error.message });
+    }
+  };
   return (
     <FetchItemPresenter
       data={data}
@@ -115,6 +112,7 @@ export default function FetchItemContainer() {
       deleteBtn={deleteBtn}
       pickUp={pickUp}
       UseditemPick={UseditemPick}
+      purchase={purchase}
     />
   );
 }

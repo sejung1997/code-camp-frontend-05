@@ -4,9 +4,22 @@ import { message, Modal } from "antd";
 import { ButtonDelete } from "../../units/Detail/styles";
 import * as SI from "../../units/signup/signUp.styles";
 import Head from "next/head";
-import { contents } from "../../units/comment/createComment.styles";
+import { gql, useMutation } from "@apollo/client";
+import { async } from "@firebase/util";
+
+export const CREATE_POINT = gql`
+  mutation createPointTransactionOfLoading($impUid: ID!) {
+    createPointTransactionOfLoading(impUid: $impUid) {
+      impUid
+      amount
+
+      status
+    }
+  }
+`;
 export default function PurchaseItem(props) {
   const { userInfo, setPoint } = useContext(GlobalContext);
+  const [createPointTransactionOfLoading] = useMutation(CREATE_POINT);
   const [amount, setAmount] = useState(0);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,7 +30,8 @@ export default function PurchaseItem(props) {
     console.log("window.IMP");
     console.log(window.IMP);
     const IMP = window.IMP;
-    IMP.init("imp97729834");
+
+    IMP.init("imp49910675");
 
     IMP.request_pay(
       {
@@ -45,7 +59,15 @@ export default function PurchaseItem(props) {
       },
       (rsp) => {
         // callback
+        console.log(rsp);
         if (rsp.success) {
+          const createPoint = async (rsp) => {
+            const ddd = await createPointTransactionOfLoading({
+              variables: { impUid: rsp.imp_uid },
+            });
+            console.log(ddd);
+          };
+          createPoint(rsp);
           setPoint((prev) => Number(prev) + Number(amount));
           const prevPoint =
             Number(JSON.parse(localStorage.getItem("point"))) || 0;

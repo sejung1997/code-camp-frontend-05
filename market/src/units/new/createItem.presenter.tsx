@@ -14,6 +14,7 @@ import Router, { useRouter } from "next/router";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function CreateItemPresenter(props: IBoardUIIProps) {
+  console.log(props.defaultData);
   return (
     <>
       <A.Main>
@@ -27,7 +28,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               defaultValue={props.defaultData?.fetchUseditem?.name}
               {...props.register("name")}
             />
-            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
+            {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.OptionWrapper>
 
           <A.OptionWrapper>
@@ -39,7 +40,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               {...props.register("remarks")}
             />
 
-            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
+            {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.OptionWrapper>
 
           <A.OptionWrapper>
@@ -50,7 +51,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               type={"text"}
               {...props.register("price")}
             />
-            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
+            {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>태그</A.Title>
@@ -60,21 +61,25 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               type={"text"}
               {...props.register("tags")}
             />
-            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
+            {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.OptionWrapper>
           <A.contentsWrapper>
             <A.Title>내용</A.Title>
             {process.browser && (
               <ReactQuill
                 style={{ width: "1000px", height: "300px" }}
-                defaultValue={
-                  props.isEdit ? props.defaultData?.fetchUseditem?.contents : ""
-                }
                 onChange={props.handleChange}
+                // value={props.defaultData?.fetchUseditem?.contents || ""}
+
+                defaultValue={
+                  props.contents ||
+                  props.defaultData?.fetchUseditem?.contents ||
+                  ""
+                }
               />
             )}
 
-            <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg>
+            {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.contentsWrapper>
           <A.OptionWrapper>
             <A.Title>사진 첨부</A.Title>
@@ -119,7 +124,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               value={
                 props.inputs.address
                   ? props.inputs.address
-                  : props.defaultData?.fetchUseditem.useditemAddress.address
+                  : props.defaultData?.fetchUseditem?.useditemAddress?.address
                 // props.address ||
                 // props.data?.fetchBoard.boardAddress.address
               }
@@ -128,8 +133,8 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               placeholder="상세 주소를 입력해주세요"
               defaultValue={
                 props.defaultData
-                  ? props.defaultData?.fetchUseditem.useditemAddress
-                      .addressDetail
+                  ? props.defaultData?.fetchUseditem?.useditemAddress
+                      ?.addressDetail
                   : ""
               }
               {...props.register("addressDetail")}

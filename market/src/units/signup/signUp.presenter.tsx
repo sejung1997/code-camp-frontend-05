@@ -6,18 +6,18 @@ import PurchaseItem from "../../commons/purchaseItem/index";
 export default function SignInPresenter(props) {
   return (
     <>
-      {props.userInfo.name ? (
+      {props.acessToken ? (
         <SI.Main>
           <SI.label>이메일</SI.label>
-          <div>{props.userInfo.email}</div>
+          <div>{props.data?.fetchUserLoggedIn?.email}</div>
 
           <SI.label>이름</SI.label>
-          <div>{props.userInfo.name}</div>
+          <div>{props.data?.fetchUserLoggedIn?.name}</div>
 
           <SI.label>가입 일자</SI.label>
-          <div>{props.userInfo.createdAt}</div>
+          <div>{props.data?.fetchUserLoggedIn?.createdAt.slice(0, 10)}</div>
           <SI.label>포인트</SI.label>
-          <div>{props.point}원</div>
+          <div>{props.data?.fetchUserLoggedIn?.userPoint.amount}원</div>
           <PurchaseItem />
         </SI.Main>
       ) : (

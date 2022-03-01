@@ -40,5 +40,5 @@ export interface IBoardUIIProps {
   onclickSubmit: (data: any) => void;
   defaultData: any;
   onclickUpdate: (data: any) => void;
-  handleChange: (value: any) => () => any;
+  handleChange: (value: any) => void;
 }

@@ -85,19 +85,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     // if (localStorage.getItem("accessToken")) {
     //   setAcessToken(localStorage.getItem("accessToken") || "");
     // }
-    // if (localStorage.getItem("userInfo")) {
-    //   setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
-    // }
+    if (localStorage.getItem("userInfo")) {
+      setUserInfo(JSON.parse(localStorage.getItem("userInfo")) || "{}");
+    }
+    getAccessToken().then((newAccessToken) => {
+      setAcessToken(newAccessToken);
+    });
     if (localStorage.getItem(date)) {
       setTodayProduct(JSON.parse(localStorage.getItem(date)) || "[]");
     }
     if (localStorage.getItem("point")) {
       setPoint(Number(JSON.parse(localStorage.getItem("point"))));
     }
-
-    getAccessToken().then((newAccessToken) => {
-      setAcessToken(newAccessToken);
-    });
   }, []);
   // useEffect(() => {
   //   if (localStorage.getItem("today")) {

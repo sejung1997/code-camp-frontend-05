@@ -32,6 +32,16 @@ export const ITEM_PICK = gql`
     toggleUseditemPick(useditemId: $useditemId)
   }
 `;
+export const CREATE_POINT_TRANSACTION = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      name
+      seller {
+        name
+      }
+    }
+  }
+`;
 interface IUserInfo {
   name?: string;
   email?: string;

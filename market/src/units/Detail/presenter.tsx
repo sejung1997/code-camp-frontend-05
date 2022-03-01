@@ -81,8 +81,9 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
           <L.ButtonList onClick={props.deleteBtn}>삭제하기</L.ButtonList>
           <L.ButtonList onClick={props.pickUp}>장바구니에 담기</L.ButtonList>
           <L.ButtonList onClick={props.UseditemPick}>찜하기</L.ButtonList>
+          <L.ButtonList onClick={props.purchase}>구매하기</L.ButtonList>
 
-          <PurchaseItem data={props.data?.fetchUseditem} />
+          {/* <PurchaseItem data={props.data?.fetchUseditem} /> */}
         </L.buttonGroup>
         <CreateCommentContainer />
         <FetchCommentList />
