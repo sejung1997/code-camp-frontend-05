@@ -63,6 +63,7 @@ export default function HeaderPage() {
                 <div>{el.name}</div>
                 <header.Img
                   src={`https://storage.googleapis.com/${el.images[0]}`}
+                  // onError="/images/Vector.png"
                 />
                 <div>{el.price}원</div>
                 <button onClick={deleteProduct(el.id)}>삭제하기</button>

@@ -1,5 +1,6 @@
 import * as A from "./styles";
 export default function UploadImagePageUI(props) {
+  console.log(props.defaultData?.fetchUseditem?.images[props.index]);
   return (
     <>
       <A.Box1 onClick={props.onClickImgBox}>
@@ -9,11 +10,12 @@ export default function UploadImagePageUI(props) {
             props.fileReaderUrl
           }
           src={
-            props.defaultData?.fetchUseditem?.images[props.index]
-              ? `https://storage.googleapis.com/${
+            props.fileReaderUrl
+              ? props.fileReaderUrl
+              : `https://storage.googleapis.com/${
                   props.defaultData?.fetchUseditem?.images[props.index]
                 }`
-              : props.fileReaderUrl
+            //  props.imgUrl?.[props.index].includes("codecamp-file-storage")
           }
         />
 

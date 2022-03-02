@@ -133,7 +133,7 @@ export default function Home(props: IBoardListIProps) {
       const result2 = await updateBoard({
         variables: MyVariables,
       });
-      const id2 = result2.data.updateBoard._id;
+      const id2 = result2.data.updateBoard._id;   
       router.push(`/${id2}`);
       message.info("수정이 완료되었습니다");
     } catch (error) {

@@ -4,7 +4,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { GlobalContext } from "../../../pages/_app";
 import SignUpPresenter from "./signUp.presenter";
 import { useContext, useState } from "react";
-import { CREATE_USER, FETCH_USER_LOGGED_IN } from "./signUp.types";
+import {
+  CREATE_USER,
+  FETCH_USER_LOGGED_IN,
+  FETCH_USED_ITEM_ISOLD,
+  FETCH_USED_ITEM_IBOUGHT,
+} from "./signUp.types";
 import { useMutation, useQuery } from "@apollo/client";
 import { message, Modal } from "antd";
 import { Router, useRouter } from "next/router";
@@ -42,14 +47,20 @@ export default function SignInContainer() {
   const router = useRouter();
   const [createUser] = useMutation(CREATE_USER);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data: soldData } = useQuery(FETCH_USED_ITEM_ISOLD, {
+    variables: { page: 1, search: "" },
+  });
+  const { data: buyData } = useQuery(FETCH_USED_ITEM_IBOUGHT, {
+    variables: { page: 1, search: "" },
+  });
   const { userInfo, point, acessToken } = useContext(GlobalContext);
+
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
   const onclickSubmit = async (data: FormValues) => {
-    console.log(data);
     try {
       const userName = await createUser({
         variables: {
@@ -60,15 +71,18 @@ export default function SignInContainer() {
           },
         },
       });
-      console.log("dfdfdfdsf");
       console.log(userName?.data.createUser.name);
-      console.log("sadfsdf");
+
       message.info("회원가입에 성공했습니다");
+
       router.push("/signIn");
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
+
+  console.log(soldData);
+  console.log(buyData);
 
   return (
     <>
@@ -81,6 +95,8 @@ export default function SignInContainer() {
         acessToken={acessToken}
         userInfo={userInfo}
         data={data}
+        soldData={soldData}
+        buyData={buyData}
       />
     </>
   );

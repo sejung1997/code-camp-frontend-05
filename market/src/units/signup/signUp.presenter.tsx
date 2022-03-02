@@ -8,6 +8,8 @@ export default function SignInPresenter(props) {
     <>
       {props.acessToken ? (
         <SI.Main>
+          <SI.label>마이페이지</SI.label>
+
           <SI.label>이메일</SI.label>
           <div>{props.data?.fetchUserLoggedIn?.email}</div>
 
@@ -16,6 +18,27 @@ export default function SignInPresenter(props) {
 
           <SI.label>가입 일자</SI.label>
           <div>{props.data?.fetchUserLoggedIn?.createdAt.slice(0, 10)}</div>
+          <SI.label>구매한 상품</SI.label>
+          <div>
+            {props.soldData?.fetchUseditemsIBought?.map((x, INDEX) => (
+              <div key={INDEX}>
+                <div>상품명: {x.name}</div>
+                <div>가격 : {x.price}원</div>
+                <div>내용 : {x.contents}</div>
+              </div>
+            ))}
+          </div>
+
+          <SI.label>판매한 상품</SI.label>
+          <div>
+            {props.buyData?.fetchUseditemsISold?.map((x, INDEX) => (
+              <div key={INDEX}>
+                <div>상품명: {x.name}</div>
+                <div>가격 : {x.price}원</div>
+                <div>내용 : {x.contents}</div>
+              </div>
+            ))}
+          </div>
           <SI.label>포인트</SI.label>
           <div>{props.data?.fetchUserLoggedIn?.userPoint.amount}원</div>
           <PurchaseItem />

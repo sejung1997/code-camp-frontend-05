@@ -12,16 +12,20 @@ export const CREATE_USER = gql`
   }
 `;
 export const FETCH_USED_ITEM_ISOLD = gql`
-  query createUser($createUserInput: CreateUserInput!) {
-    createUser(createUserInput: $createUserInput) {
+  query fetchUseditemsISold($search: String, $page: Int) {
+    fetchUseditemsISold(search: $search, page: $page) {
       name
+      contents
+      price
     }
   }
 `;
 export const FETCH_USED_ITEM_IBOUGHT = gql`
-  query createUser($createUserInput: CreateUserInput!) {
-    createUser(createUserInput: $createUserInput) {
+  query fetchUseditemsIBought($search: String, $page: Int) {
+    fetchUseditemsIBought(search: $search, page: $page) {
       name
+      contents
+      price
     }
   }
 `;

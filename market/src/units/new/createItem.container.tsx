@@ -67,23 +67,35 @@ export default function createItemContainer(props) {
       message.info(error.message);
     }
   };
-  const onclickUpdate = async (data) => {
-    try {
-      console.log(data);
-      console.log(router.query.id);
 
-      console.log("수정");
+  const onclickUpdate = async (data) => {
+    console.log(props.defaultData?.fetchUseditem._id);
+
+    try {
+      // if (data.name || data.remarks || data.price || data.tags)
+      //   updateVariables.updateUseditemInput = {};
+      const updateInput = {};
+      if (data.name) updateInput.name = data.name;
+      if (data.remarks) updateInput.remarks = data.remarks;
+      if (data.contents) updateInput.contents = data.contents;
+      if (data.price) updateInput.price = Number(data.price);
+      if (data.tags) updateInput.tags = data.tags.split("").slice(1);
+      if (props.defaultData?.fetchUseditem?.images !== imgUrl)
+        updateInput.images = imgUrl;
+
+      if (data.addressDetail || inputs.zipcode || inputs.address) {
+        updateInput.useditemAddress = {};
+        if (data.addressDetail)
+          updateInput.useditemAddress.addressDetail = data.addressDetail;
+        if (inputs.zipcode)
+          updateInput.useditemAddress.zipcode = inputs.zipcode;
+        if (inputs.address)
+          updateInput.useditemAddress.address = inputs.address;
+      }
       const result = await updateUseditem({
         variables: {
-          updateUseditemInput: {
-            name: data.name,
-            remarks: data.remarks,
-            contents: data.contents,
-            price: Number(data.price),
-            tags: data.tags.split("#").slice(1),
-            images: imgUrl,
-          },
-          useditemId: router.query.id,
+          updateUseditemInput: updateInput,
+          useditemId: props.defaultData?.fetchUseditem?._id,
         },
       });
       message.info("수정에 성공 했습니다");
@@ -92,7 +104,6 @@ export default function createItemContainer(props) {
       message.info(error.message);
     }
   };
-  // console.log(props.defaultData?.fetchUseditem);
   useEffect(() => {
     if (props.isEdit) {
       setImgUrl(props.defaultData?.fetchUseditem?.images);

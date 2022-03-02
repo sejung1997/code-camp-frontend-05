@@ -69,13 +69,13 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               <ReactQuill
                 style={{ width: "1000px", height: "300px" }}
                 onChange={props.handleChange}
-                // value={props.defaultData?.fetchUseditem?.contents || ""}
+                value={props.defaultData?.fetchUseditem?.contents || ""}
 
-                defaultValue={
-                  props.contents ||
-                  props.defaultData?.fetchUseditem?.contents ||
-                  ""
-                }
+                // defaultValue={
+                //   props.contents ||
+                //   props.defaultData?.fetchUseditem?.contents ||
+                //   ""
+                // }
               />
             )}
 
@@ -107,7 +107,9 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               }
             ></A.InputNum>
 
-            <A.SearchBtn onClick={props.showModal}>우편번호 검색</A.SearchBtn>
+            <A.SearchBtn onClick={props.showModal} type="button">
+              우편번호 검색
+            </A.SearchBtn>
 
             {props.isModalVisible && (
               <Modal

@@ -72,7 +72,6 @@ export default function SignInContainer() {
 
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userInfo");
-
       message.info("로그아웃했습니다");
       router.push("/");
     } catch (error) {

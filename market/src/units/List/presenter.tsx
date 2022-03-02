@@ -3,6 +3,7 @@ import { DatePicker, Space } from "antd";
 import * as List from "./styles";
 import { v4 as uuidv4 } from "uuid";
 import { IFetchUseditemsPresenter } from "./gql&types";
+import LazyLoad from "react-lazyload";
 
 export default function fetchUseditemsPresenter(
   props: IFetchUseditemsPresenter
@@ -72,11 +73,13 @@ export default function fetchUseditemsPresenter(
                 {el.images
                   .filter((x) => x)
                   .map((x) => (
-                    <List.planet key={uuidv4()}>
-                      <List.SliderItem
-                        src={`https://storage.googleapis.com/${x}`}
-                      ></List.SliderItem>
-                    </List.planet>
+                    <LazyLoad key={uuidv4()} height={500}>
+                      <List.planet>
+                        <List.SliderItem
+                          src={`https://storage.googleapis.com/${x}`}
+                        ></List.SliderItem>
+                      </List.planet>
+                    </LazyLoad>
                   ))}
                 <List.Column>{el.createdAt.slice(0, 10)}</List.Column>
                 {/* <Column>{el.contents}</Column> */}
