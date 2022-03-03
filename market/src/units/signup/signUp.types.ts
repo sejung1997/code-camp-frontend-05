@@ -17,6 +17,7 @@ export const FETCH_USED_ITEM_ISOLD = gql`
       name
       contents
       price
+      _id
     }
   }
 `;
@@ -26,6 +27,19 @@ export const FETCH_USED_ITEM_IBOUGHT = gql`
       name
       contents
       price
+    }
+  }
+`;
+export const FETCH_POINT_TRANSACTION = gql`
+  query fetchPointTransactions($search: String, $page: Int) {
+    fetchPointTransactions(search: $search, page: $page) {
+      impUid
+      balance
+      amount
+      useditem {
+        name
+        price
+      }
     }
   }
 `;

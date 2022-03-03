@@ -2,7 +2,6 @@ import * as L from "./styles";
 import FetchCommentList from "../comment/fetchCommentList";
 import CreateCommentContainer from "../comment/createComment.container";
 import Dompurify from "dompurify";
-import PurchaseItem from "../../commons/purchaseItem/index";
 import { IFetchItemPresenter } from "./gql&types";
 
 export default function fetchItemPresenter(props: IFetchItemPresenter) {
@@ -24,8 +23,15 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
                 Date: {props.data?.fetchUseditem?.createdAt.slice(0, 10)}
               </L.Day>
             </L.pri>
-            <L.Img src="/images/Vector (1).png"></L.Img>
-            <L.Img src="/images/Vector (2).png"></L.Img>
+            <L.HeartIcon onClick={props.UseditemPick} />
+            <L.EditIcon
+              style={{ fontSize: "40px" }}
+              onClick={props.movePage(`${props.router.query.id}/edit`)}
+            />
+            <L.DeleteIcon
+              style={{ fontSize: "40px" }}
+              onClick={props.deleteBtn}
+            />
             {/* <L.AddressInfo>
               {props.data?.fetchUseditem?.boardAddress?.zipcode + " "}
               {props.data?.fetchUseditem?.boardAddress?.address}
@@ -72,15 +78,8 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
           </L.Like> */}
         </L.Main>
         <L.buttonGroup>
-          <L.ButtonUpdate
-            onClick={props.movePage(`${props.router.query.id}/edit`)}
-          >
-            수정하기
-          </L.ButtonUpdate>
           <L.ButtonList onClick={props.movePage("list")}>목록으로</L.ButtonList>
-          <L.ButtonList onClick={props.deleteBtn}>삭제하기</L.ButtonList>
           <L.ButtonList onClick={props.pickUp}>장바구니에 담기</L.ButtonList>
-          <L.ButtonList onClick={props.UseditemPick}>찜하기</L.ButtonList>
           <L.ButtonList onClick={props.purchase}>구매하기</L.ButtonList>
 
           {/* <PurchaseItem data={props.data?.fetchUseditem} /> */}

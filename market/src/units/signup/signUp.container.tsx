@@ -9,10 +9,11 @@ import {
   FETCH_USER_LOGGED_IN,
   FETCH_USED_ITEM_ISOLD,
   FETCH_USED_ITEM_IBOUGHT,
+  FETCH_POINT_TRANSACTION,
 } from "./signUp.types";
 import { useMutation, useQuery } from "@apollo/client";
 import { message, Modal } from "antd";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup
@@ -45,12 +46,17 @@ interface FormValues {
 }
 export default function SignInContainer() {
   const router = useRouter();
+
+  const [toggleOn, setToggleOn] = useState<boolean[]>([false, false, false]);
   const [createUser] = useMutation(CREATE_USER);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const { data: soldData } = useQuery(FETCH_USED_ITEM_ISOLD, {
     variables: { page: 1, search: "" },
   });
   const { data: buyData } = useQuery(FETCH_USED_ITEM_IBOUGHT, {
+    variables: { page: 1, search: "" },
+  });
+  const { data: pointData } = useQuery(FETCH_POINT_TRANSACTION, {
     variables: { page: 1, search: "" },
   });
   const { userInfo, point, acessToken } = useContext(GlobalContext);
@@ -80,10 +86,12 @@ export default function SignInContainer() {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
-
-  console.log(soldData);
-  console.log(buyData);
-
+  const onclickToggle = (index: number) => () => {
+    const temp = [...toggleOn];
+    temp[index] = !temp[index];
+    setToggleOn(temp);
+    console.log(toggleOn);
+  };
   return (
     <>
       <SignUpPresenter
@@ -97,6 +105,9 @@ export default function SignInContainer() {
         data={data}
         soldData={soldData}
         buyData={buyData}
+        onclickToggle={onclickToggle}
+        toggleOn={toggleOn}
+        pointData={pointData}
       />
     </>
   );

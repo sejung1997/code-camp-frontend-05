@@ -6,6 +6,15 @@ export const Menu = styled.div`
   width: 100%;
 `;
 export const SignIn = styled.div`
+  font-size: 15px;
+  color: #fff;
+  padding: 10px 30px;
+  :hover {
+    color: black;
+    cursor: pointer;
+  }
+`;
+export const MenuTitle = styled.div`
   font-size: 30px;
   color: #fff;
   padding: 10px 30px;
@@ -18,14 +27,22 @@ export const MenuWrapper = styled.div`
   display: flex;
   position: relative;
 `;
+export const subMenu = styled.div`
+  right: 0;
+  display: flex;
+  position: relative;
+`;
 export const TodayProduct = styled.div`
   position: fixed;
   right: 10px;
-  padding: 20px;
+  width: 150px;
+  padding: 30px 15px;
   top: 150px;
   color: black;
   border: 1px solid green;
   border-radius: 5px;
+  height: 800px;
+  overflow: auto;
 `;
 export const TodayLabel = styled.div`
   font-size: 20px;
@@ -37,7 +54,9 @@ export const DataWrapper = styled.div`
 `;
 export const Img = styled.img`
   width: 100px;
+  height: 100px;
   left: 0;
+  margin: 10px 0;
 `;
 export const UserInfo = styled.div`
   font-size: 20px;
@@ -51,4 +70,17 @@ export const Point = styled.div`
   position: absolute;
   color: #fff;
   right: 0;
+`;
+export const SmallBtn = styled.button`
+  width: 100px;
+  border: 0.5px solid green;
+  background-color: #fff;
+  color: green;
+  border-radius: 3px;
+  margin: 7px 0;
+  :hover {
+    color: #fff;
+    background-color: green;
+    cursor: pointer;
+  }
 `;

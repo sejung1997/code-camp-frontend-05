@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 // import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
+import { EditTwoTone, DeleteTwoTone, HeartTwoTone } from "@ant-design/icons";
 
 export const div = styled.div`
   padding-top: 150px;
@@ -177,5 +178,40 @@ export const ButtonDelete = styled.button`
     cursor: pointer;
     color: black;
     background-color: green;
+  }
+`;
+export const HeartIcon = styled(HeartTwoTone)`
+  font-size: 40px;
+  color: green;
+  margin-left: 10px;
+
+  & path {
+    stroke: green;
+  }
+`;
+export const EditIcon = styled(EditTwoTone)`
+  font-size: 40px;
+  stroke: green;
+  margin-left: 10px;
+  & :hover {
+    stroke: green;
+  }
+  & path {
+    stroke: green;
+  }
+  & svg {
+    stroke: green;
+  }
+`;
+
+export const DeleteIcon = styled(DeleteTwoTone)`
+  font-size: 40px;
+  color: green;
+  margin-left: 10px;
+  & path {
+    stroke: green;
+  }
+  & svg {
+    stroke: green;
   }
 `;

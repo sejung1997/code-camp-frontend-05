@@ -1,47 +1,84 @@
 import Button01 from "../../commons/button01";
 import Input01 from "../../commons/inputs/input01";
 import * as SI from "./signUp.styles";
-import Head from "next/head";
+import { ButtonDelete } from "../Detail/styles";
 import PurchaseItem from "../../commons/purchaseItem/index";
+import { SmallBtn } from "../../commons/layout/header/header.styles";
+import { DownOutlined, CaretDownOutlined } from "@ant-design/icons";
 export default function SignInPresenter(props) {
+  console.log(props.pointData);
   return (
     <>
       {props.acessToken ? (
         <SI.Main>
-          <SI.label>마이페이지</SI.label>
-
-          <SI.label>이메일</SI.label>
-          <div>{props.data?.fetchUserLoggedIn?.email}</div>
-
-          <SI.label>이름</SI.label>
-          <div>{props.data?.fetchUserLoggedIn?.name}</div>
-
-          <SI.label>가입 일자</SI.label>
-          <div>{props.data?.fetchUserLoggedIn?.createdAt.slice(0, 10)}</div>
+          <SI.Titlelabel>마이페이지</SI.Titlelabel>
+          <SI.label>이메일: {props.data?.fetchUserLoggedIn?.email}</SI.label>
+          <SI.label>이름 : {props.data?.fetchUserLoggedIn?.name}</SI.label>
+          <SI.label>
+            가입 일자 : {props.data?.fetchUserLoggedIn?.createdAt.slice(0, 10)}
+          </SI.label>
+          <SI.label>판매중인 상품</SI.label>
+          <SI.toggle>
+            {props.toggleOn[0] ? (
+              <DownOutlined onClick={props.onclickToggle(0)} />
+            ) : (
+              <CaretDownOutlined onClick={props.onclickToggle(0)} />
+            )}
+          </SI.toggle>
+          <SI.BuyList isHide={props.toggleOn[0]}>
+            {props.soldData?.fetchUseditemsISold?.map((x, INDEX) => (
+              <SI.listWrapper key={INDEX}>
+                <div>상품명: {x.name}</div>
+                <div>가격 : {x.price}원</div>
+                <div>내용 : {x.contents}</div>
+                <SmallBtn>이동하기</SmallBtn>
+              </SI.listWrapper>
+            ))}
+          </SI.BuyList>
           <SI.label>구매한 상품</SI.label>
-          <div>
-            {props.soldData?.fetchUseditemsIBought?.map((x, INDEX) => (
-              <div key={INDEX}>
+          <SI.toggle>
+            {props.toggleOn[1] ? (
+              <DownOutlined onClick={props.onclickToggle(1)} />
+            ) : (
+              <CaretDownOutlined onClick={props.onclickToggle(1)} />
+            )}
+          </SI.toggle>
+          <SI.SoldList isHide={props.toggleOn[1]}>
+            {props.buyData?.fetchUseditemsIBought?.map((x, INDEX) => (
+              <SI.listWrapper key={INDEX}>
                 <div>상품명: {x.name}</div>
                 <div>가격 : {x.price}원</div>
                 <div>내용 : {x.contents}</div>
-              </div>
+              </SI.listWrapper>
             ))}
-          </div>
+          </SI.SoldList>
+          <SI.label>
+            포인트 : {props.data?.fetchUserLoggedIn?.userPoint.amount}원
+          </SI.label>
+          <SI.label>포인트 사용내역 :</SI.label>
+          <SI.toggle>
+            {props.toggleOn[2] ? (
+              <DownOutlined onClick={props.onclickToggle(2)} />
+            ) : (
+              <CaretDownOutlined onClick={props.onclickToggle(2)} />
+            )}
+          </SI.toggle>
+          <SI.SoldList isHide={props.toggleOn[2]}>
+            {props.pointData?.fetchPointTransactions?.map((x, INDEX) => (
+              <SI.listWrapper key={INDEX}>
+                <div>상품명: {x.useditem?.name}</div>
+                <div>
+                  {x.amount > 0 ? "포인트 충전" : "사용한 포인트"} {x.amount}원
+                </div>
+                <div>잔액 : {x.balance}</div>
+              </SI.listWrapper>
+            ))}
+          </SI.SoldList>
+          <div>
+            <ButtonDelete>회원정보 수정</ButtonDelete>
 
-          <SI.label>판매한 상품</SI.label>
-          <div>
-            {props.buyData?.fetchUseditemsISold?.map((x, INDEX) => (
-              <div key={INDEX}>
-                <div>상품명: {x.name}</div>
-                <div>가격 : {x.price}원</div>
-                <div>내용 : {x.contents}</div>
-              </div>
-            ))}
+            <PurchaseItem />
           </div>
-          <SI.label>포인트</SI.label>
-          <div>{props.data?.fetchUserLoggedIn?.userPoint.amount}원</div>
-          <PurchaseItem />
         </SI.Main>
       ) : (
         <SI.Main>
