@@ -8,7 +8,7 @@ export const Menu = styled.div`
 export const SignIn = styled.div`
   font-size: 15px;
   color: #fff;
-  padding: 10px 30px;
+  padding: 15px 0 10px 30px;
   :hover {
     color: black;
     cursor: pointer;
@@ -17,7 +17,7 @@ export const SignIn = styled.div`
 export const MenuTitle = styled.div`
   font-size: 30px;
   color: #fff;
-  padding: 10px 30px;
+  padding: 10px 60px 10px 0;
   :hover {
     color: black;
     cursor: pointer;
@@ -25,12 +25,14 @@ export const MenuTitle = styled.div`
 `;
 export const MenuWrapper = styled.div`
   display: flex;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 80px;
 `;
 export const subMenu = styled.div`
   right: 0;
   display: flex;
-  position: relative;
+  position: absolute;
 `;
 export const TodayProduct = styled.div`
   position: fixed;
@@ -59,14 +61,14 @@ export const Img = styled.img`
   margin: 10px 0;
 `;
 export const UserInfo = styled.div`
-  font-size: 20px;
-  position: absolute;
+  font-size: 17px;
   color: #fff;
   right: 0;
-  bottom: -50px;
+  top: 90px;
+  position: absolute;
 `;
 export const Point = styled.div`
-  font-size: 20px;
+  font-size: 17px;
   position: absolute;
   color: #fff;
   right: 0;

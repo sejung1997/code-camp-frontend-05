@@ -6,8 +6,9 @@ interface Iprops {
 export default function Inner(props: Iprops) {
   const Inner = styled.div`
     margin: auto;
-    width: 1200px;
+    width: 1050px;
     left: 0;
+    position: relative;
     right: 0;
   `;
   return (

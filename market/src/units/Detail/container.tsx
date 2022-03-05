@@ -88,6 +88,12 @@ export default function FetchItemContainer() {
         useditemId: String(router.query.id),
       },
     });
+    const heartData = JSON.parse(localStorage.getItem("heartData") || "[]");
+    const temp = heartData.filter((el) => el.id === heartData.id);
+    if (temp.length >= 1) return;
+    pickUpData.push(todayData);
+    localStorage.setItem("baskets", JSON.stringify(pickUpData));
+    message.info("장바구니에 담기 완료");.
   };
   const purchase = async () => {
     try {

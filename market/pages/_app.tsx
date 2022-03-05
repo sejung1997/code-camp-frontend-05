@@ -1,4 +1,6 @@
+import { globalStyles } from "../src/commons/styles/globalStyles";
 import "antd/dist/antd.css";
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -144,6 +146,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <GlobalContext.Provider value={Value}>
       <ApolloProvider client={client}>
+        <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />
         </Layout>

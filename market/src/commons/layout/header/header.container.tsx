@@ -56,37 +56,37 @@ export default function HeaderPage() {
             <header.MenuTitle onClick={movePage("pick")}>
               찜한상품
             </header.MenuTitle>
-
-            <br />
-            <header.UserInfo onClick={movePage("signUp")}>
-              {acessToken
-                ? data?.fetchUserLoggedIn?.name + "님 안녕하세요"
-                : "로그인을 해주세요"}
-              <header.Point>
-                포인트: {data?.fetchUserLoggedIn?.userPoint.amount}원
-              </header.Point>
-            </header.UserInfo>
           </header.MenuWrapper>
-          <header.TodayProduct>
-            <header.TodayLabel>오늘 본 상품</header.TodayLabel>
-            <InfiniteScroll pageStart={0} loadMore={onloadMore} hasMore={true}>
-              {todayProduct?.map((el, index) => (
-                <header.DataWrapper key={el.id}>
-                  <div>{index + 1}</div>
-                  <div>{el.name}</div>
-                  <header.Img
-                    src={`https://storage.googleapis.com/${el.images[0]}`}
-                    // onError="/images/Vector.png"
-                  />
-                  <div>{el.price}원</div>
-                  <header.SmallBtn onClick={deleteProduct(el.id)}>
-                    삭제하기
-                  </header.SmallBtn>
-                </header.DataWrapper>
-              ))}
-            </InfiniteScroll>
-          </header.TodayProduct>
+
+          <header.UserInfo onClick={movePage("signUp")}>
+            {acessToken
+              ? data?.fetchUserLoggedIn?.name + "님 안녕하세요"
+              : "로그인을 해주세요"}
+            <header.Point>
+              포인트: {data?.fetchUserLoggedIn?.userPoint.amount}원
+            </header.Point>
+          </header.UserInfo>
         </Inner>
+
+        <header.TodayProduct>
+          <header.TodayLabel>오늘 본 상품</header.TodayLabel>
+          <InfiniteScroll pageStart={0} loadMore={onloadMore} hasMore={true}>
+            {todayProduct?.map((el, index) => (
+              <header.DataWrapper key={el.id}>
+                <div>{index + 1}</div>
+                <div>{el.name}</div>
+                <header.Img
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                  // onError="/images/Vector.png"
+                />
+                <div>{el.price}원</div>
+                <header.SmallBtn onClick={deleteProduct(el.id)}>
+                  삭제하기
+                </header.SmallBtn>
+              </header.DataWrapper>
+            ))}
+          </InfiniteScroll>
+        </header.TodayProduct>
       </header.Menu>
     </>
   );
