@@ -8,7 +8,7 @@ import {
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { GlobalContext } from "../../../pages/_app";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import { message, Modal } from "antd";
 import { KakaoMapPage } from "../../commons/kakaoMap/index";
@@ -18,8 +18,11 @@ import {
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../commons/types/generated/types";
+import { setLocal, removeLocal } from "../../commons/function/Localstorage";
 
 export default function FetchItemContainer() {
+  const [isPick, setIsPick] = useState(false);
+  const [isPickCount, setIsPickCount] = useState(0);
   const movePage = useMovePage();
   const [toggleUseditemPick] = useMutation(ITEM_PICK);
   const [createPointTransactionOfBuyingAndSelling] = useMutation(
@@ -43,7 +46,8 @@ export default function FetchItemContainer() {
   });
 
   const todayData = {
-    id: data?.fetchUseditem?._id,
+    _id: data?.fetchUseditem?._id,
+    seller: data?.fetchUseditem?.seller.name,
     name: data?.fetchUseditem?.name,
     price: data?.fetchUseditem?.price,
     images: data?.fetchUseditem?.images.filter((x: any) => x),
@@ -51,16 +55,13 @@ export default function FetchItemContainer() {
 
   useEffect(() => {
     if (!data) return;
+    const pick = JSON.parse(localStorage.getItem("heart"));
+    if (pick.filter((x) => x._id === data?.fetchUseditem?._id).length === 1)
+      setIsPick(true);
     setKaokaoMap(data);
-
-    const todaySeen = JSON.parse(localStorage.getItem(date) || "[]");
-    const temp = todaySeen.filter((el) => el.id === todayData.id);
-    if (temp.length >= 1) return;
-    todaySeen.push(todayData);
-    localStorage.setItem(date, JSON.stringify(todaySeen));
+    if (setLocal(date, todayData) === "stop") return;
     setTodayProduct(JSON.parse(localStorage.getItem(date)));
   }, [data]);
-  useEffect(() => {}, [data]);
 
   const deleteBtn = async () => {
     try {
@@ -74,27 +75,48 @@ export default function FetchItemContainer() {
   };
 
   const pickUp = () => {
-    const pickUpData = JSON.parse(localStorage.getItem("baskets") || "[]");
-    const temp = pickUpData.filter((el) => el.id === todayData.id);
-    if (temp.length >= 1) return;
-    pickUpData.push(todayData);
-    localStorage.setItem("baskets", JSON.stringify(pickUpData));
+    setLocal("baskets", todayData);
     message.info("장바구니에 담기 완료");
   };
 
   const UseditemPick = async () => {
-    await toggleUseditemPick({
-      variables: {
-        useditemId: String(router.query.id),
-      },
-    });
-    const heartData = JSON.parse(localStorage.getItem("heartData") || "[]");
-    const temp = heartData.filter((el) => el.id === heartData.id);
-    if (temp.length >= 1) return;
-    pickUpData.push(todayData);
-    localStorage.setItem("baskets", JSON.stringify(pickUpData));
-    message.info("장바구니에 담기 완료");.
+    try {
+      const result = await toggleUseditemPick({
+        variables: {
+          useditemId: String(router.query.id),
+        },
+        // optimisticResponse: {
+        //   pickedCount: (data?.fetchUseditem?.pickedCount || 0) + 1,
+        // },
+        // update(cache, { data }) {
+        //   cache.writeQuery({
+        //     query: FETCH_USED_ITEM,
+        //     variables: { useditemId: String(router.query.id) },
+        //     data: {
+        //       fetchUseditem: {
+        //         _id: String(router.query.id),
+        //         pickedCount: data?.pickedCount,
+        //         __typename: "Useditem",
+        //       },
+        //     },
+        //   });
+        // },
+      });
+      const Pick = result?.data?.toggleUseditemPick;
+      setIsPickCount(Pick);
+      setIsPick((prev) => !prev);
+      if (!isPick) {
+        setLocal("heart", todayData);
+        message.info("찜하기 완료");
+      } else {
+        removeLocal("heart", data?.fetchUseditem?._id);
+        message.info("찜하기 취소");
+      }
+    } catch (error) {
+      message.info(error.message);
+    }
   };
+  console.log(data);
   const purchase = async () => {
     try {
       const pusrchaseInfo = await createPointTransactionOfBuyingAndSelling({
@@ -119,6 +141,8 @@ export default function FetchItemContainer() {
       pickUp={pickUp}
       UseditemPick={UseditemPick}
       purchase={purchase}
+      isPick={isPick}
+      isPickCount={isPickCount}
     />
   );
 }

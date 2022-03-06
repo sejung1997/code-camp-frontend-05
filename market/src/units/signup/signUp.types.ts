@@ -11,6 +11,13 @@ export const CREATE_USER = gql`
     }
   }
 `;
+export const UPDATE_USER = gql`
+  mutation updateUser($updateUserInput: UpdateUserInput!) {
+    updateUser(updateUserInput: $updateUserInput) {
+      name
+    }
+  }
+`;
 export const FETCH_USED_ITEM_ISOLD = gql`
   query fetchUseditemsISold($search: String, $page: Int) {
     fetchUseditemsISold(search: $search, page: $page) {
@@ -48,6 +55,7 @@ export const FETCH_USER_LOGGED_IN = gql`
     fetchUserLoggedIn {
       email
       name
+      picture
       createdAt
       userPoint {
         amount

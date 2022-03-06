@@ -9,6 +9,7 @@ import {
   FETCH_USER_LOGGED_IN,
   FETCH_USED_ITEM_ISOLD,
   FETCH_USED_ITEM_IBOUGHT,
+  UPDATE_USER,
   FETCH_POINT_TRANSACTION,
 } from "./signUp.types";
 import { useMutation, useQuery } from "@apollo/client";
@@ -46,9 +47,13 @@ interface FormValues {
 }
 export default function SignInContainer() {
   const router = useRouter();
-
+  const [name, setName] = useState();
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
   const [toggleOn, setToggleOn] = useState<boolean[]>([false, false, false]);
+
   const [createUser] = useMutation(CREATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const { data: soldData } = useQuery(FETCH_USED_ITEM_ISOLD, {
     variables: { page: 1, search: "" },
@@ -92,6 +97,33 @@ export default function SignInContainer() {
     setToggleOn(temp);
     console.log(toggleOn);
   };
+  const onUpdate = async () => {
+    if (isUpdate === false) setIsUpdate((prev) => !prev);
+    else {
+      try {
+        await updateUser({
+          variables: {
+            updateUserInput: {
+              name,
+              picture: imgUrl[0],
+            },
+          },
+          refetchQueries: [
+            {
+              query: FETCH_USER_LOGGED_IN,
+              variables: { boardId: "6219c65a155b2d0029673120" },
+            },
+          ],
+        });
+      } catch (error) {
+        message.info(error.message);
+      }
+      setIsUpdate((prev) => !prev);
+    }
+  };
+  const changeName = (event) => {
+    setName(event.target.value);
+  };
   return (
     <>
       <SignUpPresenter
@@ -108,6 +140,11 @@ export default function SignInContainer() {
         onclickToggle={onclickToggle}
         toggleOn={toggleOn}
         pointData={pointData}
+        isUpdate={isUpdate}
+        onUpdate={onUpdate}
+        imgUrl={imgUrl}
+        setImgUrl={setImgUrl}
+        changeName={changeName}
       />
     </>
   );

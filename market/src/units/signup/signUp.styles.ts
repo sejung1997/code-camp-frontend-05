@@ -31,6 +31,11 @@ export const PayBtn = styled.button`
   width: 120px;
   height: 40px;
 `;
+export const userImg = styled.img`
+  width: 120px;
+  height: 120px;
+  margin-left: 15px;
+`;
 export const BuyList = styled.div`
   font-size: 11px;
   margin-bottom: 50px;
@@ -50,3 +55,4 @@ export const listWrapper = styled.div`
   margin-bottom: 50px;
   border-radius: 5px;
 `;
+export const Input = styled.input``;

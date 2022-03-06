@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { useMovePage } from "../../commons/function/movePage";

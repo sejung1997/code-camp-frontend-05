@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { HeartTwoTone } from "@ant-design/icons";
 
 export const Column = styled.div`
   text-align: center;
@@ -120,4 +121,16 @@ export const SliderItem = styled.img`
 
 export const planet = styled.div`
   display: flex;
+`;
+export const HeartIcons = styled(HeartTwoTone)`
+  margin-right: 10px;
+
+  & path {
+    fill: green;
+  }
+`;
+export const Up = styled.div`
+  color: green;
+  margin: 0;
+  padding: 0;
 `;

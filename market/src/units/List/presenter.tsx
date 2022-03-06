@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import { IFetchUseditemsPresenter } from "./gql&types";
 import LazyLoad from "react-lazyload";
 import Slider from "react-slick";
-import list from "../../../pages/list";
 
 export default function fetchUseditemsPresenter(
   props: IFetchUseditemsPresenter
@@ -106,6 +105,11 @@ export default function fetchUseditemsPresenter(
                       ))}
                   </Slider>
                   <List.Title>{el.createdAt.slice(0, 10)}</List.Title>
+                  <List.Title>
+                    <List.HeartIcons />
+
+                    <List.Up>{el.pickedCount}</List.Up>
+                  </List.Title>
                 </List.Column>
               ))}
           </List.Row>

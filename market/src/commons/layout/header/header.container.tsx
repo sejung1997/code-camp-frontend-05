@@ -7,6 +7,7 @@ import { useMovePage } from "../../function/movePage";
 import { useContext, useEffect, useState } from "react";
 import { FETCH_USER_LOGGED_IN } from "./types&gql";
 import { useQuery } from "@apollo/client";
+import { removeLocal } from "../../function/Localstorage/index";
 export default function HeaderPage() {
   const { userInfo, date, todayProduct, point, setTodayProduct, acessToken } =
     useContext(GlobalContext);
@@ -23,11 +24,7 @@ export default function HeaderPage() {
 
   const movePage = useMovePage();
   const deleteProduct = (id) => () => {
-    const temp = JSON.parse(localStorage.getItem(date)).filter(
-      (el) => el.id !== id
-    );
-    localStorage.setItem(date, JSON.stringify(temp));
-    setTodayProduct(temp);
+    setTodayProduct(removeLocal(date, id));
   };
   const onloadMore = () => {};
   return (
@@ -80,7 +77,7 @@ export default function HeaderPage() {
                   // onError="/images/Vector.png"
                 />
                 <div>{el.price}원</div>
-                <header.SmallBtn onClick={deleteProduct(el.id)}>
+                <header.SmallBtn onClick={deleteProduct(el._id)}>
                   삭제하기
                 </header.SmallBtn>
               </header.DataWrapper>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import PurchaseItem from "../../commons/purchaseItem/index";
 import { ButtonDelete } from "../Detail/styles";
-
+import { removeLocal } from "../../commons/function/Localstorage";
 const Label = styled.div`
   font-size: 30px;
   font-weight: bold;
@@ -60,13 +60,9 @@ export default function BasketPageContainer() {
     setData(JSON.parse(localStorage.getItem("baskets")));
   }, []);
 
-  const deletekey = (index) => () => {
-    const temp = JSON.parse(localStorage.getItem("baskets")).filter(
-      (_, pickIndex) => pickIndex !== index
-    );
-    localStorage.setItem("baskets", JSON.stringify(temp));
+  const deletekey = (id) => () => {
+    removeLocal("baskets", id);
     window.location.reload();
-    console.log("sdfsdfsdfs");
   };
 
   if (process.browser) {
@@ -103,10 +99,12 @@ export default function BasketPageContainer() {
               <DIV>상품명: {el.name}</DIV>
               <DIV>가격: {el.price}원</DIV>
               <BtnGroup>
-                <ButtonDelete onClick={movePage(`/${el.id}`)}>
+                <ButtonDelete onClick={movePage(`/${el._id}`)}>
                   이동하기
                 </ButtonDelete>
-                <ButtonDelete onClick={deletekey(index)}>삭제하기</ButtonDelete>
+                <ButtonDelete onClick={deletekey(el._id)}>
+                  삭제하기
+                </ButtonDelete>
               </BtnGroup>
             </Wrpper>
           </Contents>

@@ -23,7 +23,7 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
                 Date: {props.data?.fetchUseditem?.createdAt.slice(0, 10)}
               </L.Day>
             </L.pri>
-            <L.HeartIcon onClick={props.UseditemPick} />
+            <L.HeartIcon onClick={props.UseditemPick} isPick={props.isPick} />
             <L.EditIcon
               style={{ fontSize: "40px" }}
               onClick={props.movePage(`${props.router.query.id}/edit`)}
@@ -69,13 +69,15 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
           </L.Contents>
           <div id="map" style={{ width: 500, height: 400 }}></div>
 
-          {/* <L.Like>
-            <L.LikeOut onClick={props.up} />
+          <L.Like>
+            <L.HeartIcons />
 
-            <L.DislikeOut onClick={props.down} />
-            <L.Up>{props.data?.fetchUseditem?.likeCount}</L.Up>
-            <L.Down>{props.data?.fetchUseditem?.dislikeCount}</L.Down>
-          </L.Like> */}
+            <L.Up>
+              {props.isPickCount
+                ? props.isPickCount
+                : props.data?.fetchUseditem?.pickedCount}
+            </L.Up>
+          </L.Like>
         </L.Main>
         <L.buttonGroup>
           <L.ButtonList onClick={props.movePage("list")}>목록으로</L.ButtonList>

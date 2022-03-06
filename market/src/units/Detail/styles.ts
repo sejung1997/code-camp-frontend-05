@@ -123,18 +123,7 @@ export const buttonGroup = styled.div`
   color: green;
   font-size: 18px;
 `;
-export const Like = styled.div`
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100px;
-`;
-export const Up = styled.div`
-  font-size: 23px;
-  margin-right: 40px;
-  color: green;
-`;
+
 export const Down = styled.div`
   font-size: 23px;
   color: green;
@@ -187,7 +176,30 @@ export const HeartIcon = styled(HeartTwoTone)`
 
   & path {
     stroke: green;
+    fill: ${(props) => (props.isPick ? "green" : "")};
   }
+`;
+export const Like = styled.div`
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding: 0;
+  align-items: center;
+  font-size: 30px;
+`;
+export const HeartIcons = styled(HeartTwoTone)`
+  margin-right: 10px;
+
+  & path {
+    fill: green;
+  }
+`;
+export const Up = styled.div`
+  color: green;
+  margin: 0;
+  padding: 0;
 `;
 export const EditIcon = styled(EditTwoTone)`
   font-size: 40px;

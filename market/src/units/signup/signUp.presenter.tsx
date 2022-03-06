@@ -5,6 +5,7 @@ import { ButtonDelete } from "../Detail/styles";
 import PurchaseItem from "../../commons/purchaseItem/index";
 import { SmallBtn } from "../../commons/layout/header/header.styles";
 import { DownOutlined, CaretDownOutlined } from "@ant-design/icons";
+import UploadImagePage from "../../commons/uploadImage/uploadImage01/container";
 export default function SignInPresenter(props) {
   console.log(props.pointData);
   return (
@@ -13,10 +14,39 @@ export default function SignInPresenter(props) {
         <SI.Main>
           <SI.Titlelabel>마이페이지</SI.Titlelabel>
           <SI.label>이메일: {props.data?.fetchUserLoggedIn?.email}</SI.label>
-          <SI.label>이름 : {props.data?.fetchUserLoggedIn?.name}</SI.label>
+          <SI.label>
+            이름 :
+            {!props.isUpdate ? (
+              props.data?.fetchUserLoggedIn?.name
+            ) : (
+              <SI.Input type="name" onChange={props.changeName} />
+            )}
+          </SI.label>
+
+          <SI.label>
+            사진:
+            {props.isUpdate ? (
+              <UploadImagePage
+                imgUrl={props.imgUrl}
+                setImgUrl={props.setImgUrl}
+                index={0}
+                isEdit={false}
+              />
+            ) : (
+              <SI.userImg
+                src={
+                  props.data?.fetchUserLoggedIn?.picture
+                    ? `https://storage.googleapis.com/${props.data?.fetchUserLoggedIn?.picture}`
+                    : "images/Vector.png"
+                }
+              />
+            )}
+          </SI.label>
           <SI.label>
             가입 일자 : {props.data?.fetchUserLoggedIn?.createdAt.slice(0, 10)}
           </SI.label>
+          <ButtonDelete onClick={props.onUpdate}>회원정보 수정</ButtonDelete>
+
           <SI.label>판매중인 상품</SI.label>
           <SI.toggle>
             {props.toggleOn[0] ? (
@@ -75,8 +105,6 @@ export default function SignInPresenter(props) {
             ))}
           </SI.SoldList>
           <div>
-            <ButtonDelete>회원정보 수정</ButtonDelete>
-
             <PurchaseItem />
           </div>
         </SI.Main>
@@ -96,12 +124,12 @@ export default function SignInPresenter(props) {
             <SI.ErrMsg>{props.formState.errors.password?.message}</SI.ErrMsg>
 
             <SI.label>이름</SI.label>
-            <Input01 type="password" register={props.register("name")} />
-            <SI.ErrMsg>{props.formState.errors.password?.message}</SI.ErrMsg>
+            <Input01 type="text" register={props.register("name")} />
+            <SI.ErrMsg>{props.formState.errors.name?.message}</SI.ErrMsg>
 
             <SI.label>전화번호</SI.label>
-            <Input01 type="password" register={props.register("number")} />
-            <SI.ErrMsg>{props.formState.errors.password?.message}</SI.ErrMsg>
+            <Input01 type="text" register={props.register("number")} />
+            <SI.ErrMsg>{props.formState.errors.number?.message}</SI.ErrMsg>
             <Button01 name="회원가입" />
           </SI.InputWrapper>
         </SI.Main>

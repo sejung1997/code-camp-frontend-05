@@ -15,6 +15,7 @@ export const FETCH_USED_ITEMS = gql`
       seller {
         name
       }
+      pickedCount
     }
   }
 `;
