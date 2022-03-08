@@ -5,7 +5,13 @@ export default function createCommentPresenter(props) {
     <>
       <C.CommentArea isEdit={props.isAnswer}>
         <C.Title isEdit={props.isAnswer}>
-          <C.Image src="/images/Vector(3).png" />
+          <C.Image
+            src={
+              props.el?.user.picture
+                ? `https://storage.googleapis.com/${props.el?.user.picture}`
+                : "/images/Vector.png"
+            }
+          />
           {props.isEdit ? "답글 수정" : "답글 달기"}
         </C.Title>
 

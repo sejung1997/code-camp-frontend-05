@@ -61,7 +61,7 @@ export default function SignInPresenter(props) {
                 <div>상품명: {x.name}</div>
                 <div>가격 : {x.price}원</div>
                 <div>내용 : {x.contents}</div>
-                <SmallBtn>이동하기</SmallBtn>
+                <SmallBtn onClick={props.movePage(x._id)}>이동하기</SmallBtn>
               </SI.listWrapper>
             ))}
           </SI.BuyList>
@@ -79,6 +79,7 @@ export default function SignInPresenter(props) {
                 <div>상품명: {x.name}</div>
                 <div>가격 : {x.price}원</div>
                 <div>내용 : {x.contents}</div>
+                <SmallBtn onClick={props.movePage(x._id)}>이동하기</SmallBtn>
               </SI.listWrapper>
             ))}
           </SI.SoldList>

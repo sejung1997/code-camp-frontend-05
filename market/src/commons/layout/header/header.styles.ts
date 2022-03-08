@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const Menu = styled.div`
-  height: 150px;
   background-color: green;
   width: 100%;
 `;
@@ -15,9 +14,9 @@ export const SignIn = styled.div`
   }
 `;
 export const MenuTitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   color: #fff;
-  padding: 10px 60px 10px 0;
+  padding: 10px 60px 5px 0;
   :hover {
     color: black;
     cursor: pointer;
@@ -26,8 +25,18 @@ export const MenuTitle = styled.div`
 export const MenuWrapper = styled.div`
   display: flex;
   position: absolute;
-  left: 0;
-  top: 80px;
+  left: 200px;
+  bottom: 0;
+`;
+export const logo = styled.div`
+  height: 120px;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+`;
+export const logoImg = styled.img`
+  height: 120px;
 `;
 export const subMenu = styled.div`
   right: 0;
@@ -36,15 +45,15 @@ export const subMenu = styled.div`
 `;
 export const TodayProduct = styled.div`
   position: fixed;
-  right: 10px;
+  right: 50px;
   width: 150px;
   padding: 30px 15px;
-  top: 150px;
+  top: 170px;
   color: black;
   border: 1px solid green;
   border-radius: 5px;
-  height: 800px;
   overflow: auto;
+  max-height: 800px;
 `;
 export const TodayLabel = styled.div`
   font-size: 20px;
@@ -52,6 +61,11 @@ export const TodayLabel = styled.div`
 `;
 export const DataWrapper = styled.div`
   display: flex;
+  left: 0;
+  right: 0;
+  width: 100px;
+  margin: 0 auto;
+
   flex-direction: column;
 `;
 export const Img = styled.img`
@@ -64,7 +78,7 @@ export const UserInfo = styled.div`
   font-size: 17px;
   color: #fff;
   right: 0;
-  top: 90px;
+  bottom: 25px;
   position: absolute;
 `;
 export const Point = styled.div`

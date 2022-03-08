@@ -65,7 +65,6 @@ export default function fetchUseditemsPresenter(
           loadMore={props.onLoadMore}
           hasMore={true}
         >
-          {" "}
           <List.Row>
             {props.data?.fetchUseditems
               ?.filter((x) => x.images[0])

@@ -7,9 +7,10 @@ export default function Inner(props: Iprops) {
   const Inner = styled.div`
     margin: auto;
     width: 1050px;
+    height: 150px;
     left: 0;
-    position: relative;
     right: 0;
+    position: relative;
   `;
   return (
     <>

@@ -1,24 +1,27 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { useEffect } from "react";
+import { ITEM_PICK } from "../Detail/gql&types";
 import {
   IQuery,
   IQueryFetchUseditemsIPickedArgs,
 } from "../../commons/types/generated/types";
 import PickPageUI from "./pickPresenter";
-export default function () {
-  const FETCH_USED_ITEMS_IPICK = gql`
-    query fetchUseditemsIPicked($search: String, $page: Int) {
-      fetchUseditemsIPicked(search: $search, page: $page) {
+
+const FETCH_USED_ITEMS_IPICK = gql`
+  query fetchUseditemsIPicked($search: String, $page: Int) {
+    fetchUseditemsIPicked(search: $search, page: $page) {
+      name
+      price
+      _id
+      images
+      seller {
         name
-        price
-        _id
-        images
-        seller {
-          name
-        }
       }
     }
-  `;
+  }
+`;
+export default function () {
+  const [toggleUseditemPick] = useMutation(ITEM_PICK);
 
   const { data } = useQuery<
     Pick<IQuery, "fetchUseditemsIPicked">,
@@ -40,6 +43,30 @@ export default function () {
       });
     });
   }, [data]);
+  const deletePick = (id) => async () => {
+    const result = await toggleUseditemPick({
+      variables: {
+        useditemId: id,
+      },
+      update(cache, { data }) {
+        const deletedId = id;
+        cache.modify({
+          fields: {
+            fetchUseditemsIPicked: (prev, { readField }) => {
+              const filterPrev = prev.filter(
+                (el) => readField("_id", el) !== deletedId
+              );
+              return [...filterPrev];
+            },
+          },
+        });
+      },
+    });
+
+    localStorage.setItem("heart", JSON.stringify(data?.fetchUseditemsIPicked));
+
+    console.log(result);
+  };
   const settings = {
     dots: false,
     infinite: true,
@@ -51,5 +78,5 @@ export default function () {
     arrows: false,
     cssEase: "linear",
   };
-  return <PickPageUI data={data} settings={settings} />;
+  return <PickPageUI data={data} settings={settings} deletePick={deletePick} />;
 }

@@ -49,7 +49,9 @@ export default function PickPageUI(props) {
                     <ButtonDelete onClick={movePage(`/${el._id}`)}>
                       이동하기
                     </ButtonDelete>
-                    <ButtonDelete>삭제하기</ButtonDelete>
+                    <ButtonDelete onClick={props.deletePick(el._id)}>
+                      삭제하기
+                    </ButtonDelete>
                   </pick.BtnGroup>
                 </pick.Wrpper>
               </pick.Contents>

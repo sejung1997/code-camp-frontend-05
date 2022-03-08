@@ -32,6 +32,7 @@ export const FETCH_USED_ITEM_IBOUGHT = gql`
   query fetchUseditemsIBought($search: String, $page: Int) {
     fetchUseditemsIBought(search: $search, page: $page) {
       name
+      _id
       contents
       price
     }

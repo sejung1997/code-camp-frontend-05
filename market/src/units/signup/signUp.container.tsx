@@ -15,6 +15,7 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import { message, Modal } from "antd";
 import { useRouter } from "next/router";
+import { useMovePage } from "../../commons/function/movePage";
 
 const schema = yup.object().shape({
   email: yup
@@ -46,11 +47,12 @@ interface FormValues {
   name: string;
 }
 export default function SignInContainer() {
+  const movePage = useMovePage();
   const router = useRouter();
   const [name, setName] = useState();
   const [isUpdate, setIsUpdate] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
-  const [toggleOn, setToggleOn] = useState<boolean[]>([false, false, false]);
+  const [toggleOn, setToggleOn] = useState<boolean[]>([true, true, true]);
 
   const [createUser] = useMutation(CREATE_USER);
   const [updateUser] = useMutation(UPDATE_USER);
@@ -142,6 +144,7 @@ export default function SignInContainer() {
         pointData={pointData}
         isUpdate={isUpdate}
         onUpdate={onUpdate}
+        movePage={movePage}
         imgUrl={imgUrl}
         setImgUrl={setImgUrl}
         changeName={changeName}

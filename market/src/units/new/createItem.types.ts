@@ -12,33 +12,48 @@ import {
   UseFormStateProps,
 } from "react-hook-form";
 export interface IBoardUIIProps {
-  changeInputs: (
-    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  submit: () => void;
+  // changeInputs: (
+  //   event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  // ) => void;
+  // submit: () => void;
   isEdit: boolean;
-  update: () => void;
-  data: any;
+  // update: () => void;
+  //   data: any;
   inputs: any;
   cancel: () => void;
-  changeUtube: (event: ChangeEvent<HTMLInputElement>) => void;
+  // changeUtube: (event: ChangeEvent<HTMLInputElement>) => void;
   isModalVisible: boolean;
   showModal: () => void;
   onCompletePostcode: (data: any) => void;
-  zonecode: any;
-  changeAdress: (event: ChangeEvent<HTMLInputElement>) => void;
-  changeAdressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  address: any;
-  onAsk: () => void;
-  isAskVisible: boolean;
+  // zonecode: any;
+  // changeAdress: (event: ChangeEvent<HTMLInputElement>) => void;
+  // changeAdressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  // address: any;
+  // onAsk: () => void;
+  // isAskVisible: boolean;
   // onSetImgUrl: (data: any, index: number) => void;
   imgUrl: string[];
   setImgUrl: Dispatch<SetStateAction<string[]>>;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<any>;
-  formState: FormState<FieldValues>;
+  // formState: FormState<FieldValues>;
   onclickSubmit: (data: any) => void;
   defaultData: any;
   onclickUpdate: (data: any) => void;
   handleChange: (value: any) => void;
+  contents: (contents: any) => void;
+}
+interface IAdress {
+  zipcode?: string;
+  address?: string;
+  addressDetail?: string;
+}
+export interface IUpdateInput {
+  name?: string;
+  remarks?: string;
+  contents?: string;
+  price?: number;
+  tags?: string;
+  images?: string[];
+  useditemAddress?: IAdress;
 }

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { message } from "antd";
+import { IUpdateInput } from "./createItem.types";
 
 // const schema = yup.object().shape({
 //   name: yup.string().required("상품명은 필수 입력 사항입니다."),
@@ -74,7 +75,7 @@ export default function createItemContainer(props) {
     try {
       // if (data.name || data.remarks || data.price || data.tags)
       //   updateVariables.updateUseditemInput = {};
-      const updateInput = {};
+      const updateInput: IUpdateInput = {};
       if (data.name) updateInput.name = data.name;
       if (data.remarks) updateInput.remarks = data.remarks;
       if (data.contents) updateInput.contents = data.contents;

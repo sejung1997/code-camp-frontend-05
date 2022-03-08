@@ -19,6 +19,7 @@ export const FETCH_USED_ITEM_QUESTIONS = gql`
     fetchUseditemQuestions(useditemId: $useditemId, page: $page) {
       user {
         name
+        picture
       }
       contents
       createdAt

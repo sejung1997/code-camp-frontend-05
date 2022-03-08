@@ -16,7 +16,13 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
       <L.div>
         <L.Main>
           <L.Baner>
-            <L.Img src="/images/Vector.png"></L.Img>
+            <L.Img
+              src={
+                props.data?.fetchUseditem?.seller.picture
+                  ? `https://storage.googleapis.com/${props.data?.fetchUseditem?.seller.picture}`
+                  : "/images/Vector.png"
+              }
+            ></L.Img>
             <L.pri>
               <L.Name>: {props.data?.fetchUseditem?.seller.name}</L.Name>
               <L.Day>

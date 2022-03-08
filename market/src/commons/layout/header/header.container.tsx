@@ -31,6 +31,9 @@ export default function HeaderPage() {
     <>
       <header.Menu>
         <Inner>
+          <header.logo>
+            <header.logoImg src="/images/pngwing.com (8).png" />
+          </header.logo>
           <header.subMenu>
             <header.SignIn onClick={movePage("signIn")}>
               {acessToken ? "로그아웃" : "로그인"}
@@ -70,11 +73,11 @@ export default function HeaderPage() {
           <InfiniteScroll pageStart={0} loadMore={onloadMore} hasMore={true}>
             {todayProduct?.map((el, index) => (
               <header.DataWrapper key={el.id}>
-                <div>{index + 1}</div>
-                <div>{el.name}</div>
+                <span>
+                  {index + 1}. {el.name}
+                </span>
                 <header.Img
                   src={`https://storage.googleapis.com/${el.images[0]}`}
-                  // onError="/images/Vector.png"
                 />
                 <div>{el.price}원</div>
                 <header.SmallBtn onClick={deleteProduct(el._id)}>

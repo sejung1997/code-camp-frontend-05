@@ -10,7 +10,13 @@ export default function CommentEditPage(props) {
         <>
           <C.Comment>
             <C.CommentInfo>
-              <C.Img src="/images/Vector.png"></C.Img>
+              <C.Img
+                src={
+                  props.el?.user.picture
+                    ? `https://storage.googleapis.com/${props.el?.user.picture}`
+                    : "/images/Vector.png"
+                }
+              ></C.Img>
               <C.Writer>{props.el.user.name}</C.Writer>
               <C.wrapper>
                 <C.buttonUpdate

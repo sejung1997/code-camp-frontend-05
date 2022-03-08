@@ -21,6 +21,7 @@ export const FETCH_USED_ITEM_QUESTIONS_ANSWERS = gql`
     ) {
       user {
         name
+        picture
       }
       contents
       createdAt
