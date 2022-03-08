@@ -58,6 +58,7 @@ export const TodayProduct = styled.div`
 export const TodayLabel = styled.div`
   font-size: 20px;
   color: green;
+  text-align: center;
 `;
 export const DataWrapper = styled.div`
   display: flex;

@@ -55,7 +55,7 @@ export default function FetchItemContainer() {
 
   useEffect(() => {
     if (!data) return;
-    const pick = JSON.parse(localStorage.getItem("heart"));
+    const pick = JSON.parse(localStorage.getItem("heart") || "[]");
     if (pick.filter((x) => x._id === data?.fetchUseditem?._id).length === 1)
       setIsPick(true);
     setKaokaoMap(data);

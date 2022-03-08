@@ -1,7 +1,9 @@
-import { useContext } from "react";
-import { GlobalContext } from "./_app";
+import LandingPage from "../src/units/landing/Landing.container";
 
 export default function Home() {
-  const { userInfo } = useContext(GlobalContext);
-  return <></>;
+  return (
+    <>
+      (<LandingPage />)
+    </>
+  );
 }

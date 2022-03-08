@@ -19,9 +19,6 @@ export default function HeaderPage() {
   //   setNewData([...todayProduct]);
   // }, [todayProduct]);
 
-  console.log("s");
-  console.log(todayProduct);
-
   const movePage = useMovePage();
   const deleteProduct = (id) => () => {
     setTodayProduct(removeLocal(date, id));
@@ -32,7 +29,10 @@ export default function HeaderPage() {
       <header.Menu>
         <Inner>
           <header.logo>
-            <header.logoImg src="/images/pngwing.com (8).png" />
+            <header.logoImg
+              onClick={movePage("/")}
+              src="/images/pngwing.com (8).png"
+            />
           </header.logo>
           <header.subMenu>
             <header.SignIn onClick={movePage("signIn")}>

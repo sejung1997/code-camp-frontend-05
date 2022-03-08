@@ -8,7 +8,7 @@ import {
   IQuery,
   IQueryFetchUseditemsArgs,
 } from "../../commons/types/generated/types";
-import { FETCH_USED_ITEMS, FETCH_USED_ITEMS_BEST } from "./gql&types";
+import { FETCH_USED_ITEMS } from "./gql&types";
 import FetchUseditemsPresenter from "./presenter";
 
 export default function fetchUseditemsContainer() {
@@ -22,10 +22,6 @@ export default function fetchUseditemsContainer() {
   >(FETCH_USED_ITEMS, {
     variables: { page: 1 },
   });
-  const { data: BestData } = useQuery<
-    Pick<IQuery, "fetchUseditemsOfTheBest">,
-    IQueryFetchUseditemsArgs
-  >(FETCH_USED_ITEMS_BEST);
 
   const getDebounce = _.debounce((keyData) => {
     setKeyword(keyData);
@@ -78,7 +74,6 @@ export default function fetchUseditemsContainer() {
     arrows: false,
     cssEase: "linear",
   };
-  console.log(BestData);
   return (
     <FetchUseditemsPresenter
       data={data}
@@ -90,7 +85,6 @@ export default function fetchUseditemsContainer() {
       srchDate={srchDate}
       onClickSearch={onClickSearch}
       settings={settings}
-      BestData={BestData}
     />
   );
 }

@@ -19,23 +19,7 @@ export const FETCH_USED_ITEMS = gql`
     }
   }
 `;
-export const FETCH_USED_ITEMS_BEST = gql`
-  query fetchUseditemsOfTheBest {
-    fetchUseditemsOfTheBest {
-      name
-      remarks
-      contents
-      price
-      tags
-      createdAt
-      images
-      _id
-      seller {
-        name
-      }
-    }
-  }
-`;
+
 export interface IFetchUseditemsPresenter {
   data: any;
   movePage: (id: string) => () => void;

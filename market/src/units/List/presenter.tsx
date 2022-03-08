@@ -10,40 +10,8 @@ export default function fetchUseditemsPresenter(
   props: IFetchUseditemsPresenter
 ) {
   const { RangePicker } = DatePicker;
-  console.log(typeof props.srchDate[0]);
   return (
     <>
-      <List.List>
-        <List.topTitle>베스트게시물</List.topTitle>
-        <List.Row>
-          {props.BestData?.fetchUseditemsOfTheBest.map((el) => (
-            <List.Column key={el._id} onClick={props.movePage(el._id)}>
-              <List.Title>
-                {el.name
-                  .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
-                  .split("#$%")
-                  .map((el) => (
-                    <List.word key={uuidv4()}>{el}</List.word>
-                  ))}
-              </List.Title>
-
-              <List.Title>{el.seller.name}</List.Title>
-              <Slider {...props.settings}>
-                {el.images
-                  .filter((x) => x)
-                  .map((y) => (
-                    <LazyLoad key={uuidv4()} height={500}>
-                      <List.SliderItem
-                        src={`https://storage.googleapis.com/${y}`}
-                      ></List.SliderItem>
-                    </LazyLoad>
-                  ))}
-              </Slider>
-              <List.Title>{el.createdAt.slice(0, 10)}</List.Title>
-            </List.Column>
-          ))}
-        </List.Row>
-      </List.List>
       <List.Search>
         <List.SearchTitle
           type="text"

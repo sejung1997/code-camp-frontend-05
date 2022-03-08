@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true, // slash를 기준으로 폴더와 피일을 만들겠다
-  generateBuildId: () => "sejung1997.shop",
+  generateBuildId: () => "codecamp-sejung",
   exportPathMap: () => ({
     "/": {page: "/"},
     "/boards": {page: "/boards"},

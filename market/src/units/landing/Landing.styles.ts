@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Column = styled.div`
-  width: 600px;
-
+  border: 3px solid blue;
   text-align: center;
   /* height: calc(583px / 11); */
   display: flex;
@@ -15,42 +14,29 @@ export const Column = styled.div`
 `;
 export const Row = styled.div`
   display: flex;
-  height: 600px;
-  width: 1500px;
   justify-content: space-between;
+  border: 3px solid red;
+`;
+
+export const topTitle = styled.span`
+  font-size: 35px;
+  text-align: center;
+  color: green;
 `;
 export const word = styled.span`
   color: ${(props) => (props.isMatched ? "red" : "green")};
 `;
-export const TopRow = styled.div`
-  display: flex;
-  height: calc(583px / 11);
-  border-top: 1px solid green;
-`;
+
 export const List = styled.div`
-  width: 1200px;
+  width: 1050px;
   position: absolute;
   right: 0;
   left: 0;
-  margin: 230px auto;
+  border: 3px solid black;
+
   // border-bottom: 1px solid green;
 `;
 
-export const Button = styled.button`
-  margin-top: 140px;
-  width: 270px;
-  height: 51px;
-  background-color: transparent;
-  border: 1px solid green;
-  border-radius: 5px;
-  font-size: 20px;
-  color: green;
-  :hover {
-    cursor: pointer;
-    color: red;
-    background-color: green;
-  }
-`;
 export const Title = styled.span`
   cursor: pointer;
 
@@ -106,9 +92,8 @@ export const SearchBtn = styled.button`
 `;
 export const images = styled.img``;
 export const SliderItem = styled.img`
-  height: 500px;
-  width: 500px;
-  display: block;
+  height: 50px;
+  width: 50px;
   margin: 0 auto;
   right: 0;
   left: 0;
