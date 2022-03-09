@@ -33,7 +33,7 @@ export const List = styled.div`
   width: 1050px;
   right: 0;
   left: 0;
-  margin: 50px auto;
+  margin: 0 auto;
   // border-bottom: 1px solid green;
 `;
 
@@ -65,7 +65,7 @@ export const topTitle = styled.span`
   color: green;
 `;
 export const Search = styled.div`
-  margin: 120px auto;
+  margin: 250px auto 100px auto;
   left: 0;
   right: 0;
   width: 1050px;

@@ -1,6 +1,7 @@
 import * as List from "./Landing.styles";
 import { v4 as uuidv4 } from "uuid";
 import Slider from "react-slick";
+import ReactPlayer from "react-player";
 
 export default function LandingPageUI(props) {
   return (
@@ -10,14 +11,7 @@ export default function LandingPageUI(props) {
         <List.Row>
           {props.BestData?.fetchUseditemsOfTheBest.map((el) => (
             <List.Column key={el._id} onClick={props.movePage(el._id)}>
-              <List.Title>
-                {el.name
-                  .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
-                  .split("#$%")
-                  .map((el) => (
-                    <List.word key={uuidv4()}>{el}</List.word>
-                  ))}
-              </List.Title>
+              <List.Title>{el.name}</List.Title>
 
               <List.Title>{el.seller.name}</List.Title>
               <Slider {...props.settings}>
@@ -35,6 +29,15 @@ export default function LandingPageUI(props) {
           ))}
         </List.Row>
       </List.List>
+      <List.play>
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=lazygdZxyAU#t=1m"
+          width={900}
+          height={506}
+          playing={true}
+          muted={true}
+        />
+      </List.play>
     </>
   );
 }

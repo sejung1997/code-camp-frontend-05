@@ -70,7 +70,6 @@ export default function fetchUseditemsContainer() {
     slidesToScroll: 1,
     autoplaySpeed: 2000,
     autoplay: true,
-
     arrows: false,
     cssEase: "linear",
   };

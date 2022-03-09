@@ -55,11 +55,15 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
           </A.OptionWrapper>
           <A.OptionWrapper>
             <A.Title>태그</A.Title>
+            {props.tags.map((el, index) => (
+              <A.tagContents key={index}>{el}</A.tagContents>
+            ))}
             <A.Input02
+              id="tagInput"
               defaultValue={props.defaultData?.fetchUseditem?.tags}
               placeholder={"#태그 #태그 #태그"}
               type={"text"}
-              {...props.register("tags")}
+              onKeyPress={props.tag}
             />
             {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.OptionWrapper>

@@ -1,17 +1,12 @@
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { SearchOutlined } from "@ant-design/icons";
-export const Menu = styled.div`
-  background-image: url("/images/NNhFby-700x376.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 3;
-`;
 
+export const Menu = styled.div`
+  background-color: green;
+  width: 100%;
+`;
 export const SignIn = styled.div`
-  font-size: 14px;
+  font-size: 15px;
   color: #fff;
   padding: 15px 0 10px 30px;
   :hover {
@@ -25,52 +20,6 @@ export const MenuTitle = styled.div`
   padding: 10px 60px 5px 0;
   :hover {
     color: black;
-    cursor: pointer;
-  }
-`;
-export const Search = styled.div`
-  /* margin: 250px auto 100px auto; */
-
-  left: 0;
-  right: 0;
-  margin-left: 30px;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-  position: relative;
-`;
-export const SearchTitle = styled.input`
-  width: 40px;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #fff;
-  border: 1px solid #fff;
-  padding-left: 10px;
-  transition: 2s;
-
-  &.isToggle {
-    width: 200px;
-    transition: 2s;
-  }
-`;
-
-export const searchBtn = styled(SearchOutlined)`
-  font-size: 30px;
-  position: absolute;
-  right: 0;
-  top: 10px;
-`;
-
-export const SmallBtn = styled.button`
-  width: 100px;
-  border: 0.5px solid green;
-  background-color: #fff;
-  color: green;
-  border-radius: 3px;
-  margin: 7px 0;
-  :hover {
-    color: #fff;
-    background-color: green;
     cursor: pointer;
   }
 `;
@@ -90,15 +39,76 @@ export const logo = styled.div`
 export const logoImg = styled.img`
   height: 120px;
 `;
+const fly = keyframes`
+    from{
+      top: 0;
+      height: 100px;
+      right:0 ;
+      opacity: 0;
+
+    }
+    25% {
+      top: 40%;
+      opacity: 1;
+      right:40% ;
+
+      height: 50%;
+    }
+
+    50%{
+      top: 80%;
+      height: 50%;
+      right:80% ;
+      opacity: 1;
+    }
+
+    75% {
+      top: 40%;
+      opacity: 1;
+      right:40% ;
+
+      height: 500px;
+    }
+
+
+  
+    }
+    to{
+      top: 0%;
+      opacity: 0;
+      right:0% ;
+
+      height: 500px;
+    }
+
+
+
+    }
+    `;
+export const img1 = styled.img((props) => ({
+  width: "400px",
+  height: "400px",
+  right: "0",
+  top: "50%",
+  position: "fixed",
+  zIndex: "3",
+  animation: `${fly} 20s ease-in-out  forwards`,
+}));
+export const img2 = styled.img`
+  position: fixed;
+  width: 600px;
+  top: 10%;
+  right: 0;
+`;
 export const subMenu = styled.div`
   right: 0;
+
   display: flex;
-  border: 1px solid red;
   position: absolute;
 `;
 export const TodayProduct = styled.div`
   position: fixed;
-  right: 50px;
+  left: 50px;
   width: 150px;
   padding: 30px 15px;
   top: 170px;
@@ -140,4 +150,17 @@ export const Point = styled.div`
   position: absolute;
   color: #fff;
   right: 0;
+`;
+export const SmallBtn = styled.button`
+  width: 100px;
+  border: 0.5px solid green;
+  background-color: #fff;
+  color: green;
+  border-radius: 3px;
+  margin: 7px 0;
+  :hover {
+    color: #fff;
+    background-color: green;
+    cursor: pointer;
+  }
 `;

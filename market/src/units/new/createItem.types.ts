@@ -53,7 +53,7 @@ export interface IUpdateInput {
   remarks?: string;
   contents?: string;
   price?: number;
-  tags?: string;
+  tags?: string[];
   images?: string[];
   useditemAddress?: IAdress;
 }

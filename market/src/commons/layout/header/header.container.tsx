@@ -1,29 +1,30 @@
 import * as header from "./header.styles";
 import Inner from "../../inner/index";
-import InfiniteScroll from "react-infinite-scroller";
-
+import * as List from "../../../units/List/styles";
 import { GlobalContext } from "../../../../pages/_app";
 import { useMovePage } from "../../function/movePage";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FETCH_USER_LOGGED_IN } from "./types&gql";
 import { useQuery } from "@apollo/client";
-import { removeLocal } from "../../function/Localstorage/index";
+import _ from "lodash";
+
 export default function HeaderPage() {
-  const { userInfo, date, todayProduct, point, setTodayProduct, acessToken } =
-    useContext(GlobalContext);
-
+  const { acessToken } = useContext(GlobalContext);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  // useEffect(() => {
-  //   console.log("todayProduct");
-  //   console.log(todayProduct);
-  //   setNewData([...todayProduct]);
-  // }, [todayProduct]);
+  const [isToggle, setIsToggle] = useState(false);
+  // const getDebounce = _.debounce((keyData) => {
+  //   setKeyword(keyData);
+  // }, 1000);
 
+  // const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+  //   getDebounce(event.target.value);
+  // };
+  // const onClickSearch = () => {
+  //   refetch({ search: keyword });
+  // };
+
+  console.log(isToggle);
   const movePage = useMovePage();
-  const deleteProduct = (id) => () => {
-    setTodayProduct(removeLocal(date, id));
-  };
-  const onloadMore = () => {};
   return (
     <>
       <header.Menu>
@@ -41,6 +42,18 @@ export default function HeaderPage() {
             <header.SignIn onClick={movePage("signUp")}>
               {acessToken ? "마이페이지" : "회원가입"}
             </header.SignIn>
+
+            <header.Search onClick={() => setIsToggle((prev) => !prev)}>
+              <header.SearchTitle
+                type="text"
+                placeholder="제목을 검색해주세요"
+                className={isToggle ? "isToggle" : ""}
+              ></header.SearchTitle>
+
+              <header.searchBtn
+              // onClick={onClickSearch}
+              />
+            </header.Search>
           </header.subMenu>
 
           <header.MenuWrapper>
@@ -67,26 +80,6 @@ export default function HeaderPage() {
             </header.Point>
           </header.UserInfo>
         </Inner>
-
-        <header.TodayProduct>
-          <header.TodayLabel>오늘 본 상품</header.TodayLabel>
-          <InfiniteScroll pageStart={0} loadMore={onloadMore} hasMore={true}>
-            {todayProduct?.map((el, index) => (
-              <header.DataWrapper key={el.id}>
-                <span>
-                  {index + 1}. {el.name}
-                </span>
-                <header.Img
-                  src={`https://storage.googleapis.com/${el.images[0]}`}
-                />
-                <div>{el.price}원</div>
-                <header.SmallBtn onClick={deleteProduct(el._id)}>
-                  삭제하기
-                </header.SmallBtn>
-              </header.DataWrapper>
-            ))}
-          </InfiniteScroll>
-        </header.TodayProduct>
       </header.Menu>
     </>
   );

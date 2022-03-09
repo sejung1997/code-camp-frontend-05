@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Column = styled.div`
-  border: 3px solid blue;
+  border: 2px solid green;
+  padding: 20px 10px;
+  border-radius: 5px;
+
   text-align: center;
   /* height: calc(583px / 11); */
   display: flex;
@@ -11,11 +14,14 @@ export const Column = styled.div`
   font-weight: bold;
   color: green;
   font-size: 20px;
+  width: 25%;
+  & .slick-slider {
+    width: 100%;
+  }
 `;
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
-  border: 3px solid red;
 `;
 
 export const topTitle = styled.span`
@@ -29,11 +35,9 @@ export const word = styled.span`
 
 export const List = styled.div`
   width: 1050px;
-  position: absolute;
   right: 0;
   left: 0;
-  border: 3px solid black;
-
+  margin-top: 60px;
   // border-bottom: 1px solid green;
 `;
 
@@ -53,6 +57,14 @@ export const Search = styled.div`
   display: flex;
   justify-content: space-between;
   color: green;
+`;
+export const play = styled.div`
+  padding-top: 100px;
+  left: 0;
+  right: 0;
+  width: 1024px;
+  display: flex;
+  justify-content: center;
 `;
 export const SearchTitle = styled.input`
   width: 776px;
@@ -75,14 +87,12 @@ export const SearchYear = styled.input`
   border-radius: 5px;
   background-color: transparent;
   color: green;
-  border: 1px solid green;
   padding-left: 10px;
 `;
 export const SearchBtn = styled.button`
   padding: 14px 16px;
   background-color: transparent;
   color: green;
-  border: 1px solid green;
   :hover {
     cursor: pointer;
     color: red;
@@ -92,11 +102,9 @@ export const SearchBtn = styled.button`
 `;
 export const images = styled.img``;
 export const SliderItem = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 150px;
+  width: 100%;
   margin: 0 auto;
-  right: 0;
-  left: 0;
 `;
 
 export const planet = styled.div`

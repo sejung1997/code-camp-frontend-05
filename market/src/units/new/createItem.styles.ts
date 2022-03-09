@@ -16,9 +16,21 @@ export const Main = styled.div`
 export const Input02 = styled.input`
   width: 300px;
   height: 40px;
+  border: 0.2px solid green;
+  border-radius: 5px;
   padding-left: 10px;
+  &:focus {
+    outline: 1px solid green;
+  }
 `;
 export const ErrorMsg = styled.div``;
+export const tagContents = styled.span`
+  border-radius: 10px;
+  border: 1px solid green;
+  padding: 5px 10px;
+  margin-right: 10px;
+`;
+
 export const TopTitle = styled.h1`
   text-align: center;
   font-size: 36px;

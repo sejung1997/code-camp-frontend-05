@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./createItem.gql";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { message } from "antd";
@@ -23,7 +23,7 @@ export default function createItemContainer(props) {
     zipcode: "",
     address: "",
   });
-
+  const [tags, setTags] = useState<string[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createUsedItem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
@@ -31,6 +31,7 @@ export default function createItemContainer(props) {
     // resolver: yupResolver(schema),
     mode: "onChange",
   });
+  const tagRef = useRef<HTMLInputElement>();
   // const handleChange = (value: string) => {
   //   console.log("value");
   //   setValue("contents", value === "<p><br></p>" ? "" : value);
@@ -52,7 +53,7 @@ export default function createItemContainer(props) {
             remarks: data.remarks,
             contents: data.contents,
             price: Number(data.price),
-            tags: data.tags.split("#").slice(1),
+            tags: tags,
             images: imgUrl,
             useditemAddress: {
               zipcode: inputs.zipcode,
@@ -80,7 +81,7 @@ export default function createItemContainer(props) {
       if (data.remarks) updateInput.remarks = data.remarks;
       if (data.contents) updateInput.contents = data.contents;
       if (data.price) updateInput.price = Number(data.price);
-      if (data.tags) updateInput.tags = data.tags.split("").slice(1);
+      if (tags) updateInput.tags = tags;
       if (props.defaultData?.fetchUseditem?.images !== imgUrl)
         updateInput.images = imgUrl;
 
@@ -121,7 +122,19 @@ export default function createItemContainer(props) {
   const cancel = () => {
     window.history.back();
   };
-  console.log(props.defaultData);
+
+  const tag = (event: HTMLInputElement) => {
+    const inputTag = document.getElementById("tagInput");
+    if (window.event.keyCode == 13) {
+      // if (tags.length === 0) inputTag.value = null;
+      const temp = [...tags];
+      temp.push(event.target.value);
+
+      setTags(temp);
+      inputTag.value = null;
+      console.log(event.target.value);
+    }
+  };
   return (
     <CreateItemPresenter
       setImgUrl={setImgUrl}
@@ -141,6 +154,9 @@ export default function createItemContainer(props) {
       inputs={inputs}
       showModal={showModal}
       isModalVisible={isModalVisible}
+      tag={tag}
+      tags={tags}
+      tagRef={tagRef}
     />
   );
 }
