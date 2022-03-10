@@ -1,30 +1,29 @@
 import * as header from "./header.styles";
 import Inner from "../../inner/index";
 import * as List from "../../../units/List/styles";
-import { GlobalContext } from "../../../../pages/_app";
 import { useMovePage } from "../../function/movePage";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState, ChangeEvent, useEffect } from "react";
+import { GlobalContext } from "../../../../pages/_app";
 import { FETCH_USER_LOGGED_IN } from "./types&gql";
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
 
-export default function HeaderPage() {
+export default function HeaderPage(props) {
   const { acessToken } = useContext(GlobalContext);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  const [isToggle, setIsToggle] = useState(false);
-  // const getDebounce = _.debounce((keyData) => {
-  //   setKeyword(keyData);
-  // }, 1000);
-
-  // const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
-  //   getDebounce(event.target.value);
-  // };
-  // const onClickSearch = () => {
-  //   refetch({ search: keyword });
-  // };
-
-  console.log(isToggle);
   const movePage = useMovePage();
+
+  const getDebounce = _.debounce((keyData) => {
+    props.setKeyword(keyData);
+  }, 1000);
+
+  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    getDebounce(event.target.value);
+  };
+  const onClickSearch = () => {
+    movePage("/list");
+  };
+
   return (
     <>
       <header.Menu>
@@ -43,16 +42,10 @@ export default function HeaderPage() {
               {acessToken ? "마이페이지" : "회원가입"}
             </header.SignIn>
 
-            <header.Search onClick={() => setIsToggle((prev) => !prev)}>
-              <header.SearchTitle
-                type="text"
-                placeholder="제목을 검색해주세요"
-                className={isToggle ? "isToggle" : ""}
-              ></header.SearchTitle>
+            <header.Search>
+              <header.SearchTitle onChange={onChangeSearch} type="text" />
 
-              <header.searchBtn
-              // onClick={onClickSearch}
-              />
+              <header.searchBtn onClick={onClickSearch} />
             </header.Search>
           </header.subMenu>
 

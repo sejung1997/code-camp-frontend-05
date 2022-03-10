@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { useMovePage } from "../../commons/function/movePage";
@@ -10,17 +10,17 @@ import {
 } from "../../commons/types/generated/types";
 import { FETCH_USED_ITEMS } from "./gql&types";
 import FetchUseditemsPresenter from "./presenter";
-
+import { GlobalContext } from "../../commons/layout";
 export default function fetchUseditemsContainer() {
-  const [keyword, setKeyword] = useState("");
+  // const [keyword, setKeyword] = useState("");
   const [srchDate, setSrchDate] = useState<number[]>([20220000, 20230000]);
   const movePage = useMovePage();
-
+  const { keyword, setKeyword } = useContext(GlobalContext);
   const { data, fetchMore, refetch } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS, {
-    variables: { page: 1 },
+    variables: { page: 1, search: keyword },
   });
 
   const getDebounce = _.debounce((keyData) => {

@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { SearchOutlined } from "@ant-design/icons";
+import { keyframes } from "@emotion/react";
+import { stubArray } from "lodash";
 export const Menu = styled.div`
   background-image: url("/images/NNhFby-700x376.png");
   background-repeat: no-repeat;
@@ -36,21 +38,29 @@ export const Search = styled.div`
   margin-left: 30px;
   display: flex;
   justify-content: space-between;
-  color: #fff;
   position: relative;
 `;
-export const SearchTitle = styled.input`
-  width: 40px;
+
+// export const SearchTitle = styled.input`
+/* width: 40px;
   border-radius: 5px;
   background-color: transparent;
   color: #fff;
   border: 1px solid #fff;
   padding-left: 10px;
-  transition: 2s;
+  transition: 2s; */
 
-  &.isToggle {
+// `;
+export const SearchTitle = styled.input`
+  transition: 0.4s;
+  border-radius: 5px;
+
+  color: #333;
+  width: 50px;
+  border: 1px solid #fff;
+  padding-left: 10px;
+  &:focus {
     width: 200px;
-    transition: 2s;
   }
 `;
 
