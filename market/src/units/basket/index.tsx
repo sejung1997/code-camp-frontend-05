@@ -1,3 +1,4 @@
+
 import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
