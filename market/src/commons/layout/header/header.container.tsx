@@ -20,9 +20,6 @@ export default function HeaderPage(props) {
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(event.target.value);
   };
-  const onClickSearch = () => {
-    movePage("/list");
-  };
 
   return (
     <>
@@ -44,9 +41,8 @@ export default function HeaderPage(props) {
 
             <header.Search>
               <header.SearchTitle onChange={onChangeSearch} type="text" />
-
-              <header.searchBtn onClick={onClickSearch} />
             </header.Search>
+            <header.searchBtn onClick={movePage("list")} />
           </header.subMenu>
 
           <header.MenuWrapper>

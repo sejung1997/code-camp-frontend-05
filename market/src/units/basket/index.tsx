@@ -1,10 +1,10 @@
-
 import styled from "@emotion/styled";
-import { useEffect, useRef, useState } from "react";
+import { HTMLInputTypeAttribute, useEffect, useRef, useState } from "react";
 import { useMovePage } from "../../commons/function/movePage";
 import PurchaseItem from "../../commons/purchaseItem/index";
 import { ButtonDelete } from "../Detail/styles";
 import { removeLocal } from "../../commons/function/Localstorage";
+import { HtmlProps } from "next/dist/shared/lib/utils";
 const Label = styled.div`
   font-size: 30px;
   font-weight: bold;
@@ -52,8 +52,6 @@ const LabelCheckBox = styled.span`
 `;
 
 export default function BasketPageContainer() {
-  const checked = useRef();
-
   const [data, setData] = useState([]);
   const movePage = useMovePage();
 
@@ -66,18 +64,23 @@ export default function BasketPageContainer() {
     window.location.reload();
   };
 
-  if (process.browser) {
-    const checkBoxes = document?.getElementById("checkALL");
+  let checkBoxes: any;
+  if (process.browser) checkBoxes = document?.getElementById("checkALL");
 
-    checkBoxes?.addEventListener("click", () => {
-      data.forEach((_, index) => {
-        const checkBox = document.getElementById(`checkbox${index}`);
-        checkBox.checked = checkBoxes.checked;
-      });
+  checkBoxes.addEventListener("click", () => {
+    data.forEach((_, index) => {
+      const checkBox: any = document.getElementById(`checkbox${index}`);
+      checkBox.checked = checkBoxes.checked;
     });
-  }
-  console.log(data);
-  const onClickBox = () => {};
+  });
+  const onClickBox = () => {
+    const aaa = data.filter((_, index) => {
+      return document.getElementById(`checkbox${index}`).checked;
+    });
+    if (aaa.length === data.length) checkBoxes.checked = true;
+    if (aaa.length === 0) checkBoxes.checked = false;
+  };
+
   return (
     <Main>
       <Label>장바구니</Label>

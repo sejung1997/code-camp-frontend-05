@@ -18,14 +18,19 @@ export default function PickPageUI(props) {
         <pick.Label>찜한상품</pick.Label>
 
         <pick.DIV>
-          <pick.CheckBox type="checkbox" id="checkALL" />
+          <pick.CheckBox type="checkbox" onClick={props.click} id="checkALL" />
           <pick.LabelCheckBox>모두선택</pick.LabelCheckBox>
         </pick.DIV>
+
         <div>
           {props.data &&
             props.data?.fetchUseditemsIPicked?.map((el, index) => (
               <pick.Contents key={index}>
-                <pick.CheckBox type="checkbox" id={`checkbox${index}`} />
+                <pick.CheckBox
+                  type="checkbox"
+                  id={`checkbox${index}`}
+                  onClick={props.onClickBox}
+                />
 
                 <pick.Wrpper>
                   <pick.basicInfo>

@@ -1,5 +1,5 @@
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ITEM_PICK } from "../Detail/gql&types";
 import {
   IQuery,
@@ -22,7 +22,8 @@ const FETCH_USED_ITEMS_IPICK = gql`
 `;
 export default function () {
   const [toggleUseditemPick] = useMutation(ITEM_PICK);
-
+  const allToggle = useRef<HTMLInputElement>();
+  const [isChecked, setIsChecked] = useState([]);
   const { data } = useQuery<
     Pick<IQuery, "fetchUseditemsIPicked">,
     IQueryFetchUseditemsIPickedArgs
@@ -30,19 +31,31 @@ export default function () {
     variables: { search: "" },
   });
 
-  console.log(data?.fetchUseditemsIPicked);
-  console.log("data?.fetchUseditemsIPicked");
+  let checkBoxData;
   useEffect(() => {
     if (!data) return;
-    const checkBoxes = document?.getElementById("checkALL");
+    checkBoxData = new Array(data.fetchUseditemsIPicked.length).fill(1);
     localStorage.setItem("heart", JSON.stringify(data?.fetchUseditemsIPicked));
-    checkBoxes?.addEventListener("click", () => {
-      data?.fetchUseditemsIPicked?.forEach((_, index) => {
-        const checkBox = document.getElementById(`checkbox${index}`);
-        checkBox.checked = checkBoxes.checked;
-      });
-    });
   }, [data]);
+
+  let checkBoxes: any;
+  if (process.browser) checkBoxes = document?.getElementById("checkALL");
+
+  checkBoxes?.addEventListener("click", () => {
+    console.log(checkBoxData);
+    checkBoxData?.forEach((_, index) => {
+      const checkBox: any = document.getElementById(`checkbox${index}`);
+      checkBox.checked = checkBoxes.checked;
+    });
+  });
+  const onClickBox = () => {
+    const aaa = checkBoxData.filter((_, index) => {
+      return document.getElementById(`checkbox${index}`).checked;
+    });
+    if (aaa.length === checkBoxData.length) checkBoxes.checked = true;
+    if (aaa.length === 0) checkBoxes.checked = false;
+  };
+
   const deletePick = (id) => async () => {
     const result = await toggleUseditemPick({
       variables: {
@@ -78,5 +91,14 @@ export default function () {
     arrows: false,
     cssEase: "linear",
   };
-  return <PickPageUI data={data} settings={settings} deletePick={deletePick} />;
+  return (
+    <PickPageUI
+      data={data}
+      settings={settings}
+      deletePick={deletePick}
+      isChecked={isChecked}
+      allToggle={allToggle}
+      onClickBox={onClickBox}
+    />
+  );
 }
