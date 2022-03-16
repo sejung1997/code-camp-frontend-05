@@ -20,6 +20,11 @@ export const Name = styled.div`
   font-size: 24px;
   padding-bottom: 2px;
 `;
+export const map = styled.div`
+  padding-bottom: 2px;
+  width: 500px;
+  height: 500px;
+`;
 export const Baner = styled.div`
   height: 160px;
   display: flex;
@@ -41,7 +46,6 @@ export const MainImg = styled.img`
 `;
 export const Contents = styled.div`
   width: 996px;
-  height: 96px;
   background-color: transparent;
   margin-top: 40px;
 `;

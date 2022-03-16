@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 
 import dynamic from "next/dynamic";
@@ -6,18 +6,41 @@ import Dompurify from "dompurify";
 import styled from "@emotion/styled";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 const Main = styled.div`
   margin-top: 200px;
 `;
+const Btngroup = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const AddBtn = styled.div`
+  padding: 20px;
+  border: 1px solid green;
+  margin-bottom: 40px;
+  :hover {
+    cursor: pointer;
+    background-color: yellow;
+  }
+`;
 export default function text() {
+  const quillRef = useRef();
   const [contents, setContents] = useState("");
+  const schedules = ["상세일정 1", "상세일정 2", "상세일정 3"];
+
+  const addEl = (el, index) => () => {
+    const temp = `<h1><span class="ql-size-large" style="background-color: rgb(255, 255, 0);">${el}</sp></h1></blockquote>`;
+    setContents(contents + temp);
+    const ddd = document.getElementById("reactQuill");
+    console.log(ddd);
+    ddd.focus();
+  };
 
   const modules = useMemo(
     () => ({
       toolbar: {
         container: [
-          [{ size: ["small", false, "large", "huge"] }],
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ header: [1, 2, 3, 4, 5, 6, 7] }],
           [{ font: [] }],
           [{ align: [] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
@@ -70,6 +93,7 @@ export default function text() {
               ],
             },
             { background: [] },
+            {},
           ],
           ["image", "video"],
           ["clean"],
@@ -80,24 +104,55 @@ export default function text() {
   );
   const handleChange = (value) => {
     setContents(value);
+    console.log(value);
   };
+
+  const moveSroll = (index) => () => {
+    // h1Ref?.current?.scrollIntoView({ behavior: "smooth" });
+    const aaaa = document.querySelectorAll(".ql-size-large")[index];
+    console.log(aaaa);
+
+    aaaa.scrollIntoView({ block: "center", behavior: "smooth" });
+  };
+
   return (
     <Main>
-      <ReactQuill
-        onChange={handleChange}
-        value={contents || "기본값"}
-        modules={modules}
-        theme="snow"
-      />
+      <h1>Day 1 </h1>
+      <Btngroup>
+        {schedules.map((el, index) => (
+          <Btngroup key={index}>
+            <AddBtn onClick={addEl(el, index)}>{el}</AddBtn>
+          </Btngroup>
+        ))}
+        <ReactQuill
+          id="reactQuill"
+          onChange={handleChange}
+          value={contents || "기본값"}
+          modules={modules}
+          theme="snow"
+        />
+      </Btngroup>
+      <br /> <br />
+      <br />
+      <div style={{ fontSize: "40px" }}>미리보기</div>
+      <h1>Day 1 </h1>
+      <Btngroup>
+        {schedules.map((el, index) => (
+          <AddBtn key={index} onClick={moveSroll(index)}>
+            {el} 찾기
+          </AddBtn>
+        ))}
+      </Btngroup>
       {process.browser && (
         <div>
           <div
             dangerouslySetInnerHTML={{
-              __html: Dompurify.sanitize(String(contents)),
+              __html: String(contents),
             }}
           />
         </div>
       )}
+      <div>{contents}</div>
     </Main>
   );
 }

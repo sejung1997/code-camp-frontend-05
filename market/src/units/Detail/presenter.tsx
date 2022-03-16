@@ -5,6 +5,7 @@ import Dompurify from "dompurify";
 import { IFetchItemPresenter } from "./gql&types";
 
 export default function fetchItemPresenter(props: IFetchItemPresenter) {
+  console.log(props.data?.fetchUseditem?.contents);
   return (
     <>
       {/* <Head>
@@ -63,17 +64,20 @@ export default function fetchItemPresenter(props: IFetchItemPresenter) {
 
           <L.Contents>
             내용:
-            {process.browser && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: Dompurify.sanitize(
-                    String(props.data?.fetchUseditem?.contents)
-                  ),
-                }}
-              />
-            )}
+            <div>
+              {process.browser && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: Dompurify.sanitize(
+                      String(props.data?.fetchUseditem?.contents)
+                    ),
+                  }}
+                />
+              )}
+            </div>
           </L.Contents>
-          <div id="map" style={{ width: 500, height: 400 }}></div>
+
+          <L.map id="map"></L.map>
 
           <L.Like>
             <L.HeartIcons />
