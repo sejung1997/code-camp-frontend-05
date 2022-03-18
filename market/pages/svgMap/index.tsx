@@ -4,10 +4,10 @@ import ChungBook from "../../src/mapSrc/chungBook";
 import ChungNam from "../../src/mapSrc/chungNam";
 import GangOne from "../../src/mapSrc/gangOne";
 import GyoungBook from "../../src/mapSrc/gyoungBook";
-import GyoungNam from "../../src/mapSrc/gyoungNam";
-import Gyoungki from "../../src/mapSrc/gyoungki";
-import JeonBook from "../../src/mapSrc/jeonBook";
-import JeonNam from "../../src/mapSrc/jeonNam";
+// import GyoungNam from "../../src/mapSrc/gyoungNam";
+// import Gyoungki from "../../src/mapSrc/gyoungki";
+// import JeonBook from "../../src/mapSrc/jeonBook";
+// import JeonNam from "../../src/mapSrc/jeonNam";
 
 const Main = styled.div`
   margin-top: 300px;
@@ -32,11 +32,7 @@ const Text = styled.text`
     fill: red;
   }
 `;
-const Region = styled.iframe`
-  position: absolute;
-  display: none;
-  opacity: 0;
-`;
+
 export default function SvgMap() {
   const selectDo = (event) => {
     const doName = document.getElementById("doName");
@@ -243,8 +239,14 @@ export default function SvgMap() {
         </div>
       </div>
       <ChungBook />
-      <ChungNam /> <GangOne /> <GyoungBook /> <GyoungNam /> <Gyoungki />
-      <JeonBook /> <JeonNam />
+      <ChungNam />
+      <GangOne />
+
+      {/* <GyoungBook /> */}
+      {/* <GyoungNam /> 
+      <Gyoungki />
+      <JeonBook /> 
+      <JeonNam /> */}
     </Main>
   );
 }

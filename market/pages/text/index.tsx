@@ -1,12 +1,21 @@
-import { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, forwardedRef } from "react";
 import "react-quill/dist/quill.snow.css";
 
 import dynamic from "next/dynamic";
 import Dompurify from "dompurify";
 import styled from "@emotion/styled";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
+const ReactQuill = dynamic(import("react-quill"), { ssr: false });
+const ReactQuill = forwardedRef((props, ref) => {
+  return (
+    <ReactQuill
+      {...props}
+      forwardedRef={(el) => {
+        ref = el;
+      }}
+    />
+  );
+});
 const Main = styled.div`
   margin-top: 200px;
 `;
@@ -24,7 +33,7 @@ const AddBtn = styled.div`
   }
 `;
 export default function text() {
-  const quillRef = useRef();
+  const quillRef = React.useRef(null);
   const [contents, setContents] = useState("");
   const schedules = ["상세일정 1", "상세일정 2", "상세일정 3"];
 
@@ -34,8 +43,37 @@ export default function text() {
     const ddd = document.getElementById("reactQuill");
     console.log(ddd);
     ddd.focus();
+    console.log(quillRef);
   };
+  const imageHandler = () => {
+    console.log("df");
+    const input = document.createElement("input");
 
+    input.setAttribute("type", "file");
+    input.setAttribute("className", "ImgUrl");
+    input.setAttribute("accept", "image/*");
+    document.body.appendChild(input);
+
+    input.click();
+    input.onchange = async (event) => {
+      // const [file] = input.files;
+      console.log(event.target);
+      // // S3 Presigned URL로 업로드하고 image url 받아오기
+      // const { preSignedPutUrl: presignedURL, readObjectUrl: imageURL } = (await getS3PresignedURL(file.name)).data;
+      // await uploadImage(presignedURL, file);
+
+      // // 현재 커서 위치에 이미지를 삽입하고 커서 위치를 +1 하기
+      // const range = quillRef.current.getEditorSelection();
+      // quillRef.current.getEditor().insertEmbed(range.index, 'image', imageURL)
+      // quillRef.current.getEditor().setSelection(range.index + 1);
+      // document.body.querySelector(':scope > input').remove()
+      console.log(quillRef?.current?.getEditor());
+      // const range = quillRef?.current.getEditorSelection();
+      // quillRef.current.getEditor().insertEmbed(range.index, "image", ImgUrl);
+      // quillRef.current.getEditor().setSelection(range.index + 1);
+      // document.body.querySelector(":scope > input").remove();
+    };
+  };
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -98,10 +136,12 @@ export default function text() {
           ["image", "video"],
           ["clean"],
         ],
+        handlers: { image: imageHandler },
       },
     }),
     []
   );
+
   const handleChange = (value) => {
     setContents(value);
     console.log(value);
@@ -124,8 +164,9 @@ export default function text() {
             <AddBtn onClick={addEl(el, index)}>{el}</AddBtn>
           </Btngroup>
         ))}
-        <ReactQuill
+        <ForwardedRefComponent
           id="reactQuill"
+          ref={quillRef}
           onChange={handleChange}
           value={contents || "기본값"}
           modules={modules}
