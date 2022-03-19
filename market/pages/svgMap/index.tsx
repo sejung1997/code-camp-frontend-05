@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Head from "next/head";
-import ChungBook from "../../src/mapSrc/chungBook";
-import ChungNam from "../../src/mapSrc/chungNam";
-import GangOne from "../../src/mapSrc/gangOne";
-import GyoungBook from "../../src/mapSrc/gyoungBook";
+// import ChungBook from "../../src/mapSrc/chungBook";
+// import ChungNam from "../../src/mapSrc/chungNam";
+// import GangOne from "../../src/mapSrc/gangOne";
+// import GyoungBook from "../../src/mapSrc/gyoungBook";
 // import GyoungNam from "../../src/mapSrc/gyoungNam";
 // import Gyoungki from "../../src/mapSrc/gyoungki";
 // import JeonBook from "../../src/mapSrc/jeonBook";
@@ -11,11 +11,16 @@ import GyoungBook from "../../src/mapSrc/gyoungBook";
 
 const Main = styled.div`
   margin-top: 300px;
+  height: 200px;
+  width: 200px;
 `;
 const Path = styled.path`
   fill: black;
   stroke-linejoin: round;
   stroke: #ffffff;
+  height: 200px;
+  width: 200px;
+
   stroke-width: 2;
   :hover {
     fill: red;
@@ -23,7 +28,6 @@ const Path = styled.path`
 `;
 const Text = styled.text`
   fill: #ffffff;
-  font-size: 16;
   font-weight: bold;
   text-anchor: middle;
   alignment-baseline: middle;
@@ -53,10 +57,13 @@ export default function SvgMap() {
   };
 
   return (
-    <Main>
+    <Main
+      style={{
+        height: "200px",
+        width: "200px",
+      }}
+    >
       <Head>
-        <script defer src="./js/index.js"></script>
-
         <script
           defer
           src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"
@@ -68,11 +75,13 @@ export default function SvgMap() {
       <div>
         <div id="doName" style={{ fontSize: "100px" }}></div>
 
-        <div id="wholeMap" style={{ zIndex: "100", position: "absolute" }}>
+        <div id="wholeMap">
           <svg
-            style={{ background: "#eaeaea", overflow: "visible" }}
-            height="1107"
-            width="800"
+            style={{
+              background: "#eaeaea",
+              overflow: "visible",
+            }}
+            viewBox="0 0 500 500"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
@@ -94,7 +103,13 @@ export default function SvgMap() {
                 </feMerge>
               </filter>
             </defs>
-            <g filter="url(#dropshadow)">
+            <g
+              filter="url(#dropshadow)"
+              style={{
+                height: "200px",
+                width: "200px",
+              }}
+            >
               <Path
                 id="서울특별시"
                 onClick={selectDo}
@@ -238,9 +253,9 @@ export default function SvgMap() {
           </svg>
         </div>
       </div>
-      <ChungBook />
+      {/* <ChungBook />
       <ChungNam />
-      <GangOne />
+      <GangOne /> */}
 
       {/* <GyoungBook /> */}
       {/* <GyoungNam /> 
