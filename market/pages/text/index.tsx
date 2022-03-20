@@ -16,7 +16,7 @@ import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import Dompurify from "dompurify";
 import styled from "@emotion/styled";
-import { add } from "lodash";
+import { add, create } from "lodash";
 import { css, Global } from "@emotion/react";
 
 export const UPLOAD_FILE = gql`
@@ -61,35 +61,33 @@ export default function text() {
   const [contents, setContents] = useState("");
   const [fileReaderUrl, setFileReaderUrl] = useState("");
   const [imgUrl, setImgUrl] = useState("");
-  const [currentFocus, setCurrentFocus] = useState(0);
 
   const schedules = ["상세일정 1", "상세일정 2", "상세일정 3"];
   const [uploadFile] = useMutation<
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
-  const quillRef = useRef(null);
+  const quillRef = createRef();
   console.log(quillRef);
   let editor;
   let current;
+  let currentFocus = 0;
   const addEl = (el) => () => {
-    if (el[0] === "상") {
-      const temp = `<h1><span class="ql-size-large" style="background-color: rgb(255, 255, 0);">${el}</sp></h1></blockquote>`;
-      setContents(contents + temp);
-    }
-    // const range = editor.getSelection();
-    console.log(quillRef.current);
-    console.log(quillRef.current?.getEditorSelection());
+    const temp = `<h1><span class="ql-size-large" style="background-color: rgb(255, 255, 0);">${el}</sp></h1></blockquote>`;
+    // setContents(contents + temp);
+
+    editor.insertEmbed(currentFocus, "div", "ddd");
     // console.log(editor);
     // console.log(current?.getEditorSelection());
-    const range = editor.getLength();
+    // const range = editor.getLength();
 
-    console.log(range);
-    // current?.setEditorSelection(currentFocus + 10);
+    // console.log(range);
+    // current?.setEditorSelection(currentFocus);
     // editor.insertEmbed(range, "image", "ddd");
   };
 
   const imageHandler = () => {
+    console.log(currentFocus);
     const input = document.createElement("input");
 
     input.setAttribute("type", "file");
@@ -113,7 +111,7 @@ export default function text() {
       try {
         const result = await uploadFile({ variables: { file } });
         const fileUrl = result.data?.uploadFile.url;
-
+        console.log(currentFocus);
         editor.insertEmbed(
           currentFocus,
           "image",
@@ -193,22 +191,25 @@ export default function text() {
     // quillRef.current.getEditor().setSelection(range.index + 1);
     // if (!quillRef) return;
     // if (quillRef.current === null) return;
-    const range = quillRef.current?.getEditorSelection();
-    setCurrentFocus(range?.index);
-    console.log(range?.index);
+
     // quillRef.current?.getEditor().insertEmbed(range?.index, "image", "sdfdd");
     // quillRef.current?.getEditor().setSelection(range?.index + 1);
     // inputContents();
     // if (imgUrl) {
     //   addEl(imgUrl);
     // }
-    console.log(quillRef);
-
     editor = quillRef.current?.getEditor();
+
+    const range = quillRef.current?.getEditorSelection();
     current = quillRef.current;
+    currentFocus = range;
+    console.log(currentFocus);
+    console.log(editor);
+
+    // current = quillRef.current;
     // quillRef.current?.setEditorSelection(range + 1);
     // quillRef.current?.getEditor()?.setSelection(range + 1);
-  }, [imageHandler]);
+  }, [imageHandler, addEl]);
 
   return (
     <Main>
