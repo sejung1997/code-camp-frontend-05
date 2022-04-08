@@ -1,24 +1,13 @@
-import React, {
-  useMemo,
-  useRef,
-  useState,
-  ChangeEvent,
-  useEffect,
-  createRef,
-} from "react";
+import { useMemo, useRef, useState, ChangeEvent, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationUploadFileArgs,
 } from "../../src/commons/types/generated/types";
 import "react-quill/dist/quill.snow.css";
-
 import dynamic from "next/dynamic";
-import Dompurify from "dompurify";
 import styled from "@emotion/styled";
-import { add, create } from "lodash";
 import { css, Global } from "@emotion/react";
-
 export const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
     uploadFile(file: $file) {
@@ -26,9 +15,11 @@ export const UPLOAD_FILE = gql`
     }
   }
 `;
+
 const ReactQuill = dynamic(
   async () => {
     const { default: QuillEditor } = await import("react-quill");
+
     return function ({ forwardedRef, ...props }) {
       return <QuillEditor ref={forwardedRef} {...props} />;
     };
@@ -67,82 +58,71 @@ export default function text() {
     Pick<IMutation, "uploadFile">,
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
-  const quillRef = createRef();
-  console.log(quillRef);
+  const quillRef = useRef();
+
+  let quillCurrent;
   let editor;
-  let current;
-  let currentFocus = 0;
-  const addEl = (el) => () => {
-    const temp = `<h1><span class="ql-size-large" style="background-color: rgb(255, 255, 0);">${el}</sp></h1></blockquote>`;
-    // setContents(contents + temp);
+  let currentFocus;
 
-    editor.insertEmbed(currentFocus, "div", "ddd");
-    // console.log(editor);
-    // console.log(current?.getEditorSelection());
-    // const range = editor.getLength();
-
-    // console.log(range);
-    // current?.setEditorSelection(currentFocus);
-    // editor.insertEmbed(range, "image", "ddd");
+  const setRefValue = () => {
+    quillCurrent = quillRef.current;
+    editor = quillCurrent?.getEditor();
+    currentFocus = quillCurrent?.getEditorSelection();
+    if (!editor) return;
+    editor.focus();
+  };
+  setRefValue();
+  console.log(editor);
+  const addEl = (el: string) => () => {
+    editor?.insertText(currentFocus.index + 1, el, {
+      header: 1,
+      background: "#ffff00",
+      size: "large",
+    });
+    console.log(el.length);
+    editor.insertText(currentFocus.index + el.length + 3, "- 상세일정 설명", {
+      header: 7,
+    });
+    currentFocus.index += 17;
+    editor.setSelection(currentFocus.index, 0, 0);
   };
 
   const imageHandler = () => {
-    console.log(currentFocus);
     const input = document.createElement("input");
-
     input.setAttribute("type", "file");
     input.setAttribute("className", "ImgUrl");
     input.setAttribute("accept", "image/*");
     document.body.appendChild(input);
-    console.log(quillRef?.current);
     input.click();
+
     input.onchange = async (event: ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = (data) => {
-        if (typeof data.target?.result === "string") {
-          // setFileReaderUrl(data.target?.result);
-          // const temp = `<img src='${data.target?.result}'/>`;
-          // setContents(contents + temp);
-        }
-      };
-      try {
-        const result = await uploadFile({ variables: { file } });
-        const fileUrl = result.data?.uploadFile.url;
-        console.log(currentFocus);
-        editor.insertEmbed(
-          currentFocus,
-          "image",
-          `https://storage.googleapis.com/${fileUrl}`
-        );
-        const temp = `<img src='https://storage.googleapis.com/${fileUrl}'/>`;
-        // console.log(contents);
-        // setContents(contents + temp);
-        // console.log(contents + temp);
-        // setContents(contents + temp);
-        // setImgUrl(fileUrl);
-      } catch (error) {
-        // message.info(message);
+      if (!editor) {
+        console.log("에디터가 없어용");
+        setRefValue();
       }
-      // // S3 Presigned URL로 업로드하고 image url 받아오기
-      // const { preSignedPutUrl: presignedURL, readObjectUrl: imageURL } = (await getS3PresignedURL(file.name)).data;
-      // await uploadImage(presignedURL, file);
-      console.log(quillRef?.current);
+      editor.focus();
 
-      // // 현재 커서 위치에 이미지를 삽입하고 커서 위치를 +1 하기
-      // const range = quillRef.current.getEditorSelection();
-      // quillRef.current.getEditor().insertEmbed(range.index, 'image', imageURL)
-      // quillRef.current.getEditor().setSelection(range.index + 1);
-      document.body.querySelector(":scope > input").remove();
+      const file = event.target.files?.[0];
+      const result = await uploadFile({ variables: { file } });
+      const fileUrl = result.data?.uploadFile.url;
+
+      editor.insertEmbed(
+        quillCurrent.getEditorSelection().index,
+        "image",
+        `https://storage.googleapis.com/${fileUrl}`
+      );
+      input.remove();
     };
+  };
+  const customFunc = () => {
+    alert("df");
   };
 
   const modules = useMemo(
     () => ({
       toolbar: {
         container: [
+          [{ custom: <div>dd</div> }],
           [{ header: [1, 2, 3, 4, 5, 6, 7] }],
           [{ font: [] }],
           [{ align: [] }],
@@ -167,48 +147,32 @@ export default function text() {
           ["image", "video"],
           ["clean"],
         ],
-        handlers: { image: imageHandler },
+        handlers: { image: imageHandler, custom: customFunc },
       },
     }),
     []
   );
 
   const handleChange = (value) => {
-    setContents(value);
     console.log(value);
+    setContents(value);
   };
 
   const moveSroll = (index) => () => {
-    // h1Ref?.current?.scrollIntoView({ behavior: "smooth" });
+    // h1Ref?.currenrtrtrt?.scrollIntoView({ behavior: "smooth" });
     const aaaa = document.querySelectorAll(".ql-size-large")[index];
     console.log(aaaa);
 
     aaaa.scrollIntoView({ block: "center", behavior: "smooth" });
   };
   useEffect(() => {
-    // const range = quillRef.current.getEditorSelection();
-    // quillRef.current.getEditor().insertEmbed(range.index, 'image', imageURL)
-    // quillRef.current.getEditor().setSelection(range.index + 1);
-    // if (!quillRef) return;
-    // if (quillRef.current === null) return;
-
-    // quillRef.current?.getEditor().insertEmbed(range?.index, "image", "sdfdd");
-    // quillRef.current?.getEditor().setSelection(range?.index + 1);
-    // inputContents();
-    // if (imgUrl) {
-    //   addEl(imgUrl);
-    // }
-    editor = quillRef.current?.getEditor();
-
-    const range = quillRef.current?.getEditorSelection();
-    current = quillRef.current;
-    currentFocus = range;
-    console.log(currentFocus);
+    setRefValue();
     console.log(editor);
-
-    // current = quillRef.current;
-    // quillRef.current?.setEditorSelection(range + 1);
-    // quillRef.current?.getEditor()?.setSelection(range + 1);
+    if (contents.includes("<img src")) {
+      contents.replace("<img src", '<p class="ql-align-center"><img src');
+      contents.replace('.png">', '.png"></p>');
+      setContents(contents);
+    }
   }, [imageHandler, addEl]);
 
   return (

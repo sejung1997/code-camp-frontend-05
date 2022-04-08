@@ -135,7 +135,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const uploadLink = createUploadLink({
     uri: "https://backend05.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${acessToken}` },
-    credentials: "include", //  백엔드에서 받은 리프레쉬 토큰을 쿠키에 추가하기 위해선 https와 credentials:include 를 해준다.
+    credentials: "include",
+    //  백엔드에서 받은 리프레쉬 토큰을 쿠키에 추가하기 위해선 https와 credentials:include 를 해준다.
   });
 
   const client = new ApolloClient({

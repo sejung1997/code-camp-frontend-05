@@ -13,8 +13,8 @@ export default function BannerPage() {
   const onloadMore = () => {};
   return (
     <>
-      <banner.img1 src="/images/2615A25051A5ABFF21.png" />
-      <banner.img2 src="/images/pngwing.com (9).png" />
+      {/* <banner.img1 src="/images/2615A25051A5ABFF21.png" />
+      <banner.img2 src="/images/pngwing.com (9).png" /> */}
       <banner.TodayProduct>
         <banner.TodayLabel>오늘 본 상품</banner.TodayLabel>
         <InfiniteScroll pageStart={0} loadMore={onloadMore} hasMore={true}>
