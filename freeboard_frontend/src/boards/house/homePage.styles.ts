@@ -70,3 +70,9 @@ export const todayDate = styled.div`
   font-size: 18px;
   margin-bottom: 1px;
 `;
+export const searchWrapper = styled.div`
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;

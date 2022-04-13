@@ -12,18 +12,18 @@ interface Iprops {
 }
 
 export default function LayoutPage(props: Iprops) {
-  const [rocket, setRocket] = useState(0);
-  const onrocket = _.debounce((rocket) => {
-    if (rocket === 10) return;
-    const newRocket = rocket + 1;
-    setRocket(newRocket);
-    onrocket(newRocket);
-  }, 1000);
+  // const [rocket, setRocket] = useState(0);
+  // const onrocket = _.debounce((rocket) => {
+  //   if (rocket === 10) return;
+  //   const newRocket = rocket + 1;
+  //   setRocket(newRocket);
+  //   onrocket(newRocket);
+  // }, 1000);
 
-  console.log(rocket);
-  useEffect(() => {
-    onrocket(rocket);
-  }, []);
+  // console.log(rocket);
+  // useEffect(() => {
+  //   onrocket(rocket);
+  // }, []);
 
   // useEffect(() => {
   //   const addlistener = () => {
@@ -43,7 +43,7 @@ export default function LayoutPage(props: Iprops) {
     background-size: cover;
     background-attachment: fixed;
     position: relative;
-    height: 8000px;
+    height: auto;
   `;
 
   const sat = keyframes`
@@ -157,14 +157,14 @@ export default function LayoutPage(props: Iprops) {
   return (
     <div>
       <HeaderPage />
-      <LayoutBanner></LayoutBanner>
+      {/* <LayoutBanner></LayoutBanner> */}
       {/* <LayoutNavi></LayoutNavi> */}
       <Body>
         {props.children}
-        <Time>{rocket === 10 ? "" : 10 - rocket}</Time>
-        <Satelite rocket={rocket} src="/images/rocket3.png" />
-        <Rocket rocket={rocket} src="/images/rocket2.png" />
-        <Fire rocket={rocket} src="/images/fire2.png" />
+        {/* <Time>{rocket === 10 ? "" : 10 - rocket}</Time> */}
+        {/* <Satelite rocket={rocket} src="/images/rocket3.png" /> */}
+        {/* <Rocket rocket={rocket} src="/images/rocket2.png" /> */}
+        {/* <Fire rocket={rocket} src="/images/fire2.png" /> */}
       </Body>
       {/* <LayoutFooter></LayoutFooter> */}
     </div>
