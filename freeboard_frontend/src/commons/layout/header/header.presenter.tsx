@@ -28,21 +28,23 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
             src="/images/nasa3.png"
             onClick={props.moveHomePage}
           ></he.logo>
+          <div>
+            <he.signBtn
+              id="signUp"
+              onClick={props.moveRegisterPage}
+              isVisible={props.isVisible}
+            >
+              {props.acessToken ? "My Information" : "Sign Up"}
+            </he.signBtn>
+            <he.signBtn
+              id="signIn"
+              onClick={props.moveRegisterPage}
+              isVisible={props.isVisible}
+            >
+              {props.acessToken ? "Logout" : "Sign In"}
+            </he.signBtn>
+          </div>
 
-          <he.signup
-            id="signUp"
-            onClick={props.moveRegisterPage}
-            isVisible={props.isVisible}
-          >
-            {props.acessToken ? "My Information" : "Sign Up"}
-          </he.signup>
-          <he.signin
-            id="signIn"
-            onClick={props.moveRegisterPage}
-            isVisible={props.isVisible}
-          >
-            {props.acessToken ? "Logout" : "Sign In"}
-          </he.signin>
           <he.mainMenu>
             <he.H3L address={props.address} onClick={props.moveFirePage}>
               firebase

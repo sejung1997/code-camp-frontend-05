@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 export const Wrapper = styled.div`
-  padding: 100px 50px;
-  border: none;
-  color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const todayUniverse = styled.div`
@@ -35,9 +35,18 @@ export const inputWrapper = styled.div`
   background-color: black;
   color: black;
 `;
-
+export const searchGroup = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+`;
 export const todayImg = styled.img`
   width: 400px;
+  margin-right: 50px;
+`;
+export const imgGroup = styled.img`
+  width: 200px;
   margin-right: 50px;
 `;
 export const searchBtn = styled.button`

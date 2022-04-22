@@ -155,7 +155,7 @@ export default function LayoutPage(props: Iprops) {
     color: #fff;
   `;
   return (
-    <div>
+    <>
       <HeaderPage />
       {/* <LayoutBanner></LayoutBanner> */}
       {/* <LayoutNavi></LayoutNavi> */}
@@ -167,6 +167,6 @@ export default function LayoutPage(props: Iprops) {
         {/* <Fire rocket={rocket} src="/images/fire2.png" /> */}
       </Body>
       {/* <LayoutFooter></LayoutFooter> */}
-    </div>
+    </>
   );
 }

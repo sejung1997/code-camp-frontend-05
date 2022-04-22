@@ -4,23 +4,18 @@ import { IAddressProps } from "./header.types";
 export const Menu = styled.div`
   background-color: black;
   width: 100%;
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0px;
+  height: 120px;
   z-index: 2;
+  position: fixed;
 `;
 
 export const logo = styled.img`
-  /* background-color: red; */
   margin: auto;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 5%;
   position: absolute;
-  height: 130px;
+  height: 100px;
   :hover {
     cursor: pointer;
   }
@@ -32,6 +27,11 @@ export const inner = styled.div`
   position: relative;
   left: 0;
   margin: 0 auto;
+  > div {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 `;
 export const mainMenu = styled.div`
   font-size: 20px;
@@ -46,13 +46,13 @@ export const mainMenu = styled.div`
   bottom: 0;
 `;
 
-export const signup = styled.div`
+export const signBtn = styled.div`
   color: #fff;
-  font-size: 16px;
+  font-size: 12px;
   position: absolute;
   right: 0;
   top: 0;
-  padding: 20px 10px;
+  padding: 10px 10px;
   margin-right: 100px;
   text-align: center;
   :hover {
@@ -62,21 +62,7 @@ export const signup = styled.div`
   /* background-color: ${(props: IAddressProps) =>
     props.isVisible ? "black" : ""}; ; */
 `;
-export const signin = styled.div`
-  color: #fff;
-  font-size: 16px;
 
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 20px 10px;
-  text-align: center;
-
-  :hover {
-    background-color: red;
-    cursor: pointer;
-  }
-`;
 export const H3 = styled.div`
   color: #fff;
   width: 200px;
