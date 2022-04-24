@@ -35,11 +35,9 @@ export const inputWrapper = styled.div`
   background-color: black;
   color: black;
 `;
-export const searchGroup = styled.div`
-  display: flex;
+export const searchGroup = styled.span`
   margin-bottom: 20px;
   width: 100%;
-  flex-wrap: wrap;
 `;
 export const todayImg = styled.img`
   width: 400px;

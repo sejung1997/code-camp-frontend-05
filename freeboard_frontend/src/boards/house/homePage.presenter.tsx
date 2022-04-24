@@ -21,25 +21,25 @@ export default function BannerPageUI(props: IHomePageUI) {
 
           <home.todayExplan>{props.todayData?.explanation}</home.todayExplan>
         </home.data>
-      </home.todayUniverse>
-      <home.searchWrapper>
-        <home.inputWrapper>
-          <input
-            style={{ color: "black", outline: "none" }}
-            onChange={(event) => props.setKeyword(event.target.value)}
-          />
-          <home.searchBtn onClick={props.searchApi}>검색</home.searchBtn>
-        </home.inputWrapper>
-
-        {props.searchData?.map((el) => (
-          <home.searchGroup key={uuidv4()}>
-            {/* <div>{el.data[0].title}</div> */}
-            <home.imgGroup
-              src={`http://images-assets.nasa.gov/image/${el.data[0].nasa_id}/${el.data[0].nasa_id}~orig.jpg`}
+        <home.searchWrapper>
+          <home.inputWrapper>
+            <input
+              style={{ color: "black", outline: "none" }}
+              onChange={(event) => props.setKeyword(event.target.value)}
             />
-          </home.searchGroup>
-        ))}
-      </home.searchWrapper>
+            <home.searchBtn onClick={props.searchApi}>검색</home.searchBtn>
+          </home.inputWrapper>
+
+          {props.searchData?.map((el) => (
+            <home.searchGroup key={uuidv4()}>
+              <div>{el.data[0].title}</div>
+              <home.imgGroup
+                src={`http://images-assets.nasa.gov/image/${el.data[0].nasa_id}/${el.data[0].nasa_id}~orig.jpg`}
+              />
+            </home.searchGroup>
+          ))}
+        </home.searchWrapper>
+      </home.todayUniverse>
     </home.Wrapper>
   );
 }
