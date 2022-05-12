@@ -40,7 +40,7 @@ export default function ReactHookFormPage() {
       비밀번호 : <Input01 type="password" register={register("myPassword")} />
       {/* 비밀번호: <input type="password" {...register("myPassword")} /> */}
       <div>{formState.errors.myPassword?.message}</div>
-      <Button01 type="reset" isValid={formState.isValid} name="로그인" />
+      <Button01 type="submit" isValid={formState.isValid} name="로그인" />
     </form>
   );
 }
