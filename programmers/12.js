@@ -55,3 +55,19 @@ function solution(skill, skill_trees) {
     }
     return answer
 }
+function solution(n, lost, reserve) {
+    var answer = n - lost.length;
+    const reserve2 =  reserve.map((x,index) =>  {
+                   if( lost.includes(x)) {
+                       answer += 1
+                       lost = lost.filter(y => y!==x)
+                   }
+                    else return x
+                
+                })
+    reserve2.map(x => {
+         if(lost.includes(x+1) || lost.includes(x-1))  answer += 1
+
+    })
+    return (answer >= n ? n : answer) 
+}
