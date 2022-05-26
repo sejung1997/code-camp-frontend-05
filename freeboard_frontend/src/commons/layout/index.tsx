@@ -12,31 +12,31 @@ interface Iprops {
 }
 
 export default function LayoutPage(props: Iprops) {
-  // const [rocket, setRocket] = useState(0);
-  // const onrocket = _.debounce((rocket) => {
-  //   if (rocket === 10) return;
-  //   const newRocket = rocket + 1;
-  //   setRocket(newRocket);
-  //   onrocket(newRocket);
-  // }, 1000);
+  const [rocket, setRocket] = useState(0);
+  const onrocket = _.debounce((rocket) => {
+    if (rocket === 10) return;
+    const newRocket = rocket + 1;
+    setRocket(newRocket);
+    onrocket(newRocket);
+  }, 1000);
 
-  // console.log(rocket);
-  // useEffect(() => {
-  //   onrocket(rocket);
-  // }, []);
+  console.log(rocket);
+  useEffect(() => {
+    onrocket(rocket);
+  }, []);
 
-  // useEffect(() => {
-  //   const addlistener = () => {
-  //     window.addEventListener("scroll", function () {
-  //       setRocketPosition(window.scrollY);
-  //     });
-  //   };
-  //   addlistener();
-  //   console.log(rocketPosition);
-  //   return () => {
-  //     console.log("여기서 나갈래요");
-  //   };
-  // }, []);
+  useEffect(() => {
+    const addlistener = () => {
+      window.addEventListener("scroll", function () {
+        setRocketPosition(window.scrollY);
+      });
+    };
+    addlistener();
+    console.log(rocketPosition);
+    return () => {
+      console.log("여기서 나갈래요");
+    };
+  }, []);
   const Body = styled.div`
     background-image: url("/images/un.png");
     background-position: center;
