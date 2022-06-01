@@ -157,16 +157,16 @@ export default function LayoutPage(props: Iprops) {
   return (
     <>
       <HeaderPage />
-      {/* <LayoutBanner></LayoutBanner> */}
-      {/* <LayoutNavi></LayoutNavi> */}
+      <LayoutBanner></LayoutBanner>
+      <LayoutNavi></LayoutNavi>
       <Body>
         {props.children}
-        {/* <Time>{rocket === 10 ? "" : 10 - rocket}</Time> */}
-        {/* <Satelite rocket={rocket} src="/images/rocket3.png" /> */}
-        {/* <Rocket rocket={rocket} src="/images/rocket2.png" /> */}
-        {/* <Fire rocket={rocket} src="/images/fire2.png" /> */}
+        <Time>{rocket === 10 ? "" : 10 - rocket}</Time>
+        <Satelite rocket={rocket} src="/images/rocket3.png" />
+        <Rocket rocket={rocket} src="/images/rocket2.png" />
+        <Fire rocket={rocket} src="/images/fire2.png" />
       </Body>
-      {/* <LayoutFooter></LayoutFooter> */}
+      <LayoutFooter></LayoutFooter>
     </>
   );
 }
