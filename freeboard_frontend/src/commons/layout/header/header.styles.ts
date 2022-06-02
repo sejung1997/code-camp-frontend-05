@@ -21,17 +21,20 @@ export const logo = styled.img`
   }
 `;
 export const inner = styled.div`
-  width: 1500px;
+  width: 1200px;
   height: 100%;
   right: 0;
+  border: 1px solid red;
   position: relative;
   left: 0;
   margin: 0 auto;
-  > div {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
+`;
+export const subMenu = styled.div`
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  top: 10px;
 `;
 export const mainMenu = styled.div`
   font-size: 20px;
@@ -49,66 +52,21 @@ export const mainMenu = styled.div`
 export const signBtn = styled.div`
   color: #fff;
   font-size: 12px;
-  position: absolute;
-  right: 0;
-  top: 0;
   padding: 10px 10px;
-  margin-right: 100px;
   text-align: center;
   :hover {
-    background-color: red;
-    cursor: pointer;
-  }
-  /* background-color: ${(props: IAddressProps) =>
-    props.isVisible ? "black" : ""}; ; */
-`;
-
-export const H3 = styled.div`
-  color: #fff;
-  width: 200px;
-  padding: 20px 10px;
-
-  text-align: center;
-  background-color: ${(props: IAddressProps) =>
-    props.address.length === 25 ? "black" : ""};
-  :hover {
-    background-color: red;
-    cursor: pointer;
-  }
-`;
-export const H3N = styled.div`
-  color: #fff;
-  width: 200px;
-
-  padding: 20px 10px;
-  text-align: center;
-  background-color: ${(props: IAddressProps) =>
-    props.address[1] === "N" ? "black" : ""};
-  :hover {
-    background-color: red;
     cursor: pointer;
   }
 `;
 
 export const H3L = styled.div`
   color: #fff;
-  width: 200px;
-  padding: 20px 10px;
+
+  padding: 10px 50px;
+  border-radius: 5px 5px 0 0;
   text-align: center;
   background-color: ${(props: IAddressProps) =>
     props.address[1] === "b" ? "black" : ""};
-  :hover {
-    background-color: red;
-    cursor: pointer;
-  }
-`;
-export const H3E = styled.div`
-  color: #fff;
-  width: 200px;
-  padding: 20px 10px;
-  text-align: center;
-  background-color: ${(props: IAddressProps) =>
-    props.address[props.address.length - 2] === "i" ? "black" : ""};
   :hover {
     background-color: red;
     cursor: pointer;

@@ -28,7 +28,7 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
             src="/images/nasa3.png"
             onClick={props.moveHomePage}
           ></he.logo>
-          <div>
+          <he.subMenu>
             <he.signBtn
               id="signUp"
               onClick={props.moveRegisterPage}
@@ -43,12 +43,9 @@ export default function HeaderPageUI(props: IHeaerPageUIProps) {
             >
               {props.acessToken ? "Logout" : "Sign In"}
             </he.signBtn>
-          </div>
+          </he.subMenu>
 
           <he.mainMenu>
-            <he.H3L address={props.address} onClick={props.moveFirePage}>
-              firebase
-            </he.H3L>
             <he.H3L address={props.address} onClick={props.moveImagePage}>
               photo
             </he.H3L>
