@@ -24,7 +24,7 @@ export default function HeaderPage(props) {
   return (
     <>
       <header.Menu>
-        <Inner>
+        <Inner height="150px">
           <header.logo>
             <header.logoImg
               onClick={movePage("/")}

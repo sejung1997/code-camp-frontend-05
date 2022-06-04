@@ -30,7 +30,7 @@ export default function LayoutPage(props: Iprops) {
       <Header setKeyword={setKeyword} />
       <Banner />
       <Body>
-        <Inner>
+        <Inner height="auto">
           <GlobalContext.Provider value={searchValue}>
             {props.children}
           </GlobalContext.Provider>
