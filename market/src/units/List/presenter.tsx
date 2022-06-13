@@ -67,6 +67,7 @@ export default function fetchUseditemsPresenter(
                         <LazyLoad key={uuidv4()} height={500}>
                           <List.SliderItem
                             src={`https://storage.googleapis.com/${y}`}
+                            onError={props.onErrorImg}
                           ></List.SliderItem>
                         </LazyLoad>
                       ))}
