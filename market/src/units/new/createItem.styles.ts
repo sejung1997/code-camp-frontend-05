@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import DaumPostcode from "react-daum-postcode";
 
 export const Main = styled.div`
-  width: 1200px;
+  width: 100%;
   padding: 60px 103px 100px 101px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   font-family: sans-serif;
@@ -120,7 +120,7 @@ export const SearchBtn = styled.button`
   height: 50px;
   :hover {
     cursor: pointer;
-    color: red;
+    color: #fff;
     background-color: green;
   }
 `;
@@ -191,7 +191,7 @@ export const BottomSubmit = styled.button`
   border: 2px solid green;
   :hover {
     cursor: pointer;
-    color: red;
+    color: #fff;
     background-color: green;
   }
   margin-right: 24px;
@@ -209,7 +209,7 @@ export const BottomCancel = styled.button`
   border: 2px solid green;
   :hover {
     cursor: pointer;
-    color: red;
+    color: #fff;
     background-color: green;
   }
   color: green;

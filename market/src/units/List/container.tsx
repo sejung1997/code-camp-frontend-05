@@ -62,7 +62,7 @@ export default function fetchUseditemsContainer() {
     ]);
   };
   const onErrorImg = (e: any) => {
-    e.target.src = "/images/2615A25051A5ABFF21.png";
+    e.target.src = "/images/pngwing.com (8).png";
   };
   const settings = {
     dots: false,

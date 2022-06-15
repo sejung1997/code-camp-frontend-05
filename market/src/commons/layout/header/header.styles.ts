@@ -103,7 +103,6 @@ export const logoImg = styled.img`
 export const subMenu = styled.div`
   right: 0;
   display: flex;
-  border: 1px solid red;
   position: absolute;
 `;
 export const TodayProduct = styled.div`

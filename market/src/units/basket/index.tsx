@@ -57,6 +57,13 @@ export default function BasketPageContainer() {
 
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("baskets")));
+    checkBoxes = document?.getElementById("checkALL");
+    checkBoxes.addEventListener("click", () => {
+      data.forEach((_, index) => {
+        const checkBox: any = document.getElementById(`checkbox${index}`);
+        checkBox.checked = checkBoxes.checked;
+      });
+    });
   }, []);
 
   const deletekey = (id) => () => {
@@ -67,12 +74,6 @@ export default function BasketPageContainer() {
   let checkBoxes: any;
   if (process.browser) checkBoxes = document?.getElementById("checkALL");
 
-  checkBoxes.addEventListener("click", () => {
-    data.forEach((_, index) => {
-      const checkBox: any = document.getElementById(`checkbox${index}`);
-      checkBox.checked = checkBoxes.checked;
-    });
-  });
   const onClickBox = () => {
     const aaa = data.filter((_, index) => {
       return document.getElementById(`checkbox${index}`).checked;

@@ -111,8 +111,8 @@ export const SearchBtn = styled.button`
 `;
 export const images = styled.img``;
 export const SliderItem = styled.img`
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
   display: block;
   margin: 0 auto;
   right: 0;
@@ -123,8 +123,6 @@ export const planet = styled.div`
   display: flex;
 `;
 export const HeartIcons = styled(HeartTwoTone)`
-  margin-right: 10px;
-
   & path {
     fill: green;
   }

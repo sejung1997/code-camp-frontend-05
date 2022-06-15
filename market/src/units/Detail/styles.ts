@@ -6,7 +6,7 @@ export const div = styled.div`
   padding-top: 150px;
 `;
 export const Main = styled.div`
-  width: 1200px;
+  width: 100%;
   margin: auto;
   right: 0;
   left: 0;

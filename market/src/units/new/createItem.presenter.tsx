@@ -71,7 +71,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             <A.Title>내용</A.Title>
             {process.browser && (
               <ReactQuill
-                style={{ width: "1000px", height: "300px" }}
+                style={{ width: "100%", height: "300px" }}
                 onChange={props.handleChange}
                 value={props.defaultData?.fetchUseditem?.contents || ""}
 
