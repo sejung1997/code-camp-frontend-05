@@ -69,7 +69,7 @@ export default function BannerPage() {
   useEffect(() => {
     console.log(dateString);
     imgSearch();
-  }, []);
+  // }, []);
 
   return (
     <BannerPageUI
