@@ -47,13 +47,13 @@ export default function BannerPage() {
           `https://images-api.nasa.gov/search?q=${keyword}%&media_type=image`
         );
         console.log(result);
-        // const imgResult = await result.data.collection.items.map((el) =>
-        //   axios.get(el.href).then((res) => JSON.parse(res))
-        // );
-        // const d = () => {
-        //   imgResult.then((res) => console.log(res));
-        // };
-        // d();
+        const imgResult = await result.data.collection.items.map((el) =>
+          axios.get(el.href).then((res) => JSON.parse(res))
+        );
+        const d = () => {
+          imgResult.then((res) => console.log(res));
+        };
+        d();
         setSearchData(result.data.collection.items);
         const imgHrefs = result.data.collection.items.map((el) =>
           axios.get(el.href).then((res) => res.data)
