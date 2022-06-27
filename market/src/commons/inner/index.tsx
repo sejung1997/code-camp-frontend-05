@@ -6,7 +6,9 @@ interface Iprops {
 export default function Inner(props: Iprops) {
   const Inner = styled.div`
     margin: auto;
-    width: 1050px;
+    width: calc(100% - 30px);
+    max-width: 1200px;
+    border: 1px solid red;
     margin-top: ${(props) => (props.height === "auto" ? "200px" : "0")};
     height: ${(props) => props.height};
     left: 0;

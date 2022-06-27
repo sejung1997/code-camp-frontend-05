@@ -1,15 +1,20 @@
 import * as banner from "./banner.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import { removeLocal } from "../../function/Localstorage/index";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../../../../pages/_app";
+import { useRouter } from "next/router";
 
 export default function BannerPage() {
   const { date, todayProduct, setTodayProduct } = useContext(GlobalContext);
+  const router = useRouter();
 
   const deleteProduct = (id) => () => {
     setTodayProduct(removeLocal(date, id));
   };
+  useEffect(() => {
+    console.log(router.asPath);
+  }, []);
   const onloadMore = () => {};
   return (
     <>

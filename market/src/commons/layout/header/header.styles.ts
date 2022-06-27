@@ -3,72 +3,76 @@ import { SearchOutlined } from "@ant-design/icons";
 import { keyframes } from "@emotion/react";
 import { stubArray } from "lodash";
 export const Menu = styled.div`
-  background-image: url("/images/NNhFby-700x376.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 3;
+  display: flex;
+  justify-content: center;
 `;
-
-export const SignIn = styled.div`
-  font-size: 14px;
-  color: #fff;
-  padding: 15px 0 10px 30px;
-  :hover {
-    color: black;
-    cursor: pointer;
-  }
+export const Inner = styled.div`
+  width: calc(100% - 30px);
+  max-width: 1200px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 `;
-export const MenuTitle = styled.div`
+export const MainMenu = styled.div`
+  flex-grow: 1;
+  margin-left: 20px;
+  margin-top: 6px;
+  font-size: 18px;
+  color: #9acd32;
+  display: flex;
+`;
+export const MenuLabel = styled.div`
+  font-size: 16px;
+  margin-right: 10px;
+  color: #2e8b57;
+`;
+export const logo = styled.h1`
+  color: #3cb371;
   font-size: 25px;
-  color: #fff;
-  padding: 10px 60px 5px 0;
+  font-weight: 500;
+  margin: 0;
+`;
+export const UserLabel = styled.div`
+  margin-right: 10px;
+  margin-top: 3px;
+
   :hover {
     color: black;
     cursor: pointer;
   }
 `;
-export const Search = styled.div`
-  /* margin: 250px auto 100px auto; */
 
-  left: 0;
-  right: 0;
-  margin-left: 30px;
+export const Search = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
 `;
 
-// export const SearchTitle = styled.input`
-/* width: 40px;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #fff;
-  border: 1px solid #fff;
-  padding-left: 10px;
-  transition: 2s; */
-
-// `;
 export const SearchTitle = styled.input`
   transition: 0.4s;
   border-radius: 5px;
-
-  color: #333;
-  width: 50px;
-  border: 1px solid #fff;
-  padding-left: 10px;
+  border: none;
+  color: red !important;
+  width: 180px;
+  height: 40px;
+  background-color: #f8f8ff;
+  padding: 0 0 0 10px;
   &:focus {
-    width: 200px;
+    width: 300px;
+    outline: 0;
   }
 `;
 
 export const searchBtn = styled(SearchOutlined)`
-  font-size: 30px;
-  position: absolute;
+  font-size: 20px;
+  margin-top: 3px;
   right: 0;
-  top: 10px;
 `;
 
 export const SmallBtn = styled.button`
@@ -84,69 +88,13 @@ export const SmallBtn = styled.button`
     cursor: pointer;
   }
 `;
-export const MenuWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  left: 200px;
-  bottom: 0;
-`;
-export const logo = styled.div`
-  height: 120px;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  position: absolute;
-`;
-export const logoImg = styled.img`
-  height: 120px;
-`;
-export const subMenu = styled.div`
-  right: 0;
-  display: flex;
-  position: absolute;
-`;
-export const TodayProduct = styled.div`
-  position: fixed;
-  right: 50px;
-  width: 150px;
-  padding: 30px 15px;
-  top: 170px;
-  color: black;
-  border: 1px solid green;
-  border-radius: 5px;
-  overflow: auto;
-  max-height: 800px;
-`;
-export const TodayLabel = styled.div`
-  font-size: 20px;
-  color: green;
-  text-align: center;
-`;
-export const DataWrapper = styled.div`
-  display: flex;
-  left: 0;
-  right: 0;
-  width: 100px;
-  margin: 0 auto;
 
-  flex-direction: column;
+export const logoImg = styled.img`
+  height: 50px;
 `;
-export const Img = styled.img`
-  width: 100px;
-  height: 100px;
-  left: 0;
-  margin: 10px 0;
-`;
-export const UserInfo = styled.div`
-  font-size: 17px;
-  color: #fff;
-  right: 0;
-  bottom: 25px;
-  position: absolute;
-`;
-export const Point = styled.div`
-  font-size: 17px;
-  position: absolute;
-  color: #fff;
-  right: 0;
+export const User = styled.div`
+  margin-left: 20px;
+  margin-right: 10px;
+  font-size: 14px;
+  display: flex;
 `;

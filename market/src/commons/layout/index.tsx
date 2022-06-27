@@ -8,7 +8,8 @@ import {
 } from "react";
 import styled from "@emotion/styled";
 import Header from "./header/header.container";
-import Banner from "./banner/banner";
+// import Banner from "./banner/banner";
+import Footer from "./footer/footer.container";
 import Inner from "../inner/index";
 interface Iprops {
   children: ReactChild;
@@ -28,7 +29,7 @@ export default function LayoutPage(props: Iprops) {
   return (
     <Fragment>
       <Header setKeyword={setKeyword} />
-      <Banner />
+      {/* <Banner /> */}
       <Body>
         <Inner height="auto">
           <GlobalContext.Provider value={searchValue}>
@@ -36,6 +37,7 @@ export default function LayoutPage(props: Iprops) {
           </GlobalContext.Provider>
         </Inner>
       </Body>
+      <Footer />
     </Fragment>
   );
 }

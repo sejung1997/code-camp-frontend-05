@@ -1,6 +1,4 @@
 import * as header from "./header.styles";
-import Inner from "../../inner/index";
-import * as List from "../../../units/List/styles";
 import { useMovePage } from "../../function/movePage";
 import { useContext, useState, ChangeEvent, useEffect } from "react";
 import { GlobalContext } from "../../../../pages/_app";
@@ -24,51 +22,38 @@ export default function HeaderPage(props) {
   return (
     <>
       <header.Menu>
-        <Inner height="150px">
-          <header.logo>
+        <header.Inner>
+          {/* <header.logo>
             <header.logoImg
               onClick={movePage("/")}
               src="/images/pngwing.com (8).png"
             />
-          </header.logo>
-          <header.subMenu>
-            <header.SignIn onClick={movePage("signIn")}>
+          </header.logo> */}
+          <header.logo>Green Market</header.logo>
+          <header.MainMenu>
+            <header.MenuLabel>Product</header.MenuLabel>
+            <header.MenuLabel>Map</header.MenuLabel>
+          </header.MainMenu>
+          <header.Search>
+            <header.SearchTitle
+              onChange={onChangeSearch}
+              type="text"
+              placeholder="상품이나 지역을 검색해보세요"
+            />
+            {/* <header.searchBtn onClick={movePage("list")} /> */}
+          </header.Search>
+          <header.User>
+            <header.UserLabel onClick={movePage("signIn")}>
               {acessToken ? "로그아웃" : "로그인"}
-            </header.SignIn>
-            <header.SignIn onClick={movePage("signUp")}>
+            </header.UserLabel>
+            <header.UserLabel onClick={movePage("signUp")}>
               {acessToken ? "마이페이지" : "회원가입"}
-            </header.SignIn>
-
-            <header.Search>
-              <header.SearchTitle onChange={onChangeSearch} type="text" />
-            </header.Search>
-            <header.searchBtn onClick={movePage("list")} />
-          </header.subMenu>
-
-          <header.MenuWrapper>
-            <header.MenuTitle onClick={movePage("list")}>
-              상품 목록
-            </header.MenuTitle>
-            <header.MenuTitle onClick={movePage("new")}>
-              상품 등록
-            </header.MenuTitle>
-            <header.MenuTitle onClick={movePage("basket")}>
-              장바구니
-            </header.MenuTitle>
-            <header.MenuTitle onClick={movePage("pick")}>
-              찜한상품
-            </header.MenuTitle>
-          </header.MenuWrapper>
-
-          <header.UserInfo onClick={movePage("signUp")}>
-            {acessToken
-              ? data?.fetchUserLoggedIn?.name + "님 안녕하세요"
-              : "로그인을 해주세요"}
-            <header.Point>
-              포인트: {data?.fetchUserLoggedIn?.userPoint.amount}원
-            </header.Point>
-          </header.UserInfo>
-        </Inner>
+            </header.UserLabel>
+          </header.User>
+          {/* <header.UserInfo onClick={movePage("signUp")}> */}
+          {/* {acessToken ? data?.fetchUserLoggedIn?.name + "님 안녕하세요" : ""} */}
+          {/* </header.UserInfo> */}
+        </header.Inner>
       </header.Menu>
     </>
   );

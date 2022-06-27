@@ -13,13 +13,13 @@ const Label = styled.div`
   text-align: center;
 `;
 const Main = styled.div`
-  width: 1200px;
+  width: 100%;
 `;
 const Wrpper = styled.div`
   font-size: 23px;
   padding: 30px 20px;
   border: 1px solid green;
-  width: 1100px;
+  width: 100%;
   position: relative;
   border-radius: 5px;
 `;
@@ -38,7 +38,7 @@ const BtnGroup = styled.div`
 `;
 const Contents = styled.div`
   display: flex;
-  width: 1200px;
+  width: 100%;
   align-items: center;
   margin-bottom: 120px;
 `;
@@ -58,12 +58,6 @@ export default function BasketPageContainer() {
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("baskets")));
     checkBoxes = document?.getElementById("checkALL");
-    checkBoxes.addEventListener("click", () => {
-      data.forEach((_, index) => {
-        const checkBox: any = document.getElementById(`checkbox${index}`);
-        checkBox.checked = checkBoxes.checked;
-      });
-    });
   }, []);
 
   const deletekey = (id) => () => {
@@ -73,6 +67,12 @@ export default function BasketPageContainer() {
 
   let checkBoxes: any;
   if (process.browser) checkBoxes = document?.getElementById("checkALL");
+  checkBoxes?.addEventListener("click", () => {
+    data.forEach((_, index) => {
+      const checkBox: any = document.getElementById(`checkbox${index}`);
+      checkBox.checked = checkBoxes.checked;
+    });
+  });
 
   const onClickBox = () => {
     const aaa = data.filter((_, index) => {
