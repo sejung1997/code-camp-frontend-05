@@ -7,7 +7,7 @@
     "build:ssr": "next build",
     "lint": "next lint",
     "generate": "graphql-codegen",
-    "start": "react-scripts-start"
+    "start": "next start"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
