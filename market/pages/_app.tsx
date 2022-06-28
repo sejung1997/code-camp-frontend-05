@@ -49,18 +49,20 @@ interface IToday {
   id?: string;
   seller?: string;
   product?: string;
+  images?: string[];
   price?: Number;
+  name?: string;
 }
 interface IGlobalContext {
   acessToken?: String;
   setAcessToken?: Dispatch<SetStateAction<String>>;
   userInfo?: IUserInfo;
   setUserInfo?: Dispatch<SetStateAction<IUserInfo>>;
-  setTodayProduct?: Dispatch<SetStateAction<IToday>>;
-  todayProduct?: [any];
-  date: string;
-  point: Number;
-  setPoint: Dispatch<SetStateAction<Number>>;
+  setTodayProduct?: Dispatch<SetStateAction<IToday[]>>;
+  todayProduct?: IToday[];
+  date?: string;
+  point?: Number;
+  setPoint?: Dispatch<SetStateAction<Number>>;
 }
 export const GlobalContext = createContext<IGlobalContext>({});
 

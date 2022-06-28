@@ -69,5 +69,10 @@ export interface IFetchItemPresenter {
   userInfo: IUserInfo;
   movePage: (id: string) => () => void;
   deleteBtn: () => void;
+  router: any;
   pickUp: () => void;
+  UseditemPick: any;
+  purchase: () => void;
+  isPick: boolean;
+  isPickCount: number;
 }

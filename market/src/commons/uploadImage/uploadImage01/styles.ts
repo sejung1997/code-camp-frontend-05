@@ -13,8 +13,10 @@ export const Box1 = styled.div`
   cursor: pointer;
   position: relative;
 `;
-
-export const img = styled.img`
+interface IImgUrl {
+  imgUrl: any;
+}
+export const img = styled.img<IImgUrl>`
   display: ${(props: any) => (props.imgUrl ? "block" : "none")};
   width: 78px;
   height: 78px;

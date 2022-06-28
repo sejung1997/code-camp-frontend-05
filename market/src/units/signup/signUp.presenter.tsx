@@ -31,6 +31,7 @@ export default function SignInPresenter(props) {
                 setImgUrl={props.setImgUrl}
                 index={0}
                 isEdit={false}
+                defaultData=""
               />
             ) : (
               <SI.userImg

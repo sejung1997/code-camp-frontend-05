@@ -3,6 +3,7 @@ export interface IUploadImagePage {
   setImgUrl(fileUrl: any[]);
   index: number;
   isEdit: boolean;
+  defaultData: any;
 }
 
 export interface IUploadImagePageUI {

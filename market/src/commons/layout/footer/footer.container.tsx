@@ -1,4 +1,3 @@
-import Inner from "../../inner";
 import * as Footer from "./footer.styles";
 import { useMovePage } from "../../function/movePage";
 
@@ -28,10 +27,14 @@ export default function FooterPage(props) {
         </Footer.InfoWrapper>
 
         <Footer.InfoWrapper>
-          고객문의<Footer.UserLabel> ksgve1997814@naver.com</Footer.UserLabel>
-          제휴문의 <Footer.UserLabel> ksgve1997814@naver.com</Footer.UserLabel>
-          광고<Footer.UserLabel> sejung1997@gmail.com</Footer.UserLabel>
-          PR문의<Footer.UserLabel> sejung1997@gmail.com</Footer.UserLabel>
+          <span>고객문의</span>
+          <Footer.UserLabel> ksgve1997814@naver.com</Footer.UserLabel>
+          <span>제휴문의</span>{" "}
+          <Footer.UserLabel> ksgve1997814@naver.com</Footer.UserLabel>
+          <span>광고</span>
+          <Footer.UserLabel> sejung1997@gmail.com</Footer.UserLabel>
+          <span>PR문의</span>
+          <Footer.UserLabel> sejung1997@gmail.com</Footer.UserLabel>
           <Footer.UserLabel>
             서울특별시 마포구 토정로 31길 24, 301호 (그린서비스)
           </Footer.UserLabel>

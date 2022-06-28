@@ -123,18 +123,18 @@ export default function createItemContainer(props) {
     window.history.back();
   };
 
-  const tag = (event: HTMLInputElement) => {
-    const inputTag = document.getElementById("tagInput");
-    if (window.event.keyCode == 13) {
-      // if (tags.length === 0) inputTag.value = null;
-      const temp = [...tags];
-      temp.push(event.target.value);
+  // const tag = (event: HTMLInputElement) => {
+  //   const inputTag = document.getElementById("tagInput") as HTMLInputElement
+  //   if (window.event.keyCode === 13) {
+  //     // if (tags.length === 0) inputTag.value = null;
+  //     const temp = [...tags];
+  //     temp.push(event.target.value);
 
-      setTags(temp);
-      inputTag.value = null;
-      console.log(event.target.value);
-    }
-  };
+  //     setTags(temp);
+  //     inputTag.value = null;
+  //     console.log(event.target.value);
+  //   }
+  // };
   return (
     <CreateItemPresenter
       setImgUrl={setImgUrl}
@@ -154,9 +154,7 @@ export default function createItemContainer(props) {
       inputs={inputs}
       showModal={showModal}
       isModalVisible={isModalVisible}
-      tag={tag}
-      tags={tags}
-      tagRef={tagRef}
+      // tagRef={tagRef}
     />
   );
 }

@@ -32,7 +32,8 @@ export default function BannerPage() {
                 src={`https://storage.googleapis.com/${el.images[0]}`}
               />
               <div>{el.price}원</div>
-              <banner.SmallBtn onClick={deleteProduct(el._id)}>
+
+              <banner.SmallBtn onClick={deleteProduct(el.id)}>
                 삭제하기
               </banner.SmallBtn>
             </banner.DataWrapper>

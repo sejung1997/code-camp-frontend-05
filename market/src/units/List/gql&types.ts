@@ -27,4 +27,8 @@ export interface IFetchUseditemsPresenter {
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   keyword: string;
   srchDate: number[];
+  rangePick: (A: any) => void;
+  onClickSearch: () => void;
+  settings: any;
+  onErrorImg: (A: any) => void;
 }

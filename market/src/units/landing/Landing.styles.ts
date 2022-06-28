@@ -1,5 +1,21 @@
 import styled from "@emotion/styled";
 
+export const Market = styled.div`
+  width: 100%;
+  height: auto;
+  margin-top: 70px;
+  background-color: #fffaf0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const Text = styled.div``;
+export const Inner = styled.div`
+  width: 1200px;
+`;
+
+export const Contents = styled.div``;
+
 export const Column = styled.div`
   border: 2px solid green;
   padding: 20px 10px;
@@ -29,7 +45,10 @@ export const topTitle = styled.span`
   text-align: center;
   color: green;
 `;
-export const word = styled.span`
+interface Imatch {
+  isMatched: boolean;
+}
+export const word = styled.span<Imatch>`
   color: ${(props) => (props.isMatched ? "red" : "green")};
 `;
 

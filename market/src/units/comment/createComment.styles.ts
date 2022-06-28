@@ -1,8 +1,14 @@
 import { Rate } from "antd";
 
 import styled from "@emotion/styled";
-
-export const CommentArea = styled.div`
+interface IEdit {
+  isEdit: boolean;
+}
+interface IEditBtn {
+  isEdit: boolean;
+  el: any;
+}
+export const CommentArea = styled.div<IEdit>`
   width: 1200px;
   left: 0;
   margin: auto;
@@ -10,7 +16,7 @@ export const CommentArea = styled.div`
   color: green;
   margin-top: ${(props) => (props.isEdit ? "50px" : "325px")};
 `;
-export const Title = styled.div`
+export const Title = styled.div<IEdit>`
   font-size: 30px;
   font-weight: bold;
   padding: 40px 0 84px 0;
@@ -68,7 +74,7 @@ export const submitButton = styled.button`
     background-color: green;
   }
 `;
-export const cancelButton = styled.button`
+export const cancelButton = styled.button<IEditBtn>`
   /* ${(props) =>
     props.isEdit === true ? "display: block" : "display: none"} */
 

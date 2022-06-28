@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import { GlobalContext } from "../../../pages/_app";
 import { useContext, useEffect, useState } from "react";
 import { message, Modal } from "antd";
@@ -6,7 +8,11 @@ import * as SI from "../../units/signup/signUp.styles";
 import Head from "next/head";
 import { gql, useMutation } from "@apollo/client";
 import { async } from "@firebase/util";
-
+declare global {
+  interface Window {
+    IMP: any;
+  }
+}
 export const CREATE_POINT = gql`
   mutation createPointTransactionOfLoading($impUid: ID!) {
     createPointTransactionOfLoading(impUid: $impUid) {
@@ -27,10 +33,8 @@ export default function PurchaseItem(props) {
   const handleOk = () => {
     let totalPrice = 0;
     if (props.allData) props.allData.forEach((x) => (totalPrice += x.price));
-    console.log("window.IMP");
-    console.log(window.IMP);
-    const IMP = window.IMP;
 
+    const IMP = window.IMP;
     IMP.init("imp49910675");
 
     IMP.request_pay(

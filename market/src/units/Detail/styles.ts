@@ -173,7 +173,10 @@ export const ButtonDelete = styled.button`
     background-color: green;
   }
 `;
-export const HeartIcon = styled(HeartTwoTone)`
+interface Iicon {
+  isPick: boolean;
+}
+export const HeartIcon = styled(HeartTwoTone)<Iicon>`
   font-size: 40px;
   color: green;
   margin-left: 10px;

@@ -3,7 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 
 export const Main = styled.div`
   width: 100%;
-  background-color: #969696;
+  background-color: #696969;
   display: flex;
   justify-content: center;
 `;
@@ -14,11 +14,8 @@ export const Inner = styled.div`
   display: flex;
   flex-direction: column;
   display: flex;
-  margin-top: 120px;
+  margin-top: 100px;
   position: relative;
-  &::nth-child(1) {
-    border-bottom: 1px solid #ccc;
-  }
 `;
 export const MainMenu = styled.div`
   margin-left: 80px;
@@ -33,6 +30,14 @@ export const InfoWrapper = styled.div`
   margin-bottom: 50px;
   font-size: 12px;
   color: #ccc;
+  span {
+    margin-top: 4px;
+    color: #ccc;
+  }
+  &:nth-of-type(1) {
+    padding-bottom: 50px;
+    border-bottom: 0.5px solid #b4b4b4;
+  }
 `;
 export const MenuLabel = styled.div`
   font-size: 16px;
@@ -47,9 +52,8 @@ export const logo = styled.h1`
   color: #f5f5f5;
 `;
 export const UserLabel = styled.div`
-  margin: 5px 30px 10px 5px;
+  margin: 5px 25px 10px 5px;
 
-  background-color: red;
   font-family: sans-serif;
   margin-top: 3px;
   font-size: 10px;

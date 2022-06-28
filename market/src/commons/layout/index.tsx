@@ -10,7 +10,6 @@ import styled from "@emotion/styled";
 import Header from "./header/header.container";
 // import Banner from "./banner/banner";
 import Footer from "./footer/footer.container";
-import Inner from "../inner/index";
 interface Iprops {
   children: ReactChild;
 }
@@ -31,11 +30,9 @@ export default function LayoutPage(props: Iprops) {
       <Header setKeyword={setKeyword} />
       {/* <Banner /> */}
       <Body>
-        <Inner height="auto">
-          <GlobalContext.Provider value={searchValue}>
-            {props.children}
-          </GlobalContext.Provider>
-        </Inner>
+        <GlobalContext.Provider value={searchValue}>
+          {props.children}
+        </GlobalContext.Provider>
       </Body>
       <Footer />
     </Fragment>

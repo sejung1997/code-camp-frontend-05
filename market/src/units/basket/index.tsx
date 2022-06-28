@@ -76,7 +76,10 @@ export default function BasketPageContainer() {
 
   const onClickBox = () => {
     const aaa = data.filter((_, index) => {
-      return document.getElementById(`checkbox${index}`).checked;
+      const temp = document.getElementById(
+        `checkbox${index}`
+      ) as HTMLInputElement;
+      return temp.checked;
     });
     if (aaa.length === data.length) checkBoxes.checked = true;
     if (aaa.length === 0) checkBoxes.checked = false;

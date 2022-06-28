@@ -36,12 +36,15 @@ export const userImg = styled.img`
   height: 120px;
   margin-left: 15px;
 `;
-export const BuyList = styled.div`
+interface Ihide {
+  isHide: boolean;
+}
+export const BuyList = styled.div<Ihide>`
   font-size: 11px;
   margin-bottom: 50px;
   display: ${(props) => (props.isHide ? "none" : "block")};
 `;
-export const SoldList = styled.div`
+export const SoldList = styled.div<Ihide>`
   font-size: 11px;
   margin-bottom: 50px;
   display: ${(props) => (props.isHide ? "none" : "block")};

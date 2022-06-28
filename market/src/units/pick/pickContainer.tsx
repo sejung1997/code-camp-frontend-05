@@ -50,7 +50,10 @@ export default function () {
   });
   const onClickBox = () => {
     const aaa = checkBoxData.filter((_, index) => {
-      return document.getElementById(`checkbox${index}`).checked;
+      const temp = document.getElementById(
+        `checkbox${index}`
+      ) as HTMLInputElement;
+      return temp.checked;
     });
     if (aaa.length === checkBoxData.length) checkBoxes.checked = true;
     if (aaa.length === 0) checkBoxes.checked = false;

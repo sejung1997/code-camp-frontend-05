@@ -5,9 +5,9 @@ import { IBoardUIIProps } from "./createItem.types";
 import * as A from "./createItem.styles";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import Dompurify from "dompurify";
-import { useEffect } from "react";
-import Router, { useRouter } from "next/router";
+// import Dompurify from "dompurify";
+// import { useEffect } from "react";
+// import Router, { useRouter } from "next/router";
 
 // import { Input02 } from "../../commons/inputs/input02";
 
@@ -53,11 +53,9 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             />
             {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
           </A.OptionWrapper>
-          <A.OptionWrapper>
+          {/* <A.OptionWrapper>
             <A.Title>태그</A.Title>
-            {props.tags.map((el, index) => (
-              <A.tagContents key={index}>{el}</A.tagContents>
-            ))}
+
             <A.Input02
               id="tagInput"
               defaultValue={props.defaultData?.fetchUseditem?.tags}
@@ -66,7 +64,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
               onKeyPress={props.tag}
             />
             {/* <A.ErrorMsg>{props.formState.errors.myEmail?.message}</A.ErrorMsg> */}
-          </A.OptionWrapper>
+          {/* </A.OptionWrapper>  */}
           <A.contentsWrapper>
             <A.Title>내용</A.Title>
             {process.browser && (
@@ -159,7 +157,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             {props.isEdit ? "수정하기" : "등록하기"}
           </A.BottomSubmit>
           <A.BottomCancel onClick={props.cancel}>취소하기</A.BottomCancel>
-          {props.isAskVisible && (
+          {/* {props.isAskVisible && (
             <Modal
               title="확인 메세지"
               visible={true}
@@ -168,7 +166,7 @@ export default function CreateItemPresenter(props: IBoardUIIProps) {
             >
               {props.isEdit ? "수정하시겠습니까?" : "등록하시겠습니까?"}
             </Modal>
-          )}
+          )} */}
         </A.BottomButton>
       </A.Main>
     </>

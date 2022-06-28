@@ -22,7 +22,10 @@ export const Row = styled.div`
 
   flex-wrap: wrap;
 `;
-export const word = styled.span`
+interface isd {
+  isMatched: boolean;
+}
+export const word = styled.span<isd>`
   color: ${(props) => (props.isMatched ? "red" : "green")};
 `;
 export const TopRow = styled.div`

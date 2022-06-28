@@ -1,8 +1,10 @@
 import { Rate } from "antd";
 
 import styled from "@emotion/styled";
-
-export const CommentArea = styled.div`
+interface IEdit {
+  isEdit: boolean;
+}
+export const CommentArea = styled.div<IEdit>`
   width: 1200px;
   left: 0;
   margin: auto;
@@ -10,7 +12,7 @@ export const CommentArea = styled.div`
   color: green;
 `;
 export const Image = styled.img``;
-export const Title = styled.div`
+export const Title = styled.div<IEdit>`
   font-size: 30px;
   font-weight: bold;
   padding: 40px 0 84px 0;
