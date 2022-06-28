@@ -2,14 +2,9 @@ import * as Landing from "./Landing.styles";
 import { v4 as uuidv4 } from "uuid";
 // import Slider from "react-slick";
 import ReactPlayer from "react-player";
-import Head from "next/head";
 export default function LandingPageUI(props) {
   return (
     <>
-      <Head>
-        <meta property="og:title" content="Green Market" />
-        <meta property="og:description" content="우리 동네에 신선한 반찬" />
-      </Head>
       <Landing.Market>
         <Landing.Inner>
           <Landing.Text>
