@@ -20,7 +20,7 @@ export const getServerSideProps = async (context) => {
     "https://backend05.codebootcamp.co.kr/graphql05",
     FETCH_USED_ITEMS,
     {
-      page: "1",
+      page: 1,
     }
   );
   return {
