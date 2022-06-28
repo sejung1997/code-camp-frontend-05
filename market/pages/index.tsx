@@ -1,7 +1,7 @@
 import LandingPage from "../src/units/landing/Landing.container";
 import Head from "next/head";
 import { gql, request } from "graphql-request";
-import { FETCH_USED_ITEM } from "../src/units/Detail/gql&types";
+import { FETCH_USED_ITEMS } from "../src/units/List/gql&types";
 export default function Home(props) {
   console.log(props.data, "propsData");
   return (
@@ -18,9 +18,9 @@ export default function Home(props) {
 export const getServerSideProps = async (context) => {
   const result = await request(
     "https://backend05.codebootcamp.co.kr/graphql05",
-    FETCH_USED_ITEM,
+    FETCH_USED_ITEMS,
     {
-      useditemId: context.query.id,
+      page: "1",
     }
   );
   return {
