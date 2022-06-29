@@ -10,6 +10,7 @@ import {
 import { FETCH_USED_ITEMS_BEST } from "./Landing.gql&types";
 import { FETCH_USED_ITEMS } from "../List/gql&types";
 import LandingPageUI from "./Landing.presenter";
+import { gsap } from "gsap/dist/gsap";
 
 export default function LandingPage() {
   const movePage = useMovePage();
@@ -17,10 +18,11 @@ export default function LandingPage() {
     Pick<IQuery, "fetchUseditemsOfTheBest">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS_BEST);
+
   const { data: data } = useQuery<
     Pick<IQuery, "fetchUseditemsOfTheBest">,
     IQueryFetchUseditemsArgs
-  >(FETCH_USED_ITEMS_BEST);
+  >(FETCH_USED_ITEMS);
 
   useEffect(() => {
     const fadeInEls = document.querySelectorAll(".fade");
@@ -36,7 +38,7 @@ export default function LandingPage() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplaySpeed: 3000,
     autoplay: true,

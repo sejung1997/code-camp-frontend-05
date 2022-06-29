@@ -36,6 +36,7 @@
     "firebase-tools": "^10.1.4",
     "graphql": "^16.2.0",
     "graphql-request": "^4.3.0",
+    "gsap": "^3.10.4",
     "http": "^0.0.1-security",
     "http-proxy-middleware": "^2.0.2",
     "lodash": "^4.17.21",

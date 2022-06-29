@@ -47,18 +47,14 @@ export default function LandingPageUI(props) {
           <Landing.SlideSection>
             <Slider {...props.settings}>
               {props.data?.fetchUsedItems?.map((el) => (
-                // <Landing.Column key={el._id} onClick={props.movePage(el._id)}>
-                //   <Landing.Title>{el.name}</Landing.Title>
-                //   <Landing.SliderItem
-                //     src={`https://storage.googleapis.com/${el._id}`}
-                //   ></Landing.SliderItem>
-                //   <Landing.Title>{el.seller.name}</Landing.Title>
-                //   <Landing.Title>{el.createdAt.slice(0, 10)}</Landing.Title>
-                // </Landing.Column>
-                <Landing.Column
-                  key={el}
-                  onClick={props.movePage(el)}
-                ></Landing.Column>
+                <Landing.Column key={el._id} onClick={props.movePage(el._id)}>
+                  <Landing.Title>{el.name}</Landing.Title>
+                  <Landing.SliderItem
+                    src={`https://storage.googleapis.com/${el._id}`}
+                  ></Landing.SliderItem>
+                  <Landing.Title>{el.price}</Landing.Title>
+                  <Landing.Title>{el.seller.name}</Landing.Title>
+                </Landing.Column>
               ))}
             </Slider>
           </Landing.SlideSection>
@@ -80,19 +76,11 @@ export default function LandingPageUI(props) {
             {props.BestData?.fetchUseditemsOfTheBest.map((el) => (
               <Landing.Column key={el._id} onClick={props.movePage(el._id)}>
                 <Landing.Title>{el.name}</Landing.Title>
-
+                <Landing.SliderItem
+                  src={`https://storage.googleapis.com/${el._id}`}
+                ></Landing.SliderItem>
+                <Landing.Title>{el.price}</Landing.Title>
                 <Landing.Title>{el.seller.name}</Landing.Title>
-                <Slider {...props.settings}>
-                  {el.images
-                    .filter((x) => x)
-                    .map((y) => (
-                      <Landing.SliderItem
-                        key={uuidv4()}
-                        src={`https://storage.googleapis.com/${y}`}
-                      ></Landing.SliderItem>
-                    ))}
-                </Slider>
-                <Landing.Title>{el.createdAt.slice(0, 10)}</Landing.Title>
               </Landing.Column>
             ))}
           </Landing.Row>
