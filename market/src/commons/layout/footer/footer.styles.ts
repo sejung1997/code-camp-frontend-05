@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { SearchOutlined } from "@ant-design/icons";
 
 export const Main = styled.div`
+  margin-top: 80px;
   width: 100%;
   background-color: #696969;
   display: flex;

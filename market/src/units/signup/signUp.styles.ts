@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const InputWrapper = styled.form``;
-export const label = styled.div`
+export const label = styled.span`
   font-size: 30px;
   margin-bottom: 20px;
 `;
@@ -13,7 +13,7 @@ export const Titlelabel = styled.div`
   color: green;
 `;
 export const Main = styled.div`
-  width: 1080px;
+  width: 800px;
   border: 1px solid green;
   display: flex;
   border-radius: 10px;

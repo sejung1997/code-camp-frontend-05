@@ -4,7 +4,7 @@ const nextConfig = {
   trailingSlash: true,
   generateBuildId: () => "market_project",
   exportPathMap: () => ({
-    // "/": { page: "/" },
+    "/": { page: "/" },
     "/404": { page: "/404" },
   }),
 };

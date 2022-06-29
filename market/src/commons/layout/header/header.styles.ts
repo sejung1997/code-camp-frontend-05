@@ -13,7 +13,7 @@ export const Menu = styled.div`
 `;
 export const Inner = styled.div`
   width: calc(100% - 30px);
-  max-width: 1200px;
+  max-width: 1000px;
   height: 80px;
   display: flex;
   align-items: center;
@@ -59,7 +59,6 @@ export const SearchTitle = styled.input`
   transition: 0.4s;
   border-radius: 5px;
   border: none;
-  color: red !important;
   width: 180px;
   height: 40px;
   background-color: #f8f8ff;

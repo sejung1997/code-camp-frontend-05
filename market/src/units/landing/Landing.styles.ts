@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-
+interface IIsMap {
+  isMap: boolean;
+}
 export const Promotion = styled.div`
   width: 100%;
   margin-top: 80px;
@@ -8,7 +10,7 @@ export const Promotion = styled.div`
   justify-content: center;
 `;
 export const Product = styled.div`
-  padding-top: 80px;
+  padding-top: 60px;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -17,94 +19,113 @@ export const Product = styled.div`
 export const SliderWrapper = styled.div``;
 
 export const Text = styled.div`
-  font-size: 30px;
-  margin-top: 220px;
-  margin-left: 100px;
-  .div {
-    font-size: 20px;
-  }
+  font-size: 40px;
+  margin-top: 140px;
+  color: #464646;
+  margin-left: 90px;
+  /* margin: 150px 0 20px 0 20px; */
 `;
 export const SubText = styled.div`
-  font-size: 20px;
+  margin-top: 50px;
+  font-size: 18px;
 `;
-export const Section = styled.div`
+export const Section = styled.div<IIsMap>`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-
-  width: 1200px;
-  height: 700px;
+  padding: ${(props) => (props.isMap ? "60px 0" : "")};
+  width: 1000px;
+  height: ${(props) => (props.isMap ? "640px" : "540px")};
 `;
 export const ProductSection = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: center;
   width: 1000px;
-  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h3 {
     font-size: 30px;
-    position: absolute;
   }
 `;
 export const SlideSection = styled.div`
-  width: 600px;
-  background-color: red;
+  width: 1000px;
+  .slick-slide.slick-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .slick-slider {
+    border: 1px solid #fff;
+  }
+  .slick-list {
+    margin-bottom: 20px;
+  }
+  ul.slick-dots {
+    padding-top: 55px;
+    button::before {
+      font-size: 15px;
+      color: #3cb371;
+    }
+  }
+  .slick-prev::before,
+  .slick-next::before {
+    color: #3cb371 !important;
+    font-size: 25px;
+    opacity: 0.5;
+    position: absolute;
+    top: -49px;
+  }
+`;
+export const Map = styled.div`
+  margin-top: 80px;
+  margin-right: -50px;
+  position: relative;
 `;
 
 export const Contents = styled.div`
   position: relative;
-  margin-top: 80px;
-  margin-right: 150px;
+  margin-top: 50px;
+  margin-right: 60px;
   .map {
-    height: 500px;
+    height: 420px;
   }
   .fade {
     opacity: 0;
   }
   .grain {
-    left: 100px;
-    bottom: 320px;
-  }
-  .fish {
-    right: -20px;
+    width: 120px;
+    left: 80px;
     bottom: 220px;
   }
+  .fish {
+    right: -30px;
+    bottom: 150px;
+  }
   .flout {
-    width: 120px;
+    width: 110px;
     right: 0px;
     top: 50px;
   }
   .meat {
-    left: 0px;
+    left: -20px;
     top: 100px;
   }
   .veg {
-    bottom: 190px;
-    left: 0px;
+    bottom: 100px;
+    left: 20px;
   }
 `;
 export const product = styled.img`
-  width: 130px;
+  width: 115px;
   z-index: 4;
   position: absolute;
 `;
 export const Column = styled.div`
-  border: 2px solid green;
   padding: 20px 10px;
+  overflow: hidden;
   border-radius: 5px;
-
-  text-align: center;
-  /* height: calc(583px / 11); */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  color: green;
   font-size: 20px;
-  width: 25%;
+  width: 280px !important;
   & .slick-slider {
-    width: 100%;
+    /* width: 100%; */
   }
 `;
 export const Row = styled.div`
@@ -112,7 +133,7 @@ export const Row = styled.div`
   justify-content: space-between;
 `;
 
-export const topTitle = styled.span`
+export const topTitle = styled.div`
   font-size: 35px;
   text-align: center;
   color: green;
@@ -132,9 +153,9 @@ export const List = styled.div`
   // border-bottom: 1px solid green;
 `;
 
-export const Title = styled.span`
+export const Title = styled.div`
+  color: #464646;
   cursor: pointer;
-
   :hover {
     text-decoration: underline;
   }
@@ -193,11 +214,14 @@ export const SearchBtn = styled.button`
 `;
 export const images = styled.img``;
 export const SliderItem = styled.img`
-  height: 150px;
+  margin-bottom: 10px;
   width: 100%;
-  margin: 0 auto;
+  height: 280px;
 `;
-
-export const planet = styled.div`
-  display: flex;
+export const doName = styled.div`
+  position: absolute;
+  font-size: 18px;
+  left: 30px;
+  top: 20px;
+  z-index: 12;
 `;

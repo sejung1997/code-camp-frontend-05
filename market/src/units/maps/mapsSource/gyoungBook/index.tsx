@@ -83,7 +83,7 @@ export default function gyoungBook(props) {
             <Path12
               id="path12"
               d="M 0,0 H 1417.32 V 1501.856 H 0 Z"
-              style={{ fill: "#F1F1F1" }}
+              style={{ fill: "#fffaf0" }}
             />
 
             <g id="g14">

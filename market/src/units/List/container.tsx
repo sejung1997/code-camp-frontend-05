@@ -38,7 +38,6 @@ export default function fetchUseditemsContainer() {
 
   const onLoadMore = () => {
     if (!data) return;
-
     fetchMore({
       variables: { page: Math.ceil(data?.fetchUseditems.length / 10) + 1 },
       updateQuery: (prev, { fetchMoreResult }) => {

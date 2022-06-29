@@ -6,7 +6,7 @@ export const div = styled.div`
   padding-top: 150px;
 `;
 export const Main = styled.div`
-  width: 100%;
+  width: 800px;
   margin: auto;
   right: 0;
   left: 0;
@@ -161,6 +161,7 @@ export const pri = styled.div`
 export const ButtonDelete = styled.button`
   width: 179px;
   height: 52px;
+  margin-bottom: 20px;
   display: block;
   background-color: transparent;
   border: 1px solid green;

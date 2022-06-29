@@ -47,8 +47,10 @@ export default function SignInPresenter(props) {
             가입 일자 : {props.data?.fetchUserLoggedIn?.createdAt.slice(0, 10)}
           </SI.label>
           <ButtonDelete onClick={props.onUpdate}>회원정보 수정</ButtonDelete>
-
-          <SI.label>판매중인 상품</SI.label>
+          <div>
+            <PurchaseItem />
+          </div>
+          {/* <SI.label>판매중인 상품</SI.label>
           <SI.toggle>
             {props.toggleOn[0] ? (
               <DownOutlined onClick={props.onclickToggle(0)} />
@@ -65,7 +67,32 @@ export default function SignInPresenter(props) {
                 <SmallBtn onClick={props.movePage(x._id)}>이동하기</SmallBtn>
               </SI.listWrapper>
             ))}
-          </SI.BuyList>
+          </SI.BuyList> */}
+          <SI.label>
+            포인트 : {props.data?.fetchUserLoggedIn?.userPoint.amount}원
+          </SI.label>
+          <SI.label>
+            포인트 사용내역{" "}
+            {/* <SI.toggle>
+              {props.toggleOn[2] ? (
+                <DownOutlined onClick={props.onclickToggle(2)} />
+              ) : (
+                <CaretDownOutlined onClick={props.onclickToggle(2)} />
+              )}
+            </SI.toggle> */}
+          </SI.label>
+
+          <SI.SoldList isHide={false}>
+            {props.pointData?.fetchPointTransactions?.map((x, INDEX) => (
+              <SI.listWrapper key={INDEX}>
+                <div>상품명: {x.useditem?.name}</div>
+                <div>
+                  {x.amount > 0 ? "포인트 충전" : "사용한 포인트"} {x.amount}원
+                </div>
+                <div>잔액 : {x.balance}</div>
+              </SI.listWrapper>
+            ))}
+          </SI.SoldList>
           <SI.label>구매한 상품</SI.label>
           <SI.toggle>
             {props.toggleOn[1] ? (
@@ -84,31 +111,6 @@ export default function SignInPresenter(props) {
               </SI.listWrapper>
             ))}
           </SI.SoldList>
-          <SI.label>
-            포인트 : {props.data?.fetchUserLoggedIn?.userPoint.amount}원
-          </SI.label>
-          <SI.label>포인트 사용내역 :</SI.label>
-          <SI.toggle>
-            {props.toggleOn[2] ? (
-              <DownOutlined onClick={props.onclickToggle(2)} />
-            ) : (
-              <CaretDownOutlined onClick={props.onclickToggle(2)} />
-            )}
-          </SI.toggle>
-          <SI.SoldList isHide={props.toggleOn[2]}>
-            {props.pointData?.fetchPointTransactions?.map((x, INDEX) => (
-              <SI.listWrapper key={INDEX}>
-                <div>상품명: {x.useditem?.name}</div>
-                <div>
-                  {x.amount > 0 ? "포인트 충전" : "사용한 포인트"} {x.amount}원
-                </div>
-                <div>잔액 : {x.balance}</div>
-              </SI.listWrapper>
-            ))}
-          </SI.SoldList>
-          <div>
-            <PurchaseItem />
-          </div>
         </SI.Main>
       ) : (
         <SI.Main>

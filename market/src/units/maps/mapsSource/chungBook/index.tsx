@@ -72,7 +72,7 @@ export default function chungBook(props) {
             <path
               id="path12"
               style={{
-                fill: "#F1F1F1",
+                fill: "#fffaf0",
                 fillOpacity: "1",
                 fillRule: "nonzero",
                 stroke: "none",

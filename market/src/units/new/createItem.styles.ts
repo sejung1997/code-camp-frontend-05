@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import DaumPostcode from "react-daum-postcode";
 
 export const Main = styled.div`
-  width: 1000px;
+  width: 800px;
   padding: 60px 103px 100px 101px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   font-family: sans-serif;

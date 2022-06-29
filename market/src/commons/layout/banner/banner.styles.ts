@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 export const Menu = styled.div`
   background-color: green;
   width: 100%;
+  z-index: 30;
 `;
 export const SignIn = styled.div`
   font-size: 15px;
@@ -110,10 +111,11 @@ export const TodayProduct = styled.div`
   position: fixed;
   left: 50px;
   width: 150px;
-  padding: 30px 15px;
+  padding: 30px 10px;
   top: 170px;
   color: black;
   border: 1px solid green;
+  background-color: #fff;
   border-radius: 5px;
   overflow: auto;
   max-height: 800px;

@@ -20,20 +20,23 @@ export default function MapsUI(props) {
           referrerPolicy="no-referrer"
         ></script>
       </Head>
-      {props.inputs.doName && (
-        <Maps.BackBtn onClick={props.reset}>
-          <img src="/img/mytrips-write-log1.png" />
-          전국 지도
-        </Maps.BackBtn>
-      )}
+      <Maps.BackBtn onClick={props.reset}>
+        {/* <img src="/images/mytrips-write-log1.png" /> */}
+        {props.inputs.doName ? "<전국 지도로>   " : "<지역을 선택해보세요>"}
+      </Maps.BackBtn>
+      <Maps.search>
+        {/* <img src="/images/mytrips-write-log1.png" /> */}
+        {props.inputs.doName ? "<검색>" : ""}
+      </Maps.search>
+
       <Maps.Contents id="wholeMap">
         <svg
           style={{
-            background: "#F1F1F1",
+            background: "#fffaf0  ",
             overflow: "visible",
           }}
           viewBox="0 0 500 500"
-          height="180"
+          height="200"
           width="200"
           xmlns="http://www.w3.org/2000/svg"
         >

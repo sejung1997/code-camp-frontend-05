@@ -5,8 +5,10 @@ import { GlobalContext } from "../../../../pages/_app";
 import { FETCH_USER_LOGGED_IN } from "./types&gql";
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
+import { useRouter } from "next/router";
 
 export default function HeaderPage(props) {
+  const router = useRouter();
   const { acessToken } = useContext(GlobalContext);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const movePage = useMovePage();
@@ -17,6 +19,10 @@ export default function HeaderPage(props) {
 
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(event.target.value);
+    setTimeout(() => {
+      router.push("/list");
+    }, 2000);
+    console.log(event.target.value);
   };
 
   return (
