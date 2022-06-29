@@ -8,5 +8,5 @@ const nextConfig = {
     "/404": { page: "/404" },
   }),
 };
-s;
+
 module.exports = nextConfig;
