@@ -26,18 +26,30 @@ export default function LandingPageUI(props) {
             </Landing.SubText>
           </Landing.Text>
           <Landing.Contents>
-            <img className="map" src="/images/korea_map.png" />
+            <img
+              className="map"
+              src="https://storage.googleapis.com/market_project/images/korea_map.png"
+            />
             <Landing.product
               className="fade grain"
               src="/images/Organic1.png"
             />
-            <Landing.product className="fade fish" src="/images/Organic2.png" />
+            <Landing.product
+              className="fade fish"
+              src="https://storage.googleapis.com/market_project/images/Organic2.png"
+            />
             <Landing.product
               className="fade flout"
               src="/images/Organic3.png"
             />
-            <Landing.product className="fade meat" src="/images/Organic4.png" />
-            <Landing.product className="fade veg" src="/images/Organic5.png" />
+            <Landing.product
+              className="fade meat"
+              src="https://storage.googleapis.com/market_project/images/Organic4.png"
+            />
+            <Landing.product
+              className="fade veg"
+              src="https://storage.googleapis.com/market_project/images/Organic5.png"
+            />
           </Landing.Contents>
         </Landing.Section>
       </Landing.Promotion>
