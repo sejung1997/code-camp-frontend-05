@@ -6,14 +6,15 @@ export const Menu = styled.div`
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 3;
+  z-index: 10;
+  background-color: #fff;
   display: flex;
   justify-content: center;
 `;
 export const Inner = styled.div`
   width: calc(100% - 30px);
   max-width: 1200px;
-  height: 70px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;

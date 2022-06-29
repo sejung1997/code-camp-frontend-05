@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { useMovePage } from "../../commons/function/movePage";
@@ -22,7 +22,9 @@ export default function fetchUseditemsContainer() {
   >(FETCH_USED_ITEMS, {
     variables: { page: 1, search: keyword },
   });
-
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   const getDebounce = _.debounce((keyData) => {
     setKeyword(keyData);
   }, 1000);
