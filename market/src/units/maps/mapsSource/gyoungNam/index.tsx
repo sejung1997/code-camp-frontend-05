@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { breakPoints } from "../../../../../commons/styles/Media";
 
 const Path = styled.path`
   fill: #ffffff;
@@ -56,14 +55,6 @@ export default function gyoungNam(props) {
     top: 0px;
     left: 20px;
     width: 400px;
-
-    @media ${breakPoints.mobile} {
-      left: 0px;
-      width: 440px;
-      height: 420px;
-    }
-    @media ${breakPoints.tablet} {
-    }
   `;
 
   return (

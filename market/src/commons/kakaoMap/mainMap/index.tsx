@@ -1,3 +1,4 @@
+export {};
 // declare const window: typeof globalThis & {
 //   kakao: any;
 // };

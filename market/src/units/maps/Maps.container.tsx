@@ -1,6 +1,7 @@
 import { Contents, Path, Text } from "./Maps.styles";
 import { useEffect, useRef, useState } from "react";
 import MapsUI from "./Maps.presenter";
+import { gsap } from "gsap/dist/gsap";
 
 export default function SvgMap(props) {
   const selectDo = (event) => {

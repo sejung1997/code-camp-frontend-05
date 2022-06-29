@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { breakPoints } from "../../../commons/styles/Media";
+// import { breakPoints } from "../../../commons/styles/Media";
 export const Main = styled.div`
   width: 500px;
   height: 430px;
@@ -8,12 +8,6 @@ export const Main = styled.div`
   flex-direction: column;
   background-color: #f1f1f1;
   align-items: center;
-  @media ${breakPoints.mobile} {
-    width: 100vw;
-    height: 440px;
-  }
-  @media ${breakPoints.tablet} {
-  }
 `;
 export const Contents = styled.div`
   display: flex;
@@ -22,12 +16,6 @@ export const Contents = styled.div`
   position: absolute;
   top: -20px;
   margin-top: 40px;
-  @media ${breakPoints.mobile} {
-    top: 20px;
-    margin-top: 0px;
-  }
-  @media ${breakPoints.tablet} {
-  }
 `;
 
 export const Text = styled.text`
@@ -64,13 +52,6 @@ export const CityWrapper = styled.div`
   position: absolute;
   opacity: 0;
   /* margin-top: 40px; */
-  @media ${breakPoints.mobile} {
-    margin-top: 0px;
-    /* left: -90px; */
-    /* width: 80%; */
-  }
-  @media ${breakPoints.tablet} {
-  }
 `;
 
 export const BackBtn = styled.div`
