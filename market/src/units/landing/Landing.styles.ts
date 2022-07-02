@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../commons/styles/media";
 interface IIsMap {
   isMap: boolean;
 }
@@ -23,7 +24,12 @@ export const Text = styled.div`
   margin-top: 140px;
   color: #464646;
   margin-left: 90px;
-  /* margin: 150px 0 20px 0 20px; */
+  @media ${breakPoints.tablet} {
+    font-size: 30px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 18px;
+  }
 `;
 export const SubText = styled.div`
   margin-top: 50px;
@@ -33,7 +39,8 @@ export const Section = styled.div<IIsMap>`
   display: flex;
   justify-content: space-between;
   padding: ${(props) => (props.isMap ? "60px 0" : "")};
-  width: 1000px;
+  width: calc(100% - 30px);
+  max-width: 1000px;
   height: ${(props) => (props.isMap ? "640px" : "540px")};
 `;
 export const ProductSection = styled.div`

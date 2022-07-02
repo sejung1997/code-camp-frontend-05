@@ -1,4 +1,4 @@
-import { globalStyles } from "../src/commons/styles/globalStyles";
+import { globalStyles } from "../src/commons/styles/GlobalStyles";
 import "antd/dist/antd.css";
 
 import {
