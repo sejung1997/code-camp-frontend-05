@@ -5,18 +5,17 @@ interface IMyButtonProps {
 const Button = styled.button`
   /* background-color: ${(props: IMyButtonProps) =>
     props.isValid ? "yellow" : ""}; */
-  width: 179px;
-  height: 52px;
+  padding: 10px 40px;
   display: block;
   background-color: transparent;
-  border: 1px solid green;
-  margin-right: 24px;
+  border: 1px solid #3cb371;
 
   border-radius: 7px;
   :hover {
     cursor: pointer;
     color: #fff;
-    background-color: green;
+    background-color: #3cb371;
+    border: none;
   }
 `;
 

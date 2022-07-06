@@ -57,10 +57,10 @@ export const CityWrapper = styled.div`
 export const BackBtn = styled.div`
   padding: 13px 20px;
   position: absolute;
-  font-size: 18px;
-  left: 1%;
+  font-size: 16px;
+  left: 10%;
   color: #3cb371;
-  top: -30px;
+  top: 20px;
   font-weight: 300;
   z-index: 11;
   /* color: #464646; */

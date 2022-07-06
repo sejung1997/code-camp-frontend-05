@@ -22,11 +22,11 @@ export default function MapsUI(props) {
       </Head>
       <Maps.BackBtn onClick={props.reset}>
         {/* <img src="/images/mytrips-write-log1.png" /> */}
-        {props.inputs.doName ? "<전국 지도로>   " : "<지역을 선택해보세요>"}
+        {props.inputs.doName ? "<전국 지도로>   " : ""}
       </Maps.BackBtn>
       <Maps.search>
         {/* <img src="/images/mytrips-write-log1.png" /> */}
-        {props.inputs.doName ? "<검색>" : ""}
+        {/* {props.inputs.doName ? "<검색>" : ""} */}
       </Maps.search>
 
       <Maps.Contents id="wholeMap">
