@@ -12,10 +12,15 @@ export default function HeaderPage(props) {
   const { acessToken } = useContext(GlobalContext);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const movePage = useMovePage();
-
+  let domain;
+  if (process.browser) domain = window.location.pathname;
   const getDebounce = _.debounce((keyData) => {
     props.setKeyword(keyData);
   }, 1000);
+
+  useEffect(() => {
+    console.log(domain);
+  }, [domain]);
 
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(event.target.value);
@@ -29,16 +34,12 @@ export default function HeaderPage(props) {
     <>
       <header.Menu>
         <header.Inner>
-          {/* <header.logo>
-            <header.logoImg
-              onClick={movePage("/")}
-              src="/images/pngwing.com (8).png"
-            />
-          </header.logo> */}
           <header.logo>Green Market</header.logo>
           <header.MainMenu>
-            <header.MenuLabel>Product</header.MenuLabel>
-            <header.MenuLabel>Map</header.MenuLabel>
+            <header.MenuLabel isMapPage={false}>Product</header.MenuLabel>
+            <header.MenuLabel isMapPage={domain === "/map/"}>
+              Map
+            </header.MenuLabel>
           </header.MainMenu>
           <header.Search>
             <header.SearchTitle

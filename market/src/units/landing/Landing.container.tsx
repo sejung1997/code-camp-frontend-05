@@ -11,6 +11,7 @@ import { FETCH_USED_ITEMS_BEST } from "./Landing.gql&types";
 import { FETCH_USED_ITEMS } from "../List/gql&types";
 import LandingPageUI from "./Landing.presenter";
 import { gsap } from "gsap/dist/gsap";
+import { useRouter } from "next/router";
 
 export default function LandingPage() {
   const [inputs, setInputs] = useState({
@@ -272,6 +273,7 @@ export default function LandingPage() {
       settings={settings}
       data={data}
       inputs={inputs}
+      domain={router.query}
       setInputs={setInputs}
     />
   );

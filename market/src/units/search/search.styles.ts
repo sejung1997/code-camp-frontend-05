@@ -1,9 +1,17 @@
 import styled from "@emotion/styled";
 
 export const Main = styled.div`
-  margin-top: 80px;
   width: 100%;
+  height: 740px;
   background-color: #fffaf0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+export const section = styled.div`
+  width: 100%;
+  height: 700px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -34,4 +42,15 @@ export const Text = styled.div`
   }
 `;
 
-export const Result = styled.div``;
+export const Result = styled.div`
+  position: relative;
+`;
+export const ScrollTop = styled.div`
+  font-size: 35px;
+  position: absolute;
+  right: -200px;
+  bottom: 100px;
+  :hover {
+    cursor: pointer;
+  }
+`;

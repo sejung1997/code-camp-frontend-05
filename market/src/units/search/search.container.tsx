@@ -1,11 +1,12 @@
 import { SearchMap } from "../../commons/kakaoMap/mainMap";
 import SvgMap from "../maps/Maps.container";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Map from "./search.styles";
 import Button01 from "../../commons/button01";
 import { createStore } from "redux";
 import { useDispatch } from "react-redux";
 import { Provider } from "react-redux";
+import { UpSquareOutlined } from "@ant-design/icons";
 
 function reducer(currentState, action) {
   if (currentState === undefined) {
@@ -24,30 +25,38 @@ function reducer(currentState, action) {
 }
 const store = createStore(reducer);
 export default function SearchPage() {
+  const mapRef = useRef(null);
+  const searchRef = useRef(null);
   const [inputs, setInputs] = useState({
     doName: "",
     cityName: "",
     categoryIndex: 0,
-    isInputChange: false,
+    isInputChange: 0,
   });
-  const dispatch = useDispatch();
   const changeCategory = (e) => {
     setInputs({ ...inputs, categoryIndex: e.target.value });
   };
   const onClickSearch = () => {
-    dispatch({
-      type: "search",
-      inputs: {
-        address: inputs.doName + inputs.cityName,
-        categoryIndex: inputs.categoryIndex,
-      },
-    });
-    const temp = inputs.isInputChange;
-    setInputs({ ...inputs, isInputChange: !temp });
+    // dispatch({
+    //   type: "search",
+    //   inputs: {
+    //     address: inputs.doName + inputs.cityName,
+    //     categoryIndex: inputs.categoryIndex,
+    //   },
+    // });
+    setInputs({ ...inputs, isInputChange: inputs.isInputChange + 1 });
+    if (mapRef !== undefined) {
+      mapRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+  const scrollTop = () => {
+    if (mapRef !== undefined) {
+      searchRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   };
   return (
     <Provider store={store}>
-      <Map.Main>
+      <Map.Main ref={searchRef}>
         <Map.Select>
           <SvgMap inputs={inputs} setInputs={setInputs} />
           <Map.Text>
@@ -68,10 +77,19 @@ export default function SearchPage() {
             </div>
           </Map.Text>
         </Map.Select>
-        <Map.Result>
-          {inputs.doName && <SearchMap inputs={inputs} />}
-        </Map.Result>
       </Map.Main>
+      <Map.section>
+        <Map.Result ref={mapRef}>
+          {inputs.isInputChange > 0 && (
+            <>
+              <SearchMap inputs={inputs} />
+              <Map.ScrollTop onClick={scrollTop}>
+                <UpSquareOutlined />
+              </Map.ScrollTop>
+            </>
+          )}
+        </Map.Result>
+      </Map.section>
     </Provider>
   );
 }

@@ -17,17 +17,24 @@ export function SearchMap(props) {
         const geocoder = new window.kakao.maps.services.Geocoder();
         // 정상적으로 검색이 완료됐으면
         let newLatLng;
-        geocoder.addressSearch(address, function (result, status) {
-          if (status === window.kakao.maps.services.Status.OK) {
-            newLatLng = new window.kakao.maps.LatLng(result[0].y, result[0].x);
-            searchMarket();
+        geocoder.addressSearch(
+          props.inputs.doName + props.inputs.cityName,
+          function (result, status) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              newLatLng = new window.kakao.maps.LatLng(
+                result[0].y,
+                result[0].x
+              );
+              searchMarket();
+            }
           }
-        });
+        );
         const searchMarket = () => {
           const mapOption = {
             center: newLatLng, // 지도의 중심좌표
-            level: 8, // 지도의 확대 레벨
+            level: 9, // 지도의 확대 레벨
           };
+          const categoryList = ["MT1", "CS2", "FD6", "CE7"];
           const mapContainer = document.getElementById("map"); // 지도를 표시할 div
 
           // 지도를 생성합니다
@@ -36,7 +43,11 @@ export function SearchMap(props) {
           const ps = new window.kakao.maps.services.Places(map);
 
           // 카테고리로 은행을 검색합니다
-          ps.categorySearch("MT1", placesSearchCB, { useMapBounds: true });
+          ps.categorySearch(
+            categoryList[props.inputs.categoryIndex],
+            placesSearchCB,
+            { useMapBounds: true }
+          );
           // 키워드 검색 완료 시 호출되는 콜백함수 입니다
           function placesSearchCB(data, status, pagination) {
             if (status === window.kakao.maps.services.Status.OK) {
@@ -69,23 +80,14 @@ export function SearchMap(props) {
       });
     };
   };
-  const changeAddress = (e) => {
-    setAdress(e.target.value);
-  };
-  const search = () => {
-    viewMap();
-  };
-  useEffect(() => {
 
-  },[props.inputs.])
+  useEffect(() => {
+    viewMap();
+    console.log(props.inputs);
+  }, [props.inputs.isInputChange]);
   return (
-    <div style={{ marginTop: " 200px" }}>
-      <input type="text" onChange={changeAddress} />
-      <button type="button" onClick={search}>
-        검색
-      </button>
-      <div>{address}</div>
-      <div id="map" style={{ width: "500px", height: "400px" }}></div>
+    <div style={{ marginTop: " 00px" }}>
+      <div id="map" style={{ width: "700px", height: "500px" }}></div>
     </div>
   );
 }

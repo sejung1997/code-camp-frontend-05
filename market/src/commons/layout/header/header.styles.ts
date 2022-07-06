@@ -31,7 +31,10 @@ export const MainMenu = styled.div`
 export const MenuLabel = styled.div`
   font-size: 16px;
   margin-right: 10px;
-  color: #2e8b57;
+  color: ${(props) => (props.isMapPage ? "#FFC800" : "#2e8b57")};
+  :hover {
+    cursor: pointer;
+  }
 `;
 export const logo = styled.h1`
   color: #3cb371;
