@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 import { SearchOutlined } from "@ant-design/icons";
 import { keyframes } from "@emotion/react";
 import { stubArray } from "lodash";
+interface IMunLabelProps {
+  isMapPage?: boolean;
+}
 export const Menu = styled.div`
   width: 100%;
   position: fixed;
@@ -28,7 +31,7 @@ export const MainMenu = styled.div`
   color: #9acd32;
   display: flex;
 `;
-export const MenuLabel = styled.div`
+export const MenuLabel = styled.div<IMunLabelProps>`
   font-size: 16px;
   margin-right: 10px;
   color: ${(props) => (props.isMapPage ? "#FFC800" : "#2e8b57")};
@@ -41,6 +44,9 @@ export const logo = styled.h1`
   font-size: 25px;
   font-weight: 500;
   margin: 0;
+  :hover {
+    cursor: pointer;
+  }
 `;
 export const UserLabel = styled.div`
   margin-right: 10px;

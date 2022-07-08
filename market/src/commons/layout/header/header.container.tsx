@@ -34,10 +34,18 @@ export default function HeaderPage(props) {
     <>
       <header.Menu>
         <header.Inner>
-          <header.logo>Green Market</header.logo>
+          <header.logo onClick={movePage("")}>Green Market</header.logo>
           <header.MainMenu>
-            <header.MenuLabel isMapPage={false}>Product</header.MenuLabel>
-            <header.MenuLabel isMapPage={domain === "/map/"}>
+            <header.MenuLabel
+              onClick={movePage("list")}
+              isMapPage={domain === "/List/"}
+            >
+              Product
+            </header.MenuLabel>
+            <header.MenuLabel
+              onClick={movePage("map")}
+              isMapPage={domain === "/map/"}
+            >
               Map
             </header.MenuLabel>
           </header.MainMenu>
@@ -47,7 +55,6 @@ export default function HeaderPage(props) {
               type="text"
               placeholder="상품이나 지역을 검색해보세요"
             />
-            {/* <header.searchBtn onClick={movePage("list")} /> */}
           </header.Search>
           <header.User>
             <header.UserLabel onClick={movePage("signIn")}>
@@ -57,9 +64,6 @@ export default function HeaderPage(props) {
               {acessToken ? "마이페이지" : "회원가입"}
             </header.UserLabel>
           </header.User>
-          {/* <header.UserInfo onClick={movePage("signUp")}> */}
-          {/* {acessToken ? data?.fetchUserLoggedIn?.name + "님 안녕하세요" : ""} */}
-          {/* </header.UserInfo> */}
         </header.Inner>
       </header.Menu>
     </>
